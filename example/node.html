@@ -1,0 +1,77 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/d3/4.11.0/d3.js"></script>
+    <script src="../src/poc-graph.js"></script>
+    <style>
+        #graph-container {
+            margin: 0 auto;
+            width: 800px;
+            height: 600px;
+        }
+
+        svg {
+            background-color: #70a190
+        }
+
+        .poc-graph-node {
+            cursor: pointer;
+        }
+
+        .poc-graph-node.selected image {
+            filter: url(#node-selected);
+        }
+
+        .poc-graph-node:hover image {
+            transform: translate(-10%, -10%) scale(1.2);
+        }
+
+        .poc-graph-line polyline {
+            fill: none;
+            stroke: #44D5CC;
+            stroke-width: 1px;
+        }
+
+        .poc-graph-line.selected polyline {
+            stroke-width: 3px;
+        }
+
+        .poc-graph-line polyline:hover {
+            stroke-width: 3px;
+        }
+
+        .poc-graph-point {
+            fill: red;
+            cursor: pointer;
+        }
+        .poc-graph-point:hover{
+            stroke: red;
+            stroke-width: 2;
+        }
+         .poc-graph-point.selected{
+            stroke: red;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="graph-container"></div>
+    <script>
+        var p = new PocGraph({ container: "#graph-container" });
+        // p.on("graph.node.add", function () {
+        //     console.log("graph.node.add");
+        // })
+        // p.on("view.viewBox.move", function () {
+        //     console.log("view.viewBox.move");
+        // })
+        var node = p.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg" });
+        var node = p.addNode({ id: "n11", x: -50, y: 100, size: 40, image: "./images/plus.jpg" });
+        var node = p.addNode({ id: "n12", x: -150, y: -100, size: 40, image: "./images/plus.jpg" });
+        var node2 = p.addNode({ id: "n2", x: 100, y: 0, size: 20, image: "./images/message.jpg" });
+        var line = p.addLine({id:"l1",source:"n11",target:"n12",animate:true})
+    </script>
+</body>
+
+</html>
