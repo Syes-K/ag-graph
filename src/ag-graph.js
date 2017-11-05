@@ -231,7 +231,13 @@
             .on("contextmenu", function () {
                 d3.event.stopPropagation();
                 d3.event.preventDefault();
-                agGraph._emit("view.rightClick", _this);
+                var offset = { x: d3.event.x, y: d3.event.y };
+                var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+                var position = {
+                    x: offset.x - rect.x,
+                    y: offset.y - rect.y
+                }
+                agGraph._emit("view.rightClick", _this, position, offset);
             });
     }
     /**

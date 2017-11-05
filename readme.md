@@ -729,11 +729,11 @@ agGraph.on("view.click",function(view){
 ```
 ##### view.rightClick
 右键视图
-- 参数  `view:AgGraphView` // 右键的视图
+- 参数  `view:AgGraphView, position:{"x":number,"y":number}, offset:{"x":number,"y":number}` // 右键的视图, 相对定位父元素的偏移, 相对浏览器视窗的偏移
 - 例
 ```javascript
-agGraph.on("view.rightClick",function(view){
-	console.log(view);
+agGraph.on("view.rightClick",function(view, position, offset){
+	console.log(view, position, offset);
 });
 ```
 ##### selection.node.add

@@ -30,12 +30,36 @@
         .ag-graph-line.hot polyline {
             stroke: #d4151C;
         }
+
+        .right-menu {
+            position: absolute;
+            display: none;
+            width: 160px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 3px;
+            background-color: #eee;
+        }
+
+        .right-menu.show {
+            display: block;
+        }
+
+        .right-menu-item {
+            font-size: 16px;
+            line-height: 30px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <div>
         <div id="graph-container"></div>
+        <div id="graph-view-right-menu" class="right-menu">
+            <div class="right-menu-item" onclick="startEdit()">start edit</div>
+            <div class="right-menu-item" onclick="endEdit()">end edit</div>
+        </div>
         <div class="btn-group">
             <button onclick="addLine()">add line</button>
             <button onclick="deleteLine()">delete line</button>
@@ -57,6 +81,16 @@
         var node4 = agGraph.addNode({ id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg" });
         var line1 = agGraph.addLine({ id: "l1", source: "n2", target: "n3", animate: true });
         var line2 = agGraph.addLine({ id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true });
+        agGraph.on("view.rightClick", function (view, position) {
+            var rightMenu = document.getElementById("graph-view-right-menu");
+            rightMenu.style.top = position.y;
+            rightMenu.style.left = position.x;
+            rightMenu.classList.add("show");
+        });
+        agGraph.on("view.click,node.click,line.click,point.click", function () {
+            var rightMenu = document.getElementById("graph-view-right-menu");
+            rightMenu.classList.remove("show");
+        })
         function addLine() {
             var selectedNodes = agGraph.selection.nodes();
             var selectedNodesLength = selectedNodes.length;
@@ -78,6 +112,16 @@
             agGraph.selection.nodes().forEach(function (node) {
                 node.delete();
             });
+        }
+        function startEdit() {
+            agGraph.startEdit();
+            var rightMenu = document.getElementById("graph-view-right-menu");
+            rightMenu.classList.remove("show");
+        }
+        function endEdit() {
+            agGraph.endEdit();
+            var rightMenu = document.getElementById("graph-view-right-menu");
+            rightMenu.classList.remove("show");
         }
     </script>
 </body>
