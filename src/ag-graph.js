@@ -126,6 +126,16 @@
         }
         return angle;
     }
+    // 获取多个个点的中心位置
+    function getPointsCenter(points) {
+        var len = points.length;
+        var x = 0, y = 0;
+        points.forEach(function (p) {
+            x += p.x;
+            y += p.y;
+        });
+        return { x: x / len, y: y / len };
+    }
 
     var EventPrototype = {
         on: function (names, callback) {
@@ -562,9 +572,12 @@
             var deg = Math.PI * getPointsAngle({ x: _this.sourceNode.x, y: _this.sourceNode.y }, { x: _this.targetNode.x, y: _this.targetNode.y }) / 180;
             var sourceDiff = { x: ((_this.sourceNode.size / 2) + 4) * Math.cos(deg), y: ((_this.sourceNode.size / 2) + 4) * Math.sin(deg) };
             var targetDiff = { x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg), y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg) };
+            var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
+            var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
             _this.pointsData = [
-                { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y },
-                { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y }
+                startPoint,
+                getPointsCenter([startPoint, endPoint]),
+                endPoint
             ];
         }
 
@@ -604,7 +617,7 @@
         } else {
             classes.push(_this.class);
         }
-        if(_this.selected){
+        if (_this.selected) {
             classes.push("selected");
         }
         _this.$line.attr("class", classes.join(" "));

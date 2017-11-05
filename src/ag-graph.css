@@ -33,6 +33,7 @@
     fill: none;
     stroke: #44D5CC;
     stroke-width: 1px;
+    cursor: pointer;
 }
 /*连线的折线的选中样式*/
 .ag-graph-line.selected polyline {
