@@ -158,21 +158,29 @@ var line1 = agGraph.getLine("l1");
 console.log(line1);
 ```
 
-##### showPoint
-显示线上的点，用于改变连线的位置.(默认连线上的点时不显示的)
+##### startEdit
+开启编辑模式(可以一点节点和连线上的点)
 - 输入 无
 - 输出 无
 - 例
 ```javascript
-agGraph.showPoint();
+agGraph.startEdit();
 ```
-##### hidePoint
-隐藏线上的点
+##### endEdit
+结束编辑模式
 - 输入 无
 - 输出 无
 - 例
 ```javascript
-agGraph.hidePoint();
+agGraph.endEdit();
+```
+##### isEditing
+获取是否agGraph是否是编辑状态
+- 输入 无
+- 输出 `boolean`
+- 例
+```javascript
+console.log(agGraph.isEditing());
 ```
 
 ### AgGraph实例对象属性

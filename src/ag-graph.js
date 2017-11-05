@@ -434,6 +434,9 @@
             }
         }
         function dragNodeStart() {
+            if (!agGraph.isEditing()) {
+                return;
+            }
             var mouse_x = d3.event.x;
             var mouse_y = d3.event.y;
             // 记录开始drag时，鼠标和node中心的距离
@@ -443,6 +446,9 @@
             });
         }
         function dragNodeMove() {
+            if (!agGraph.isEditing()) {
+                return;
+            }
             var x = d3.event.x;
             var y = d3.event.y;
             _this.x = x - tempData.offset.x;
@@ -453,6 +459,9 @@
             });
         }
         function dragNodeEnd() {
+            if (!agGraph.isEditing()) {
+                return;
+            }
             agGraph._emit("node.move", _this);
         }
         var dragNode = d3.drag()
@@ -917,6 +926,7 @@
             _this._$lineGroup = _this.$svg.select("#ag-line-group");
             _this._$pointGroup = _this.$svg.select("#ag-point-group");
             _this._$pathGroup = _this.$svg.select("#ag-path-group");
+            _this._isEditing = false;
             var rect = _this.$svg.node().getBoundingClientRect();
             _this.view = new AgGraphView(_this);
             _this.view.scale = 1;
@@ -980,12 +990,17 @@
             return l.id === lineId;
         });
     }
-    AgGraph.prototype.showPoint = function () {
-        this.$svg.classed("show-point", true);
+    AgGraph.prototype.isEditing = function () {
+        return this._isEditing;
+    }
+    AgGraph.prototype.startEdit = function () {
+        this._isEditing = true;
+        this.$svg.classed("editing", true);
     }
 
-    AgGraph.prototype.hidePoint = function () {
-        this.$svg.classed("show-point", false);
+    AgGraph.prototype.endEdit = function () {
+        this._isEditing = false;
+        this.$svg.classed("editing", false);
     }
     AgGraph.prototype.addPath = function (path) {
         var _this = this;

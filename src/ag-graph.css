@@ -1,3 +1,15 @@
+.ag-graph #ag-point-group {
+    display: none;
+}
+.ag-graph #ag-path-group {
+    display: inline;
+}
+.ag-graph.editing #ag-point-group {
+    display: inline;
+}
+.ag-graph.editing #ag-path-group {
+    display: none;
+}
 /*节点样式*/
 .ag-graph-node {
     cursor: pointer;
@@ -48,11 +60,6 @@
     fill: #d4351C;
     stroke:#d4351C;
     cursor: pointer;
-    display: none;
-}
-/*显示点*/
-.ag-graph.show-point .ag-graph-point {
-    display: inline;
 }
 /*点的hover样式*/
 .ag-graph-point:hover {
