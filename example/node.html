@@ -2,12 +2,24 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="../src/ag-graph.css">
     <script src="https://cdn.bootcss.com/d3/4.11.0/d3.js"></script>
-    <script src="../src/poc-graph.js"></script>
-    <style>
+    <script src="../src/ag-graph.js"></script>
+    <style id="customer-style">
+        .btn-group {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn-group button {
+            padding: 6px;
+            border-radius: 3px;
+            outline: none;
+        }
+
         #graph-container {
             margin: 0 auto;
-            width: 800px;
+            width: 100%;
             height: 600px;
         }
 
@@ -15,62 +27,58 @@
             background-color: #70a190
         }
 
-        .poc-graph-node {
-            cursor: pointer;
-        }
-
-        .poc-graph-node.selected image {
-            filter: url(#node-selected);
-        }
-
-        .poc-graph-node:hover image {
-            transform: translate(-10%, -10%) scale(1.2);
-        }
-
-        .poc-graph-line polyline {
-            fill: none;
-            stroke: #44D5CC;
-            stroke-width: 1px;
-        }
-
-        .poc-graph-line.selected polyline {
-            stroke-width: 3px;
-        }
-
-        .poc-graph-line polyline:hover {
-            stroke-width: 3px;
-        }
-
-        .poc-graph-point {
-            fill: red;
-            cursor: pointer;
-        }
-        .poc-graph-point:hover{
-            stroke: red;
-            stroke-width: 2;
-        }
-         .poc-graph-point.selected{
-            stroke: red;
-            stroke-width: 2;
+        .ag-graph-line.hot polyline {
+            stroke: #d4151C;
         }
     </style>
 </head>
 
 <body>
-    <div id="graph-container"></div>
+    <div>
+        <div id="graph-container"></div>
+        <div class="btn-group">
+            <button onclick="addLine()">add line</button>
+            <button onclick="deleteLine()">delete line</button>
+            <button onclick="deleteNode()">delete node</button>
+        </div>
+    </div>
     <script>
-        var p = new PocGraph({ container: "#graph-container" });
-        // p.on("graph.node.add", function () {
+        var agGraph = new AgGraph({ container: "#graph-container" });
+        agGraph.showPoint();
+        // agGraph.on("graph.node.add", function () {
         //     console.log("graph.node.add");
         // })
-        // p.on("view.viewBox.move", function () {
+        // agGraph.on("view.viewBox.move", function () {
         //     console.log("view.viewBox.move");
         // })
-        var node = p.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg" });
-        var node = p.addNode({ id: "n11", x: -50, y: 100, size: 40, image: "./images/plus.jpg" });
-        var node = p.addNode({ id: "n12", x: -150, y: -100, size: 40, image: "./images/plus.jpg" });
-        var node2 = p.addNode({ id: "n2", x: 100, y: 0, size: 20, image: "./images/message.jpg" });
-        var line = p.addLine({id:"l1",source:"n11",target:"n12",animate:true})
+        var node1 = agGraph.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg", text: "plus" });
+        var node2 = agGraph.addNode({ id: "n2", x: -50, y: 100, size: 40, image: "./images/plus.jpg", badge: "99" });
+        var node3 = agGraph.addNode({ id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jpg" });
+        var node4 = agGraph.addNode({ id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg" });
+        var line1 = agGraph.addLine({ id: "l1", source: "n2", target: "n3", animate: true });
+        var line2 = agGraph.addLine({ id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true });
+        function addLine() {
+            var selectedNodes = agGraph.selection.nodes();
+            var selectedNodesLength = selectedNodes.length;
+            if (selectedNodesLength < 2)
+                return;
+            var line = agGraph.addLine({
+                id: "l" + Math.random(),
+                source: agGraph.selection.nodes()[selectedNodesLength - 2].id,
+                target: agGraph.selection.nodes()[selectedNodesLength - 1].id,
+                animate: true
+            });
+        }
+        function deleteLine() {
+            agGraph.selection.lines().forEach(function (line) {
+                line.delete();
+            });
+        }
+        function deleteNode() {
+            agGraph.selection.nodes().forEach(function (node) {
+                node.delete();
+            });
+        }
     </script>
 </body>
 
