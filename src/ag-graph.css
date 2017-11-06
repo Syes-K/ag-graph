@@ -72,7 +72,12 @@
 
 .ag-graph-path .ag-graph-path-line {
     fill: none;
-    stroke: green;
+    stroke: #d4351C;
+    stroke-width: 2;
+}
+.ag-graph-path polyline {
+    fill: none;
+    stroke: #d4351C;
     stroke-width: 2;
 }
 

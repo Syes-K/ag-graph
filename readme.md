@@ -182,6 +182,39 @@ agGraph.endEdit();
 ```javascript
 console.log(agGraph.isEditing());
 ```
+##### addPath
+添加一条移动的路径
+- 输入 pathData
+```json
+{
+    "id": string, // path id
+    "source": string, // path 的开始节点id
+    "target": string, // path的结束节点id
+    "repeat": boolean, // 是否重复播放移动的动画
+    "class": string[] // 自定义的class
+}
+```
+- 输出 `AgGraphPath`
+- 例
+```javascript
+agGraph.addPath({
+    id: "p1",
+    source: "n1",
+    target: "n3",
+    repeat: false,
+    class: ["status-1"]
+});
+```
+
+##### getPath
+通过id获取连线
+- 输入 `id:string`
+- 输出 `AgGraphPath`
+- 例
+```javascript
+var path1 = agGraph.getPath("p1");
+console.log(path1);
+```
 
 ### AgGraph实例对象属性
 可以直接获取AgGraph实例对象的所有node，所有line，选中的各个对象(node，line，point),以及view(整体graph的视图)
@@ -544,6 +577,7 @@ line1.delete();
 var line1=agGraph.getNode("l1");
 line1.points[1].delete();
 ```
+
 ### AgGraphPoint实例属性
 
 ###### $point
@@ -569,6 +603,42 @@ line1.points[1].delete();
 
 ##### y
 - 输出  `number` // 点在graph上y轴的位置
+
+### AgGraphPath实例方法
+
+##### delete 
+删除连线
+- 输入 无
+- 输出 无
+- 例
+```javascript 
+var path1=agGraph.getPath("p1");
+if(path1){
+    path1.delete();
+}
+```
+### AgGraphPath实例属性
+
+###### id
+- 输出  `string` // 路径的id
+
+###### $path
+- 输出 `d3.selection` // 路径对应的d3元素
+
+###### agGraph
+- 输出  `AgGraph` // 连线所属的 AgGraph实例
+
+###### repeat
+- 输出 `boolean` // 是否重复播放动画
+
+###### source
+- 输出 `string` // 开始的节点id
+
+###### target
+- 输出 `string` // 结束的节点id
+
+###### class
+- 输出 `string[]` // 自定义的样式
 
 ### Event
 AgGraph实例的各种event

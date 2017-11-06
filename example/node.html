@@ -28,7 +28,15 @@
         }
 
         .ag-graph-line.hot polyline {
-            stroke: #d4151C;
+            stroke: green;
+        }
+
+        .ag-graph-path.status-1 polyline {
+            stroke: blue;
+        }
+
+        .ag-graph-path.status-1 .ag-graph-path-arrow {
+            fill: blue;
         }
 
         .right-menu {
@@ -55,6 +63,7 @@
 
 <body>
     <div>
+        在graph的空白处点击右键可以 “开启/关闭” 编辑graph
         <div id="graph-container"></div>
         <div id="graph-view-right-menu" class="right-menu">
             <div class="right-menu-item" onclick="startEdit()">start edit</div>
@@ -64,6 +73,7 @@
             <button onclick="addLine()">add line</button>
             <button onclick="deleteLine()">delete line</button>
             <button onclick="deleteNode()">delete node</button>
+            <button onclick="addPath()">add path</button>
         </div>
     </div>
     <script>
@@ -112,6 +122,13 @@
             agGraph.selection.nodes().forEach(function (node) {
                 node.delete();
             });
+        }
+        function addPath(){
+            if(agGraph.isEditing()){
+                alert("编辑模式无法添加path");
+                return;
+            }
+            agGraph.addPath({id:"p1",source:"n3",target:"n1",repeat:true,class:["status-1"]})
         }
         function startEdit() {
             agGraph.startEdit();
