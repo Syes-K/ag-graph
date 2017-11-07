@@ -83,7 +83,8 @@ AgGraph实例对象可以用来创建节点，连线，等
 var node2 = agGraph.addNode({ 
     id: "n2", 
     x: -50, y: 100, size: 40, 
-    image: "./images/plus.jpg", badge: "99" 
+    image: "./images/plus.jpg", badge: "99",
+    customAttr1:{someProperty1: "some value"}
 });
 console.log(node2);
 ```
@@ -133,7 +134,7 @@ console.log(neighbors);
 agGraph.addNode({ 
     id: "n1", 
     x: 0, y: 0, size: 40, 
-    image: "./images/plus.jpg", text: "plus" 
+    image: "./images/plus.jpg", text: "plus"
 });
 agGraph.addNode({ 
     id: "n2", 
@@ -225,7 +226,8 @@ var data = agGraph.getNodesData(function(node){
     var nodeData = {
         id: node.id,
         position: [node.x,node.y],
-        size: node.size
+        size: node.size,
+        customAttr1:node.customAttr1
     }
     return nodeData;
 });
