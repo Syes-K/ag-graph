@@ -144,7 +144,8 @@ agGraph.addNode({
 var line1 = agGraph.addLine({ 
     id: "l1", source: "n1", 
     target: "n2",class:["hot-line"], 
-    animate: true 
+    animate: true,
+    customAttr1:{someProperty1: "some value"}
 });
 console.log(line1);
 ```
