@@ -94,39 +94,39 @@
         return len;
     };
     // 获取2个点的角度
-    function getPointsAngle(point1, point2) {
+    function getPointsDeg(point1, point2) {
         var x1 = point1.x, y1 = point1.y, x2 = point2.x, y2 = point2.y;
         var x = Math.abs(x1 - x2);
         var y = Math.abs(y1 - y2);
         var z = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
         var sin = y / z;//相对x轴正方向的正弦值
         var radina = Math.asin(sin);//用反三角函数求弧度
-        var angle = 180 / (Math.PI / radina);//将弧度转换成角度
+        var deg = 180 / (Math.PI / radina);//将弧度转换成角度
         if (x2 > x1 && y2 > y1) {//第1象限
-            angle = angle;
+            deg = deg;
         }
         if (x2 == x1 && y2 > y1) {//y轴负方向上
-            angle = 90;
+            deg = 90;
         }
         if (x2 > x1 && y2 == y1) {//x轴正方向上
-            angle = 0;
+            deg = 0;
         }
         if (x2 < x1 && y2 > y1) {//第2象限
-            angle = 180 - angle;
+            deg = 180 - deg;
         }
         if (x2 < x1 && y2 == y1) {//x轴负方向
-            angle = 180;
+            deg = 180;
         }
         if (x2 < x1 && y2 < y1) {//第3象限
-            angle = 180 + angle;
+            deg = 180 + deg;
         }
         if (x2 == x1 && y2 < y1) {
-            angle = 270;
+            deg = 270;
         }
         if (x2 > x1 && y2 < y1) {
-            angle = 360 - angle;
+            deg = 360 - deg;
         }
-        return angle;
+        return deg;
     }
     /** 获取 距离线固定位置的点的信息
 		* linePoints 线的各个拐点
@@ -150,7 +150,7 @@
             }
         }
         if (nextPoint) {
-            var angel = getPointsAngle(lastPoint, nextPoint);
+            var angel = getPointsDeg(lastPoint, nextPoint);
             var x = lastPoint.x + (nextPoint.x - lastPoint.x) * (distance - lastTotalDistance) / lastDistance;
             var y = lastPoint.y + (nextPoint.y - lastPoint.y) * (distance - lastTotalDistance) / lastDistance;
             return {
@@ -169,6 +169,30 @@
             y += p.y;
         });
         return { x: x / len, y: y / len };
+    }
+
+    // 获取点到线的距离
+    function getDistanceToline(point, linePoints) {
+        var p0 = linePoints[0], p1 = linePoints[1];
+        var dis = 0;
+        if (p1.x == p0.x) {
+            dis = Math.abs(p1.x - p.x)
+        }
+        else {
+            var k = -((p0.y - p1.y) / (p0.x - p1.x))
+            var b = (p0.y * p1.x - p1.y * p0.x) / (p1.x - p0.x)
+            dis = Math.abs(k * p.x + 1 * p.y + b) / Math.sqrt(1 + k * k)
+        }
+        return dis;
+    }
+
+    function getDegToLine(point, linePoints) {
+        var p0 = linePoints[0], p1 = linePoints[1];
+        var deg = Math.abs(getPointsDeg(point, p1) - getPointsDeg(point, p0));
+        if (deg > 180) {
+            deg = 360 - deg;
+        }
+        return deg;
     }
 
     var EventPrototype = {
@@ -308,6 +332,16 @@
         this.viewBox = [next_x, next_y, next_width, next_height];
         this.lastScale = this.scale;
     };
+    // 将相对于dom视窗的位置转换成相对于svg视窗的位置
+    AgGraphView.prototype._transferToViewPosition = function (postion) {
+        var rect = this.agGraph._container.getBoundingClientRect();
+        var offset_x = postion.x - rect.left;
+        var offset_y = postion.y - rect.top;
+        return {
+            x: this.viewBox[0] + offset_x / this.scale,
+            y: this.viewBox[1] + offset_y / this.scale,
+        }
+    }
 
     AgGraphView.prototype.zoomIn = function () {
         this.scale *= 1.3;
@@ -619,14 +653,14 @@
         // 如果不存在pointsData
         if (!_this.pointsData.length) {
             // 获取line 的source到target 中心点的角度
-            var deg = Math.PI * getPointsAngle({ x: _this.sourceNode.x, y: _this.sourceNode.y }, { x: _this.targetNode.x, y: _this.targetNode.y }) / 180;
+            var deg = Math.PI * getPointsDeg({ x: _this.sourceNode.x, y: _this.sourceNode.y }, { x: _this.targetNode.x, y: _this.targetNode.y }) / 180;
             var sourceDiff = { x: ((_this.sourceNode.size / 2) + 4) * Math.cos(deg), y: ((_this.sourceNode.size / 2) + 4) * Math.sin(deg) };
             var targetDiff = { x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg), y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg) };
             var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
             var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
             _this.pointsData = [
                 startPoint,
-                getPointsCenter([startPoint, endPoint]),
+                // getPointsCenter([startPoint, endPoint]),
                 endPoint
             ];
         }
@@ -634,7 +668,12 @@
         _this.$line = agGraph._$lineGroup.append("g")
             .attr("line-id", _this.id)
             .on("click", function () {
-                agGraph.selection.toggleLine(_this);
+                if (d3.event.shiftKey && _this.agGraph.isEditing()) {
+                    var position = _this.agGraph.view._transferToViewPosition(d3.event);
+                    _this._addPoint(position);
+                } else {
+                    agGraph.selection.toggleLine(_this);
+                }
                 d3.event.stopPropagation();
                 agGraph._emit("line.click", _this);
             })
@@ -646,6 +685,23 @@
         _this.pointsData.forEach(function (pointData) {
             _this.points.push(new AgGraphPoint(pointData, _this));
         });
+    }
+    AgGraphLine.prototype._addPoint = function (position) {
+        var _this = this;
+        var maxDeg = 0;
+        var insetIndex = 0;
+        _this.pointsData.reduce(function (p0, p1, currentIndex) {
+            var deg = getDegToLine(position, [p0, p1]);
+            if (deg > maxDeg) {
+                maxDeg = deg;
+                insetIndex = currentIndex;
+            }
+            return p1;
+        });
+        _this.pointsData.splice(insetIndex, 0, position);
+        var newPoint = new AgGraphPoint(position, _this)
+        _this.points.splice(insetIndex, 0, newPoint);
+        _this.agGraph._emit("point.add", newPoint);
     }
     AgGraphLine.prototype._render = function (firstRender) {
         var _this = this;
@@ -725,22 +781,20 @@
             .attr("cy", _this.y)
             .attr("r", POINT_RADIUS);
         function dragPointStart() {
-            if (d3.event.sourceEvent.shiftKey) {
-                var newPointData = { x: _this.x, y: _this.y };
-
-                var idx = _this.line.pointsData.indexOf(_this.pointData);
-                var insertPointIdx;
-                if (idx === _this.line.pointsData.length - 1) {
-                    insertPointIdx = _this.line.pointsData.length - 1;
-                } else {
-                    insertPointIdx = idx + 1;
-                }
-                _this.line.pointsData.splice(insertPointIdx, 0, newPointData);
-                var newPoint = new AgGraphPoint(newPointData, _this.line)
-                _this.line.points.splice(insertPointIdx, 0, newPoint);
-                _this.line.agGraph._emit("point.add", newPoint);
-                // _this.line._render();
-            }
+            // if (d3.event.sourceEvent.shiftKey) {
+            //     var newPointData = { x: _this.x, y: _this.y };
+            //     var idx = _this.line.pointsData.indexOf(_this.pointData);
+            //     var insertPointIdx;
+            //     if (idx === _this.line.pointsData.length - 1) {
+            //         insertPointIdx = _this.line.pointsData.length - 1;
+            //     } else {
+            //         insertPointIdx = idx + 1;
+            //     }
+            //     _this.line.pointsData.splice(insertPointIdx, 0, newPointData);
+            //     var newPoint = new AgGraphPoint(newPointData, _this.line)
+            //     _this.line.points.splice(insertPointIdx, 0, newPoint);
+            //     _this.line.agGraph._emit("point.add", newPoint);
+            // }
             var mouse_x = d3.event.x;
             var mouse_y = d3.event.y;
             // 记录开始drag时，鼠标和Point中心的距离
