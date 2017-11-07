@@ -215,6 +215,40 @@ agGraph.addPath({
 var path1 = agGraph.getPath("p1");
 console.log(path1);
 ```
+##### getNodesData
+获取节点的数据
+- 输入 `callback:(node:AgGraphNode)=>any` // 将AgGraphNode转换成需要的数据回调函数
+- 输出 `any[]`
+- 例
+```javascript
+var data = agGraph.getNodesData(function(node){
+    var nodeData = {
+        id: node.id,
+        position: [node.x,node.y],
+        size: node.size
+    }
+    return nodeData;
+});
+console.log(data);
+```
+
+##### getLinesData
+获取连线的数据
+- 输入 `callback:(line:AgGraphLine)=>any` // 将AgGraphLine转换成需要的数据回调函数
+- 输出 `any[]`
+- 例
+```javascript
+var data = agGraph.getLinesData(function(line){
+    var lineData = {
+        id: line.id,
+        points:line.pointsData,
+        source:line.source,
+        target:line.target,
+    };
+    return lineData;
+});
+console.log(data);
+```
 
 ### AgGraph实例对象属性
 可以直接获取AgGraph实例对象的所有node，所有line，选中的各个对象(node，line，point),以及view(整体graph的视图)

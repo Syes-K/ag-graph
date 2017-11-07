@@ -19,6 +19,7 @@
     var DEFAULT_NODE_SIZE = 30;
     var PROPERTY_CHANGE_DEBOUNCE_TIME = 10;
     var PATH_SPEED = 5; // path 的动画速度 time = length * PATH_SPEED;
+    var ACCESS_PROPERTY_PREFIX = "__"; // 访问器属性的前缀。
     var tempData = {};// 临时变量，记录操作过程的临时状态值
     function debounce(action, delay) {
         var last;
@@ -39,14 +40,14 @@
      * @param {*} callbackInstance 回调函数的this
      */
     function propertySetterFunction(obj, property, value, callback) {
-        obj["__" + property] = value;
+        obj[ACCESS_PROPERTY_PREFIX + property] = value;
         Object.defineProperty(obj, property, {
             get: function () {
-                return obj["__" + property];
+                return obj[ACCESS_PROPERTY_PREFIX + property];
             },
             set: function (val) {
-                var oldVal = obj["__" + property];
-                obj["__" + property] = val;
+                var oldVal = obj[ACCESS_PROPERTY_PREFIX + property];
+                obj[ACCESS_PROPERTY_PREFIX + property] = val;
                 callback.apply(obj);
             }
         })
@@ -209,7 +210,8 @@
                     }
                 }
             }
-        }, _emit: function (name) {
+        },
+        _emit: function (name) {
             if (!this._events) {
                 this._events = [];
             }
@@ -456,7 +458,7 @@
             badge: "",
             selected: false,
             lines: [],
-            anchorPoints: []
+            anchorPoints: [],
         }, nodeData);
         var _this = this;
         _this.agGraph = agGraph;
@@ -1001,10 +1003,12 @@
             _this._$pointGroup = _this.$svg.select("#ag-point-group");
             _this._$pathGroup = _this.$svg.select("#ag-path-group");
             _this._isEditing = false;
-            var rect = _this.$svg.node().getBoundingClientRect();
             _this.view = new AgGraphView(_this);
             _this.view.scale = 1;
             _this.selection = new AgGraphSelection(_this);
+            _this.nodes = [];
+            _this.lines = [];
+            _this.paths = [];
         } else {
             throw new Error("没有正确的graph容器!");
         }
@@ -1013,11 +1017,6 @@
      * 继承事件机制
      */
     AgGraph.prototype = Object.assign(EventPrototype, AgGraph.prototype);
-    AgGraph.prototype.view = undefined;
-    AgGraph.prototype.selection = undefined;
-    AgGraph.prototype.nodes = [];
-    AgGraph.prototype.lines = [];
-    AgGraph.prototype.paths = [];
 
     AgGraph.prototype.addNode = function (nodeData) {
         var _this = this;
@@ -1091,6 +1090,16 @@
         return this.paths.find(function (p) {
             return p.id === id;
         })
+    }
+    AgGraph.prototype.getNodesData = function (callback) {
+        return this.nodes.map(function (node) {
+            return callback(node);
+        });
+    }
+    AgGraph.prototype.getLinesData = function (callback) {
+        return this.lines.map(function (line) {
+            return callback(line);
+        });
     }
     return AgGraph;
 }, window);

@@ -85,7 +85,7 @@
         // agGraph.on("view.viewBox.move", function () {
         //     console.log("view.viewBox.move");
         // })
-        var node1 = agGraph.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg", text: "plus" });
+        var node1 = agGraph.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg", text: "plus",customAttr:{someProperty1:"some value"} });
         var node2 = agGraph.addNode({ id: "n2", x: -50, y: 100, size: 40, image: "./images/plus.jpg", badge: "99" });
         var node3 = agGraph.addNode({ id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jpg" });
         var node4 = agGraph.addNode({ id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg" });
