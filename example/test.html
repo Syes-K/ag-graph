@@ -1,148 +1,162 @@
+<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/ag-graph-test.css">
-    <script src="./scripts/d3.js"></script>
-    <script src="../dist/ag-graph.js"></script>
-    <style id="customer-style">
-        .btn-group {
-            text-align: center;
-            margin-top: 10px;
-        }
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./styles/ag-graph-test.css">
+  <script src="./scripts/d3.js"></script>
+  <script src="../dist/ag-graph.js"></script>
+  <style>
+    .btn-group {
+      text-align: center;
+      margin-top: 10px;
+    }
 
-        .btn-group button {
-            padding: 6px;
-            border-radius: 3px;
-            outline: none;
-        }
+    .btn-group button {
+      padding: 6px;
+      border-radius: 3px;
+      outline: none;
+    }
 
-        #graph-container {
-            margin: 0 auto;
-            width: 100%;
-            height: 600px;
-        }
+    #graph-container {
+      margin: 0 auto;
+      width: 100%;
+      height: 600px;
+    }
 
-        svg {
-            background-color: #70a190
-        }
+    svg {
+      background-color: #70a190
+    }
 
-        .ag-graph-line.hot polyline {
-            stroke: green;
-        }
+    .ag-graph-line.hot polyline {
+      stroke: green;
+    }
 
-        .ag-graph-path.status-1 polyline {
-            stroke: blue;
-        }
+    .ag-graph-path.status-1 polyline {
+      stroke: blue;
+    }
 
-        .ag-graph-path.status-1 .ag-graph-path-arrow {
-            fill: blue;
-        }
+    .ag-graph-path.status-1 .ag-graph-path-arrow {
+      fill: blue;
+    }
 
-        .right-menu {
-            position: absolute;
-            display: none;
-            width: 160px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 3px;
-            background-color: #eee;
-        }
+    .right-menu {
+      position: absolute;
+      display: none;
+      width: 160px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 3px;
+      background-color: #eee;
+    }
 
-        .right-menu.show {
-            display: block;
-        }
+    .right-menu.show {
+      display: block;
+    }
 
-        .right-menu-item {
-            font-size: 16px;
-            line-height: 30px;
-            cursor: pointer;
-        }
-    </style>
+    .right-menu-item {
+      font-size: 16px;
+      line-height: 30px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
-    <div>
-        在graph的空白处点击右键可以 “开启/关闭” 编辑graph
-        <br>
-        编辑模式下 Shift+点击线会在线上新增折点
-        <div id="graph-container"></div>
-        <div id="graph-view-right-menu" class="right-menu">
-            <div class="right-menu-item" onclick="startEdit()">start edit</div>
-            <div class="right-menu-item" onclick="endEdit()">end edit</div>
-        </div>
-        <div class="btn-group">
-            <button onclick="addLine()">add line</button>
-            <button onclick="deleteLine()">delete line</button>
-            <button onclick="deleteNode()">delete node</button>
-            <button onclick="addPath()">add path</button>
-        </div>
-    </div>
-    <script>
-        var agGraph = new AgGraph({ container: "#graph-container" });
-        agGraph.startEdit();
-        // agGraph.on("graph.node.add", function () {
-        //     console.log("graph.node.add");
-        // })
-        // agGraph.on("view.viewBox.move", function () {
-        //     console.log("view.viewBox.move");
-        // })
-        var node1 = agGraph.addNode({ id: "n1", x: 0, y: 0, size: 40, image: "./images/plus.jpg", text: "plus",customAttr:{someProperty1:"some value"} });
-        var node2 = agGraph.addNode({ id: "n2", x: -50, y: 100, size: 40, image: "./images/plus.jpg", badge: "99" });
-        var node3 = agGraph.addNode({ id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jpg" });
-        var node4 = agGraph.addNode({ id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg" });
-        var line1 = agGraph.addLine({ id: "l1", source: "n2", target: "n3", animate: true });
-        var line2 = agGraph.addLine({ id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true });
-        agGraph.on("view.rightClick", function (view, position) {
-            var rightMenu = document.getElementById("graph-view-right-menu");
-            rightMenu.style.top = position.y;
-            rightMenu.style.left = position.x;
-            rightMenu.classList.add("show");
-        });
-        agGraph.on("view.click,node.click,line.click,point.click", function () {
-            var rightMenu = document.getElementById("graph-view-right-menu");
-            rightMenu.classList.remove("show");
-        })
-        function addLine() {
-            var selectedNodes = agGraph.selection.nodes();
-            var selectedNodesLength = selectedNodes.length;
-            if (selectedNodesLength < 2)
-                return;
-            var line = agGraph.addLine({
-                id: "l" + Math.random(),
-                source: agGraph.selection.nodes()[selectedNodesLength - 2].id,
-                target: agGraph.selection.nodes()[selectedNodesLength - 1].id,
-                animate: true
-            });
-        }
-        function deleteLine() {
-            agGraph.selection.lines().forEach(function (line) {
-                line.delete();
-            });
-        }
-        function deleteNode() {
-            agGraph.selection.nodes().forEach(function (node) {
-                base.delete();
-            });
-        }
-        function addPath(){
-            if(agGraph.isEditing()){
-                alert("编辑模式无法添加path");
-                return;
-            }
-            agGraph.addPath({id:"p1",source:"n3",target:"n1",repeat:true,class:["status-1"]})
-        }
-        function startEdit() {
-            agGraph.startEdit();
-            var rightMenu = document.getElementById("graph-view-right-menu");
-            rightMenu.classList.remove("show");
-        }
-        function endEdit() {
-            agGraph.endEdit();
-            var rightMenu = document.getElementById("graph-view-right-menu");
-            rightMenu.classList.remove("show");
-        }
-    </script>
+<div>
+  在graph的空白处点击右键可以 “开启/关闭” 编辑graph
+  <br>
+  编辑模式下 Shift+点击线会在线上新增折点
+  <div id="graph-container"></div>
+  <div id="graph-view-right-menu" class="right-menu">
+    <div class="right-menu-item" onclick="startEdit()">start edit</div>
+    <div class="right-menu-item" onclick="endEdit()">end edit</div>
+  </div>
+  <div class="btn-group">
+    <button onclick="addLine()">add line</button>
+    <button onclick="deleteLine()">delete line</button>
+    <button onclick="deleteNode()">delete node</button>
+    <button onclick="addPath()">add path</button>
+  </div>
+</div>
+<script>
+  var agGraph = new AgGraph({container: "#graph-container"});
+  agGraph.startEdit();
+  // agGraph.on("graph.node.add", function () {
+  //     console.log("graph.node.add");
+  // })
+  // agGraph.on("view.viewBox.move", function () {
+  //     console.log("view.viewBox.move");
+  // })
+  var node1 = agGraph.addNode({
+    id: "n1",
+    x: 0,
+    y: 0,
+    size: 40,
+    image: "./images/plus.jpg",
+    text: "plus",
+    customAttr: {someProperty1: "some value"}
+  });
+  var node2 = agGraph.addNode({id: "n2", x: -50, y: 100, size: 40, image: "./images/plus.jpg", badge: "99"});
+  var node3 = agGraph.addNode({id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jpg"});
+  var node4 = agGraph.addNode({id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg"});
+  var line1 = agGraph.addLine({id: "l1", source: "n2", target: "n3", animate: true});
+  var line2 = agGraph.addLine({id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true});
+  agGraph.on("view.rightClick", function (view, position) {
+    var rightMenu = document.getElementById("graph-view-right-menu");
+    rightMenu.style.top = position.y;
+    rightMenu.style.left = position.x;
+    rightMenu.classList.add("show");
+  });
+  agGraph.on("view.click,node.click,line.click,point.click", function () {
+    var rightMenu = document.getElementById("graph-view-right-menu");
+    rightMenu.classList.remove("show");
+  })
+
+  function addLine() {
+    var selectedNodes = agGraph.selection.nodes();
+    var selectedNodesLength = selectedNodes.length;
+    if (selectedNodesLength < 2)
+      return;
+    var line = agGraph.addLine({
+      id: "l" + Math.random(),
+      source: agGraph.selection.nodes()[selectedNodesLength - 2].id,
+      target: agGraph.selection.nodes()[selectedNodesLength - 1].id,
+      animate: true
+    });
+  }
+
+  function deleteLine() {
+    agGraph.selection.lines().forEach(function (line) {
+      line.delete();
+    });
+  }
+
+  function deleteNode() {
+    agGraph.selection.nodes().forEach(function (node) {
+      base.delete();
+    });
+  }
+
+  function addPath() {
+    if (agGraph.isEditing()) {
+      alert("编辑模式无法添加path");
+      return;
+    }
+    agGraph.addPath({id: "p1", source: "n3", target: "n1", repeat: true, class: ["status-1"]})
+  }
+
+  function startEdit() {
+    agGraph.startEdit();
+    var rightMenu = document.getElementById("graph-view-right-menu");
+    rightMenu.classList.remove("show");
+  }
+
+  function endEdit() {
+    agGraph.endEdit();
+    var rightMenu = document.getElementById("graph-view-right-menu");
+    rightMenu.classList.remove("show");
+  }
+</script>
 </body>
 
 </html>

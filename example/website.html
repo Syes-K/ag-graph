@@ -2,83 +2,524 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./styles/ag-graph-website.css">
+  <link rel="stylesheet" type="text/css" href="./fonts/iconfont.css">
+  <link rel="stylesheet" type="text/css" href="./styles/ag-graph-website.css">
   <script src="./scripts/d3.js"></script>
+  <script src="./scripts/jquery.min.js"></script>
+  <script src="./scripts/ag-click.js"></script>
   <script src="../dist/ag-graph.js"></script>
   <style>
     * {
+      font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+      box-sizing: border-box;
+      font-weight: 300;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      padding-top: 48px;
+    }
+    h2 {
+      font-size: 28px;
+    }
+    h3 {
+      font-size: 20px;
+      margin: 20px 0 5px;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+    }
+    p.explain {
+      height: 40px;
+      line-height: 40px;
+      border-radius: 5px;
+      background: #fafafa;
+      padding-left: 15px;
+      margin: 18px 0;
+    }
+    .content {
+      width: 90%;
+      margin: 10px auto;
+      border: 1px solid #ededed;
+      border-radius: 5px;
+      position: relative;
+    }
+    .toolbar {
+      padding: 0 10px;
+      height: 50px;
+      border-bottom: 1px solid #ededed;
+      font-size: 13px;
+    }
+    .toolbar-item {
+      display: inline-block;
+      color: #696969;
+    }
+    .toolbar-item:first-child {
+      padding-right: 10px;
+    }
+    .toolbar-item.block {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      margin: 5px;
       text-align: center;
-      margin-top: 10px;
+      position: relative;
     }
-
-    .btn-group button {
-      padding: 6px;
-      border-radius: 3px;
-      outline: none;
+    .toolbar-item.text {
+      margin-right: 10px;
     }
-
-    #graph-container {
-      margin: 0 auto;
-      width: 100%;
-      height: 600px;
-    }
-
-    svg {
-      background-color: #70a190
-    }
-
-    .ag-graph-line.hot polyline {
-      stroke: green;
-    }
-
-    .ag-graph-path.status-1 polyline {
-      stroke: blue;
-    }
-
-    .ag-graph-path.status-1 .ag-graph-path-arrow {
-      fill: blue;
-    }
-
-    .right-menu {
+    .toolbar-item.block .corner {
       position: absolute;
-      display: none;
-      width: 160px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      padding: 3px;
-      background-color: #eee;
+      overflow: hidden;
+      display: inline-block;
+      bottom: 5px;
+      right: 5px;
+      width: 10px;
+      height: 10px;
+    }
+    .toolbar-item.block .corner:after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      right: -4px;
+      height: 15px;
+      width: 10px;
+      background: #b1b1b1;
+      transform: rotate(45deg);
+    }
+    .toolbar-item.block:hover,
+    .toolbar-item.block[active] {
+      background-color: #ececec;
+      border-radius: 3px;
+    }
+    .toolbar-item.block:hover .corner:after,
+    .toolbar-item.block[active] .corner:after {
+      background: #52aff3;
+    }
+    .toolbar-item.block:hover i.example,
+    .toolbar-item.block[active] i.example {
+      color: #52aff3;
+      cursor: pointer;
+    }
+    .toolbar-item.block i {
+      font-size: 18px;
+    }
+    .toolbar-line {
+      width: 0;
+      height: 30px;
+      padding: 5px 0;
+      border-left: 1px solid #ededed;
+      display: inline-block;
     }
 
-    .right-menu.show {
+    .toolbar-item .zoom-scale {
+      border-radius: 3px;
+      border: 1px solid #d4d4d4;
+      padding: 2px 4px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /*
+     * switch开关
+     */
+    .switch {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .switch div {
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      border-radius: 10px;
+      background: #EAEAEA;
+      transition: all .3s ease;
+    }
+
+    .switch[active] div {
+      background: #51aff3;
+    }
+
+    .switch span.toggle {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 8px;
+      top: 2px;
+      left: 2px;
+      transition: all .3s ease;
+    }
+
+    .switch[active] span.toggle {
+      left: calc(100% - 18px);
+    }
+
+    /* 设备面板 */
+    .assets-panel {
+      display: none;
+      border-radius: 5px;
+      border: 1px solid #EAEAEA;
+      width: 200px;
+      height: 200px;
+      box-sizing: content-box;
+      margin-top: 5px;
+      box-shadow: 0px 1px 4px #999;
+      background-color: #fff;
+    }
+    .assets-panel[active] {
       display: block;
     }
 
-    .right-menu-item {
-      font-size: 16px;
-      line-height: 30px;
+    .assets-panel .container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .assets-panel .container:after {
+      clear: both;
+    }
+
+    .assets-panel .item {
+      width: 56px;
+      float: left;
+      text-align: center;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+      margin: 5px;
+      font-weight: 400;
       cursor: pointer;
     }
+
+    .assets-panel .item:hover {
+      color: #51aff3;
+    }
+
+    .assets-panel .item div.icon {
+      width: 100%;
+      height: 35px;
+    }
+    .assets-panel .item div.title {
+      height: 20px;
+      font-size: 12px;
+      line-height: 20px;
+    }
+
+    /* 新增弹窗 */
+    .insert-assets {
+      display: none;
+      width: 350px;
+      border: 1px solid #d4d4d4;
+      border-radius: 5px;
+      box-shadow: 0px 1px 1px #d4d4d4;
+      background-color: #fff;
+      padding: 10px;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+
+    .insert-assets[active] {
+      display: block;
+    }
+
+    .insert-assets .head {
+      border-bottom: 1px solid #d4d4d4;
+      padding-bottom: 10px;
+    }
+
+    .insert-assets .head span {
+
+    }
+
+    .insert-assets .head i {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    .insert-assets .content {
+      border: 0;
+    }
+
+    .insert-assets .content .item {
+      height: 36px;
+    }
+
+    .insert-assets .content .item label {
+      width: 60px;
+      display: inline-block;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .insert-assets .content .item input {
+      outline: none;
+      border-radius: 5px;
+      padding-left: 5px;
+      height: 24px;
+      border: 1px solid #d4d4d4;
+    }
+
+    /* input背景色默认是黄色 */
+    /* 使用以下样式来覆盖原有的，更改了背景和字体颜色 */
+    input:-webkit-autofill,
+    textarea:-webkit-autofill,
+    select:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 1000px #51aff3 inset;
+      -webkit-text-fill-color: white;
+      background-color: #51aff3;
+      background-image: none;
+      /*color: rgb(0, 0, 0);*/
+    }
+
+    .insert-assets .foot {
+      text-align: right;
+    }
+
+    .insert-assets .foot .btn-cancel {
+      border: 1px solid #51aff3;
+      padding: 6px 18px;
+      background-color: #fff;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    .insert-assets .foot .btn-cancel:hover {
+      background-color: #51aff3;
+      color: #fff;
+    }
+
+    .insert-assets .foot .btn-submit {
+      border: 1px solid #51aff3;
+      padding: 6px 18px;
+      background-color: #51aff3;
+      outline: none;
+      border-radius: 5px;
+      color: #fff;
+    }
+
+    .insert-assets .foot .btn-submit:hover {
+      background-color: #5CBBFF;
+      color: #fff;
+    }
+
+    #graph-container {
+      height: 500px;
+    }
+
   </style>
 </head>
 
 <body>
 <div>
-  在graph的空白处点击右键可以 “开启/关闭” 编辑graph
-  <br>
-  编辑模式下 Shift+点击线会在线上新增折点
-  <div id="graph-container"></div>
-  <div id="graph-view-right-menu" class="right-menu">
-    <div class="right-menu-item" onclick="startEdit()">start edit</div>
-    <div class="right-menu-item" onclick="endEdit()">end edit</div>
+  <div>
+    <h2>ag-graph</h2>
   </div>
-  <div class="btn-group">
-    <button onclick="addLine()">add line</button>
-    <button onclick="deleteLine()">delete line</button>
-    <button onclick="deleteNode()">delete node</button>
-    <button onclick="addPath()">add path</button>
+  <div>
+    <h3>示例</h3>
+    <p>提供了API接口的简单展示, UI仅供参考, 并无实际意义. </p>
   </div>
+  <div class="content">
+    <div class="toolbar">
+      <div class="toolbar-item">
+        <span>编辑模式</span>
+        <!--switch开关-->
+        <div class="switch" ag-click active toggle target="open-edit-target">
+          <div></div>
+          <span class="toggle"></span>
+        </div>
+      </div>
+      <div class="toolbar-line">&nbsp;</div>
+      <!-- 放大缩小 -->
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-fangda"></i>
+      </div>
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-suoxiao"></i>
+      </div>
+      <div class="toolbar-item text">
+        <span class="zoom-scale">100%</span>
+      </div>
+      <div class="toolbar-line">&nbsp;</div>
+      <!-- 设备图标 -->
+      <div class="toolbar-item block" ag-click active toggle target="assets-panel">
+        <i class="example icon iconfont icon-pc"></i>
+        <div class="corner"></div>
+        <!-- 设备面板 -->
+        <div class="assets-panel" active assets-panel>
+          <div class="container">
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-pc"></i></div><div class="title">PC</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-router1"></i></div><div class="title">Router</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-server1"></i></div><div class="title">Server</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-switch1"></i></div><div class="title">Switch</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-firewall1"></i></div><div class="title">Firewall</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-server1"></i></div><div class="title">Server</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-switch1"></i></div><div class="title">Switch</div>
+            </div>
+            <div class="item js-assets-item">
+              <div class="icon"><i class="icon iconfont icon-firewall1"></i></div><div class="title">Firewall</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 线和锚点 -->
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-tianjiaxian1"></i>
+      </div>
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-shanchuxian1"></i>
+      </div>
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-weixuandingliuchenglianxiantianjia"></i>
+      </div>
+      <div class="toolbar-item block">
+        <i class="icon iconfont icon-weixuandingliuchenglianxianshanchu"></i>
+      </div>
+    </div>
+    <!-- 新增弹窗 -->
+    <div class="insert-assets" insert-assets>
+      <div class="head">
+        <span>添加设备</span>
+        <i class="icon iconfont icon-guanbi" ag-click remove target="insert-assets"></i>
+      </div>
+      <div class="content">
+        <div class="item">
+          <label for="name">名称</label>
+          <input name="name" id="name">
+        </div>
+        <div class="item">
+          <label for="info">信息</label>
+          <input name="info" id="info">
+        </div>
+      </div>
+      <div class="foot">
+        <button class="btn-cancel" ag-click remove target="insert-assets">取消</button>
+        <button class="btn-submit" ag-click remove target="insert-assets">确定</button>
+      </div>
+    </div>
+    <!-- 图 -->
+    <div id="graph-container"></div>
+  </div>
+  <div>
+    <h2>API接口介绍</h2>
+    <p>因商业版本, 全局配置和实例属性没有一一列举见谅</p>
+    <h3>AgGraph实例对象方法 </h3>
+    <!--说明-->
+    <p class="explain"> 1. 添加节点 </p>
+    <p class="explain"> 2. 通过id获取节点 </p>
+    <p class="explain"> 3. 获取node节点相邻的节点 </p>
+    <p class="explain"> 4. 添加连线 </p>
+    <p class="explain"> 5. 通过id获取连线 </p>
+    <p class="explain"> 6. 支持开启编辑模式(可以编辑节点和连线) </p>
+    <p class="explain"> 7. 支持结束编辑模式(不可以编辑节点和连线) </p>
+    <p class="explain"> 8. 获取是否是处于编辑状态 </p>
+    <p class="explain"> 9. 添加一条移动的路径 </p>
+    <p class="explain"> 10. 通过id获取路径 </p>
+    <p class="explain"> 11. 获取所有节点 </p>
+    <p class="explain"> 12. 获取所有连线 </p>
+    <h3>AgGraphView 实例方法 </h3>
+    <p class="explain"> 1. 放大视图 </p>
+    <p class="explain"> 2. 缩小视图 </p>
+    <p class="explain"> 3. 移动视图 </p>
+    <h3>AgGraphSelection实例方法 </h3>
+    <p class="explain"> 1. 获取所有选中的node(按照选择的顺序排列) </p>
+    <p class="explain"> 2. 将node实例添加到选择状态中 </p>
+    <p class="explain"> 3. 将node实例添加从选择状态中移除 </p>
+    <p class="explain"> 4. 切换node的选择状态 </p>
+    <p class="explain"> 5. 清除所有node的选择状态 </p>
+    <p class="explain"> 6. 获取所有选中的line(按照选择的顺序排列) </p>
+    <p class="explain"> 7. 将line实例添加到选择状态中 </p>
+    <p class="explain"> 8. 将line实例添加从选择状态中移除 </p>
+    <p class="explain"> 9. 清除所有line的选择状态 </p>
+    <p class="explain"> 10. 获取所有选中的point(线上锚点)(按照选择的顺序排列) </p>
+    <p class="explain"> 11. 将point(线上锚点)实例添加到选择状态中 </p>
+    <p class="explain"> 12. 将point(线上锚点)实例添加从选择状态中移除 </p>
+    <p class="explain"> 13. 切换point(线上锚点)的选择状态 </p>
+    <p class="explain"> 14. 清除所有point(线上锚点)的选择状态 </p>
+    <h3>AgGraphNode实例方法</h3>
+    <p class="explain"> 1. 删除node节点 </p>
+    <p class="explain"> 2. 获取node节点相对于浏览器视窗的偏移 </p>
+    <p class="explain"> 3. 获取node节点相对于定位父元素的偏移 </p>
+    <p class="explain"> 4. 获取所有选中的point(按照选择的顺序排列) </p>
+    <p class="explain"> 5. 获取所有选中的point(按照选择的顺序排列) </p>
+    <h3>AgGraphLine实例方法</h3>
+    <p class="explain"> 1. 删除line连线 </p>
+    <h3>AgGraphPoint实例方法</h3>
+    <p class="explain"> 1. 删除point(线上锚点) </p>
+    <h3>AgGraphPath实例方法</h3>
+    <p class="explain"> 1. 删除path </p>
+    <h3>支持事件一览</h3>
+    <p class="explain"> 1. 添加节点 </p>
+    <p class="explain"> 2. 删除节点 </p>
+    <p class="explain"> 3. 移动节点 </p>
+    <p class="explain"> 4. 点击节点 </p>
+    <p class="explain"> 5. 右击节点 </p>
+    <p class="explain"> 6. 添加连线 </p>
+    <p class="explain"> 7. 删除连线 </p>
+    <p class="explain"> 8. 点击连线 </p>
+    <p class="explain"> 9. 右击连线 </p>
+    <p class="explain"> 10. 添加连线上的锚点 </p>
+    <p class="explain"> 11. 删除锚点 </p>
+    <p class="explain"> 12. 移动锚点 </p>
+    <p class="explain"> 13. 点击锚点 </p>
+    <p class="explain"> 14. 右击锚点 </p>
+    <p class="explain"> 15. 移动视图 </p>
+    <p class="explain"> 16. 缩放视图 </p>
+    <p class="explain"> 17. 点击视图 </p>
+    <p class="explain"> 18. 右键视图 </p>
+    <p class="explain"> 19. 节点添加到选择状态 </p>
+    <p class="explain"> 20. 节点移除选择状态 </p>
+    <p class="explain"> 21. 移除所有节点选择状态 </p>
+    <p class="explain"> 22. 连线添加到选择状态 </p>
+    <p class="explain"> 23. 连线移除选择状态 </p>
+    <p class="explain"> 24. 移除所有连线选择状态 </p>
+    <p class="explain"> 25. 锚点添加到选择状态 </p>
+    <p class="explain"> 26. 锚点移除选择状态 </p>
+    <p class="explain"> 27. 移除所有锚点选择状态 </p>
+  </div>
+  <!--在graph的空白处点击右键可以 “开启/关闭” 编辑graph-->
+  <!--<br>-->
+  <!--编辑模式下 Shift+点击线会在线上新增折点-->
+  <!--<div id="graph-container"></div>-->
+  <!--<div id="graph-view-right-menu" class="right-menu">-->
+    <!--<div class="right-menu-item" onclick="startEdit()">start edit</div>-->
+    <!--<div class="right-menu-item" onclick="endEdit()">end edit</div>-->
+  <!--</div>-->
+  <!--<div class="btn-group">-->
+    <!--<button onclick="addLine()">add line</button>-->
+    <!--<button onclick="deleteLine()">delete line</button>-->
+    <!--<button onclick="deleteNode()">delete node</button>-->
+    <!--<button onclick="addPath()">add path</button>-->
+  <!--</div>-->
 </div>
 <script>
+
+  $(document).ready(function() {
+    $(".js-assets-item").on('click', function() {
+      $(".insert-assets").attr("active", "").show();
+    });
+  });
+
   var agGraph = new AgGraph({container: "#graph-container"});
   agGraph.startEdit();
   // agGraph.on("graph.node.add", function () {
@@ -92,13 +533,13 @@
     x: 0,
     y: 0,
     size: 40,
-    image: "./images/plus.jpg",
+    image: "./images/server.svg",
     text: "plus",
     customAttr: {someProperty1: "some value"}
   });
-  var node2 = agGraph.addNode({id: "n2", x: -50, y: 100, size: 40, image: "./images/plus.jpg", badge: "99"});
-  var node3 = agGraph.addNode({id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jpg"});
-  var node4 = agGraph.addNode({id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg"});
+  var node2 = agGraph.addNode({id: "n2", x: -50, y: 100, size: 40, image: "./images/pc.svg", badge: "99"});
+  var node3 = agGraph.addNode({id: "n3", x: -150, y: -100, size: 40, image: "./images/router.svg"});
+  var node4 = agGraph.addNode({id: "n4", x: 100, y: 0, size: 50, image: "./images/firewall.svg"});
   var line1 = agGraph.addLine({id: "l1", source: "n2", target: "n3", animate: true});
   var line2 = agGraph.addLine({id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true});
   agGraph.on("view.rightClick", function (view, position) {
