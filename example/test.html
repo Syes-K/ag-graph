@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/ag-graph.css">
+    <link rel="stylesheet" href="styles/ag-graph-test.css">
     <script src="./scripts/d3.js"></script>
     <script src="../dist/ag-graph.js"></script>
     <style id="customer-style">
@@ -122,7 +122,7 @@
         }
         function deleteNode() {
             agGraph.selection.nodes().forEach(function (node) {
-                node.delete();
+                base.delete();
             });
         }
         function addPath(){
