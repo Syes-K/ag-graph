@@ -32,7 +32,7 @@
         }
     }
     /**
-     * 给对象的属性添加 getter 和setter 
+     * 给对象的属性添加 getter 和setter
      * @param {*} obj 需要设置的对象
      * @param {*} property 属性名称
      * @param {*} value 属性的初始值
@@ -86,7 +86,7 @@
     // 获取折线的总长度
     function getLineLen(points) {
         var len = 0;
-        points.forEach((p, idx) => {
+        points.forEach(function(p, idx) {
             if (idx) {
                 len += getDistance(p, points[idx - 1]);
             }
@@ -307,7 +307,7 @@
     };
     /**
      * 设置svg的缩放比率
-     * @param {number} scale  
+     * @param {number} scale
      */
     AgGraphView.prototype._setScale = function () {
         var scale = this.scale;
@@ -1040,8 +1040,8 @@
         '</svg>'
     ];
     /**
-     * 
-     * @param { Object } config 
+     *
+     * @param { Object } config
      * @param { string } config.container graph 容器选择器
      */
     function AgGraph(config) {
