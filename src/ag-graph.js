@@ -727,6 +727,7 @@
 		_this.pointsData.splice(insetIndex, 0, position);
 		var newPoint = new AgGraphPoint(position, _this)
 		_this.points.splice(insetIndex, 0, newPoint);
+		_this._renderDebounce();
 		_this.agGraph._emit("point.add", newPoint);
 	}
 	AgGraphLine.prototype._render = function (firstRender) {
