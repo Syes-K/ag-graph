@@ -1,0 +1,86 @@
+.ag-graph #ag-point-group {
+    display: none;
+}
+.ag-graph #ag-path-group {
+    display: inline;
+}
+.ag-graph.editing #ag-point-group {
+    display: inline;
+}
+.ag-graph.editing #ag-path-group {
+    display: none;
+}
+/*节点样式*/
+.ag-graph-node {
+    cursor: pointer;
+}
+/*节点图片的选中样式*/
+.ag-graph-node.selected image {
+    filter: url(#node-selected);
+}
+/*节点图片的hover样式*/
+.ag-graph-node:hover image {
+    transform: translate(-10%, -10%) scale(1.2);
+}
+/*节点的文本样式*/
+.ag-graph-node-text text {
+    text-anchor: middle;
+    dominant-baseline: text-before-edge;
+    font-size: 14px;
+    fill: #ddd;
+}
+/*节点徽章的背景样式*/
+.ag-graph-node-badge circle {
+    fill: #d4351C
+}
+/*节点徽章的文本样式*/
+.ag-graph-node-badge text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    font-size: 14px;
+    fill: #fff;
+}
+/*连线的折线样式*/
+.ag-graph-line polyline {
+    fill: none;
+    stroke: #44D5CC;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+/*连线的折线的选中样式*/
+.ag-graph-line.selected polyline {
+    stroke-width: 3px;
+}
+/*连线的折线的hover样式*/
+.ag-graph-line polyline:hover {
+    stroke-width: 3px;
+}
+/*点的样式，默认隐藏*/
+.ag-graph-point {
+    fill: #d4351C;
+    stroke:#d4351C;
+    cursor: pointer;
+}
+/*点的hover样式*/
+.ag-graph-point:hover {
+    stroke-width: 3;
+}
+/*点的选中样式*/
+.ag-graph-point.selected {
+    stroke-width: 3;
+}
+
+.ag-graph-path .ag-graph-path-line {
+    fill: none;
+    stroke: #d4351C;
+    stroke-width: 2;
+}
+.ag-graph-path polyline {
+    fill: none;
+    stroke: #d4351C;
+    stroke-width: 2;
+}
+
+.ag-graph-path .ag-graph-path-arrow {
+    fill: #d4351C;
+}
