@@ -8,6 +8,7 @@
   <script src="./scripts/jquery.min.js"></script>
   <script src="./scripts/ag-click.js"></script>
   <script src="../dist/ag-graph.js"></script>
+  <script src="./graph-data.js"></script>
   <style>
     * {
       font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
@@ -309,9 +310,40 @@
       background-color: #5CBBFF;
       color: #fff;
     }
-
+    .graph-operator {
+      display: none;
+    }
+    .graph-operator.editing {
+      display: inline-block;
+    }
     #graph-container {
       height: 500px;
+    }
+
+    .ag-graph-path.status-0 polyline{
+      stroke: green;
+    }
+
+    .ag-graph-path.status-0 .ag-graph-path-arrow {
+      fill: green;
+    }
+    .ag-graph-path.status-1 polyline{
+      stroke: blue;
+    }
+    .ag-graph-path.status-1 .ag-graph-path-arrow {
+      fill: blue;
+    }
+    .ag-graph-path.status-2 polyline{
+      stroke: yellow;
+    }
+    .ag-graph-path.status-2 .ag-graph-path-arrow {
+      fill: yellow;
+    }
+    .ag-graph-path.status-3 polyline{
+      stroke: brown;
+    }
+    .ag-graph-path.status-3 .ag-graph-path-arrow {
+      fill: brown;
     }
 
   </style>
@@ -331,68 +363,68 @@
       <div class="toolbar-item">
         <span>编辑模式</span>
         <!--switch开关-->
-        <div class="switch" ag-click active toggle target="open-edit-target">
+        <div class="switch" id="graph-edit-switch" ag-click toggle target="open-edit-target">
           <div></div>
           <span class="toggle"></span>
         </div>
       </div>
       <div class="toolbar-line">&nbsp;</div>
       <!-- 放大缩小 -->
-      <div class="toolbar-item block">
+      <div class="toolbar-item block" id="graph-view-zoomin">
         <i class="icon iconfont icon-fangda"></i>
       </div>
-      <div class="toolbar-item block">
+      <div class="toolbar-item block" id="graph-view-zoomout">
         <i class="icon iconfont icon-suoxiao"></i>
       </div>
       <div class="toolbar-item text">
-        <span class="zoom-scale">100%</span>
+        <span class="zoom-scale" id="graph-view-scale">100%</span>
       </div>
       <div class="toolbar-line">&nbsp;</div>
       <!-- 设备图标 -->
-      <div class="toolbar-item block" ag-click active toggle target="assets-panel">
+      <div class="toolbar-item block graph-operator" ag-click  toggle target="assets-panel">
         <i class="example icon iconfont icon-pc"></i>
         <div class="corner"></div>
         <!-- 设备面板 -->
-        <div class="assets-panel" active assets-panel>
+        <div class="assets-panel" assets-panel>
           <div class="container">
-            <div class="item js-assets-item">
+            <div class="item js-assets-item" data-type="pc">
               <div class="icon"><i class="icon iconfont icon-pc"></i></div><div class="title">PC</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="router">
               <div class="icon"><i class="icon iconfont icon-router1"></i></div><div class="title">Router</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="server">
               <div class="icon"><i class="icon iconfont icon-server1"></i></div><div class="title">Server</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="switch">
               <div class="icon"><i class="icon iconfont icon-switch1"></i></div><div class="title">Switch</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="firewall">
               <div class="icon"><i class="icon iconfont icon-firewall1"></i></div><div class="title">Firewall</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="server">
               <div class="icon"><i class="icon iconfont icon-server1"></i></div><div class="title">Server</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="switch">
               <div class="icon"><i class="icon iconfont icon-switch1"></i></div><div class="title">Switch</div>
             </div>
-            <div class="item js-assets-item">
+            <div class="item js-assets-item"  data-type="firewall">
               <div class="icon"><i class="icon iconfont icon-firewall1"></i></div><div class="title">Firewall</div>
             </div>
           </div>
         </div>
       </div>
       <!-- 线和锚点 -->
-      <div class="toolbar-item block">
+      <div class="toolbar-item block graph-operator" id="graph-line-add">
         <i class="icon iconfont icon-tianjiaxian1"></i>
       </div>
-      <div class="toolbar-item block">
+      <div class="toolbar-item block graph-operator" id="graph-line-delete">
         <i class="icon iconfont icon-shanchuxian1"></i>
       </div>
-      <div class="toolbar-item block">
+      <div class="toolbar-item block graph-operator" style="display:none;" >
         <i class="icon iconfont icon-weixuandingliuchenglianxiantianjia"></i>
       </div>
-      <div class="toolbar-item block">
+      <div class="toolbar-item block graph-operator" id="graph-point-delete">
         <i class="icon iconfont icon-weixuandingliuchenglianxianshanchu"></i>
       </div>
     </div>
@@ -410,6 +442,14 @@
         <div class="item">
           <label for="info">信息</label>
           <input name="info" id="info">
+        </div>
+        <div class="item">
+          <label for="info">徽章</label>
+          <input name="badge" id="badge">
+        </div>
+        <div class="item">
+          <label for="info">Size</label>
+          <input name="size" id="size" value="40">
         </div>
       </div>
       <div class="foot">
@@ -516,87 +556,91 @@
 
   $(document).ready(function() {
     $(".js-assets-item").on('click', function() {
-      $(".insert-assets").attr("active", "").show();
+      var type = $(this).data("type");
+      $(".insert-assets").attr("active", "").data("type",type).show();
+    });
+    var nodeIdIdx =0;
+    $(".insert-assets").on("click",".btn-submit",function(){
+      var $dialog = $(".insert-assets");
+      var type = $dialog.data("type");
+      var nodeData = {
+        id:"n-custom-"+nodeIdIdx,
+        image:"./images/"+type+".svg",
+        text:$dialog.find("#name").val(),
+        info:$dialog.find("#info").val(),
+        badge:$dialog.find("#badge").val(),
+        size:$dialog.find("#size").val(),
+        x:0,
+        y:0
+      };
+      agGraph.addNode(nodeData);
+      nodeIdIdx++;
+    })
+    $("#graph-edit-switch").click(function(){
+      var $switch = $(this);
+      var isEditing = $switch.is("[active]");
+      if(isEditing){
+        agGraph.startEdit();
+        $(".graph-operator").addClass("editing");
+      }else{
+        agGraph.endEdit();
+        $(".graph-operator").removeClass("editing");
+        graphData.paths.forEach(function(pathData){
+          agGraph.addPath(pathData);
+        });
+      }
+    });
+    $("#graph-view-zoomin").click(function(){
+      agGraph.view.zoomIn();
+    });
+    $("#graph-view-zoomout").click(function(){
+      agGraph.view.zoomOut();
+    });
+    var lineIdIdx = 0;
+    $("#graph-line-add").click(function(){
+        var selectedNodes =agGraph.selection.nodes();
+        var len = selectedNodes.length;
+        if(len<2){
+          return;
+        }
+        agGraph.addLine({
+          id:"l-custom-"+lineIdIdx,
+          source:selectedNodes[len-2].id,
+          target:selectedNodes[len-1].id
+        });
+        lineIdIdx++;
+    });
+    $("#graph-line-delete").click(function(){
+        agGraph.selection.lines().forEach(function(line){
+          line.delete();
+        });
+    });
+    $("#graph-point-delete").click(function(){
+        agGraph.selection.points().forEach(function(point){
+          point.delete();
+        });
+    });
+    agGraph.on("view.zoom",function(){
+        $("#graph-view-scale").text( (agGraph.view.scale * 100).toFixed(0) + "%")
     });
   });
 
   var agGraph = new AgGraph({container: "#graph-container"});
-  agGraph.startEdit();
-  // agGraph.on("graph.node.add", function () {
-  //     console.log("graph.node.add");
-  // })
-  // agGraph.on("view.viewBox.move", function () {
-  //     console.log("view.viewBox.move");
-  // })
-  var node1 = agGraph.addNode({
-    id: "n1",
-    x: 0,
-    y: 0,
-    size: 40,
-    image: "./images/server.svg",
-    text: "plus",
-    customAttr: {someProperty1: "some value"}
-  });
-  var node2 = agGraph.addNode({id: "n2", x: -50, y: 100, size: 40, image: "./images/pc.svg", badge: "99"});
-  var node3 = agGraph.addNode({id: "n3", x: -150, y: -100, size: 40, image: "./images/router.svg"});
-  var node4 = agGraph.addNode({id: "n4", x: 100, y: 0, size: 50, image: "./images/firewall.svg"});
-  var line1 = agGraph.addLine({id: "l1", source: "n2", target: "n3", animate: true});
-  var line2 = agGraph.addLine({id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true});
-  agGraph.on("view.rightClick", function (view, position) {
-    var rightMenu = document.getElementById("graph-view-right-menu");
-    rightMenu.style.top = position.y;
-    rightMenu.style.left = position.x;
-    rightMenu.classList.add("show");
-  });
-  agGraph.on("view.click,node.click,line.click,point.click", function () {
-    var rightMenu = document.getElementById("graph-view-right-menu");
-    rightMenu.classList.remove("show");
+  graphData.nodes.forEach(function(nodeData){
+    agGraph.addNode(nodeData);
   })
-
-  function addLine() {
-    var selectedNodes = agGraph.selection.nodes();
-    var selectedNodesLength = selectedNodes.length;
-    if (selectedNodesLength < 2)
-      return;
-    var line = agGraph.addLine({
-      id: "l" + Math.random(),
-      source: agGraph.selection.nodes()[selectedNodesLength - 2].id,
-      target: agGraph.selection.nodes()[selectedNodesLength - 1].id,
-      animate: true
-    });
-  }
-
-  function deleteLine() {
-    agGraph.selection.lines().forEach(function (line) {
-      line.delete();
-    });
-  }
-
-  function deleteNode() {
-    agGraph.selection.nodes().forEach(function (node) {
-      node.delete();
-    });
-  }
-
-  function addPath() {
-    if (agGraph.isEditing()) {
-      alert("编辑模式无法添加path");
+  graphData.lines.forEach(function(lineData){
+    lineData.animate =true;
+    agGraph.addLine(lineData);
+  });
+  setTimeout(function(){
+    if(agGraph.isEditing()){
       return;
     }
-    agGraph.addPath({id: "p1", source: "n3", target: "n1", repeat: true, class: ["status-1"]})
-  }
-
-  function startEdit() {
-    agGraph.startEdit();
-    var rightMenu = document.getElementById("graph-view-right-menu");
-    rightMenu.classList.remove("show");
-  }
-
-  function endEdit() {
-    agGraph.endEdit();
-    var rightMenu = document.getElementById("graph-view-right-menu");
-    rightMenu.classList.remove("show");
-  }
+    graphData.paths.forEach(function(pathData){
+      agGraph.addPath(pathData);
+    });
+  },1000)
 </script>
 </body>
 
