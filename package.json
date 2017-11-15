@@ -1,0 +1,25 @@
+{
+  "name": "ag-graph",
+  "version": "1.0.1",
+  "description": "一个基于点d3构建的svg graph 图形绘制框架",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "min": "./node_modules/.bin/uglifyjs src/ag-graph.js -c -m -o dist/ag-graph.min.js --source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syes-K/ag-graph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Syes-K/ag-graph/issues"
+  },
+  "homepage": "https://github.com/Syes-K/ag-graph#readme",
+  "devDependencies": {
+    "uglify-js": "^3.1.9"
+  }
+}
