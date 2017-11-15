@@ -1,4 +1,4 @@
-# Ag Graph 
+# Ag Graph
 一个基于点d3构建的svg graph 图形绘制框架
 
 ## 快速构建
@@ -21,8 +21,8 @@
 ```javascript
 var agGraph = new AgGraph({ container: "#graph-container" }); // 创建agGraph实例
 // 添加一个节点 可以用变量接受添加的节点以便后续的处理
-var node1 = agGraph.addNode({ 
-    id: "n1", 
+var node1 = agGraph.addNode({
+    id: "n1",
     x: 0, y: 0, // 位置信息
     size: 40, // 大小
     image: "./images/plus.jpg", // 节点显示的图片的路径。根据您的项目实际情况修改
@@ -35,8 +35,8 @@ agGraph.addNode({ id: "n3", x: -150, y: -100, size: 40, image: "./images/plus.jp
 agGraph.addNode({ id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg" });
 
 添加一条连线
-var line1 = agGraph.addLine({ 
-    id: "l1", 
+var line1 = agGraph.addLine({
+    id: "l1",
     source: "n2", // 连线的开始节点
     target: "n3", // 连线的结束节点
     animate: true // 绘制连线的时候是否开启动画
@@ -80,9 +80,9 @@ AgGraph实例对象可以用来创建节点，连线，等
 - 输出 `AgGraphNode` (参考AgGraphNode实例 api)
 - 例
 ```javascript
-var node2 = agGraph.addNode({ 
-    id: "n2", 
-    x: -50, y: 100, size: 40, 
+var node2 = agGraph.addNode({
+    id: "n2",
+    x: -50, y: 100, size: 40,
     image: "./images/plus.jpg", badge: "99",
     customAttr1:{someProperty1: "some value"}
 });
@@ -131,19 +131,19 @@ console.log(neighbors);
 }
 ```
 ```javascript
-agGraph.addNode({ 
-    id: "n1", 
-    x: 0, y: 0, size: 40, 
+agGraph.addNode({
+    id: "n1",
+    x: 0, y: 0, size: 40,
     image: "./images/plus.jpg", text: "plus"
 });
-agGraph.addNode({ 
-    id: "n2", 
-    x: -50, y: 100, size: 40, 
-    image: "./images/plus.jpg", badge: "99" 
+agGraph.addNode({
+    id: "n2",
+    x: -50, y: 100, size: 40,
+    image: "./images/plus.jpg", badge: "99"
 });
-var line1 = agGraph.addLine({ 
-    id: "l1", source: "n1", 
-    target: "n2",class:["hot-line"], 
+var line1 = agGraph.addLine({
+    id: "l1", source: "n1",
+    target: "n2",class:["hot-line"],
     animate: true,
     customAttr1:{someProperty1: "some value"}
 });
@@ -274,14 +274,14 @@ console.log(data);
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.view.zoomIn();
 ```
 ##### zoomOut:缩小视图
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.view.zoomOut();
 ```
 ##### move:方法视图
@@ -294,7 +294,7 @@ agGraph.view.zoomOut();
 ```
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.view.move(20,10);
 ```
 
@@ -312,7 +312,7 @@ agGraph的视窗大小和偏移(相当于svg中的viewbox)
 ]
 ```
 - 例
-```javascript 
+```javascript
 console.log(agGraph.view.viewBox);
 ```
 
@@ -321,56 +321,60 @@ console.log(agGraph.view.viewBox);
 agGraph的视窗放大缩小比率
 - 输出 `numebr`
 - 例
-```javascript 
+```javascript
 console.log(agGraph.view.scale);
 ```
 
 ### AgGraphSelection实例方法
 
-##### nodes 
+##### nodes
 获取所有选中的node(按照选择的顺序排列)
 - 输入 无
 - 输出 `AgGraphNode[]`
 - 例
-```javascript 
+```javascript
 console.log(agGraph.selection.nodes());
 ```
 
-##### addNode 
+##### addNode
 将node实例添加到选择状态中
-- 输入 `node:AgGraphNode`
+- 输入 `node:AgGraphNode|AgGraphNode[]`
 - 输出 无
 - 例
-```javascript 
+```javascript
+var node1=agGraph.getNode("n1")
 var node2=agGraph.getNode("n2")
-agGraph.selection.addNode(node2);
+var node3=agGraph.getNode("n3")
+agGraph.selection.addNode([node1,node2]);
+agGraph.selection.addNode(node3);
 ```
-##### removeNode 
+##### removeNode
 将node实例添加从选择状态中移除
-- 输入 `node:AgGraphNode`
+- 输入 `node:AgGraphNode|AgGraphNode[]`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var node2=agGraph.getNode("n2")
 agGraph.selection.removeNode(node2);
+agGraph.selection.removeNode(agGraph.selection.nodes);
 ```
 
-##### toggleNode 
+##### toggleNode
 切换node的选择状态
 - 输入 `node:AgGraphNode`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var node2=agGraph.getNode("n2")
 agGraph.selection.toggleNode(node2);
 ```
 
-##### clearNodes 
+##### clearNodes
 清除所有node的选择状态
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.selection.clearNodes();
 ```
 
@@ -379,44 +383,44 @@ agGraph.selection.clearNodes();
 - 输入 无
 - 输出 `AgGraphLine[]`
 - 例
-```javascript 
+```javascript
 console.log(agGraph.selection.lines());
 ```
-##### addLine 
+##### addLine
 将line实例添加到选择状态中
 - 输入 `line:AgGraphLine`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line2=agGraph.getLine("l2")
 agGraph.selection.addLine(line2);
 ```
-##### removeLine 
+##### removeLine
 将line实例添加从选择状态中移除
 - 输入 `line:AgGraphLine`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line2=agGraph.getLine("l2")
 agGraph.selection.removeLine(line2);
 ```
 
-##### toggleLine 
+##### toggleLine
 切换line的选择状态
 - 输入 `line:AgGraphLine`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line2=agGraph.getLine("l2")
 agGraph.selection.toggleLine(line2);
 ```
 
-##### clearLines 
+##### clearLines
 清除所有line的选择状态
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.selection.clearLines();
 ```
 
@@ -426,63 +430,63 @@ agGraph.selection.clearLines();
 - 输入 无
 - 输出 `AgGraphPoint[]`
 - 例
-```javascript 
+```javascript
 console.log(agGraph.selection.points());
 ```
-##### addPoint 
+##### addPoint
 将point实例添加到选择状态中
 - 输入 `point:AgGraphPoint`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line2=agGraph.getLine("l2")
 agGraph.selection.addPoint(line2.points[0]);
 ```
-##### removePoint 
+##### removePoint
 将point实例添加从选择状态中移除
 - 输入 `point:AgGraphPoint`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var selectedPoints=agGraph.selection.points()
 agGraph.selection.removePoint(selectedPoints[0]);
 ```
 
-##### togglePoint 
+##### togglePoint
 切换point的选择状态
 - 输入 `point:AgGraphPoint`
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line2=agGraph.getLine("l2")
 agGraph.selection.togglePoint(line2.points[0]);
 ```
 
-##### clearPoints 
+##### clearPoints
 清除所有point的选择状态
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 agGraph.selection.clearPoints();
 ```
 
 
 ### AgGraphNode实例方法
 
-##### delete 
+##### delete
 删除node节点
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 var node2=agGraph.getNode("n2");
 node2.delete();
 ```
 ##### offset
 获取node节点相对于浏览器视窗的偏移
 - 输入 无
-- 输出 
+- 输出
 ```
 {
     "x":number, // x轴方向偏移
@@ -490,14 +494,14 @@ node2.delete();
 }
 ```
 - 例
-```javascript 
+```javascript
 var node2=agGraph.getNode("n2");
 console.log(node2.offset());
 ```
 ##### position
 获取node节点相对于定位父元素的偏移
 - 输入 无
-- 输出 
+- 输出
 ```
 {
     "x":number, // x轴方向偏移
@@ -505,7 +509,7 @@ console.log(node2.offset());
 }
 ```
 - 例
-```javascript 
+```javascript
 var node2=agGraph.getNode("n2");
 console.log(node2.offset());
 ```
@@ -554,12 +558,12 @@ console.log(node2.offset());
 
 ### AgGraphLine实例方法
 
-##### delete 
+##### delete
 删除连线
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line1=agGraph.getNode("l1");
 line1.delete();
 ```
@@ -605,12 +609,12 @@ line1.delete();
 
 ### AgGraphPoint实例方法
 
-##### delete 
+##### delete
 删除连线
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 var line1=agGraph.getNode("l1");
 line1.points[1].delete();
 ```
@@ -643,12 +647,12 @@ line1.points[1].delete();
 
 ### AgGraphPath实例方法
 
-##### delete 
+##### delete
 删除连线
 - 输入 无
 - 输出 无
 - 例
-```javascript 
+```javascript
 var path1=agGraph.getPath("p1");
 if(path1){
     path1.delete();

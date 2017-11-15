@@ -1,4 +1,4 @@
-;(function (name, definition, global) {
+; (function (name, definition, global) {
 	//检测上下文环境是否为AMD或CMD
 	var hasDefine = typeof global.define === 'function',
 		// 检测上下文环境是否为Node
@@ -173,7 +173,7 @@
 			x += p.x;
 			y += p.y;
 		});
-		return {x: x / len, y: y / len};
+		return { x: x / len, y: y / len };
 	}
 
 	// 获取点到线的距离
@@ -244,13 +244,23 @@
 			if (!this._events) {
 				this._events = [];
 			}
-			var event = this._events[name];
+			// var event = this._events[name];
+			var AllEvents = [];
+			var names = name.split(".");
+			while (names.length) {
+				var partName = names.join(".");
+				var events = this._events[partName];
+				if (events && events.length) {
+					AllEvents = AllEvents.concat(events);
+				}
+				names.pop();
+			}
 			var args = Array.prototype.slice.call(arguments, 1);
-			if (event) {
-				var length = event.length;
+			if (AllEvents.length) {
+				var length = AllEvents.length;
 				var i = 0;
 				while (i < length) {
-					event[i].apply(this, args);
+					AllEvents[i].apply(this, args);
 					i++;
 				}
 			}
@@ -269,7 +279,7 @@
 		function dragSvgStart() {
 			var x = d3.event.x;
 			var y = d3.event.y;
-			tempData.offset = {x: _this.viewBox[0] + x / _this.scale, y: _this.viewBox[1] + y / _this.scale};
+			tempData.offset = { x: _this.viewBox[0] + x / _this.scale, y: _this.viewBox[1] + y / _this.scale };
 		}
 
 		function dragSvgMove() {
@@ -297,7 +307,7 @@
 			.on("contextmenu", function () {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
-				var offset = {x: d3.event.x, y: d3.event.y};
+				var offset = { x: d3.event.x, y: d3.event.y };
 				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
 				var position = {
 					x: offset.x - rect.x,
@@ -393,20 +403,34 @@
 	}
 	AgGraphSelection.prototype.addNode = function (node) {
 		var _this = this;
-		var idx = _this._nodes.indexOf(node);
-		if (idx < 0) {
-			_this._nodes.push(node);
-			node.selected = true;
-			_this.agGraph._emit("selection.node.add", node);
+		var nodes = [];
+		if (Array.isArray(node)) {
+			nodes = node;
+		} else {
+			nodes = [node];
 		}
+		nodes.forEach(function (n) {
+			var idx = _this._nodes.indexOf(n);
+			if (idx < 0) {
+				_this._nodes.push(n);
+				n.selected = true;
+			}
+		});
+		_this.agGraph._emit("selection.node.add");
 	}
 	AgGraphSelection.prototype.removeNode = function (node) {
 		var _this = this;
-		var removedNode = removeArrayItem(_this._nodes, node);
-		if (removedNode) {
-			node.selected = false;
-			_this.agGraph._emit("selection.node.remove", node);
+		var nodes = [];
+		if (Array.isArray(node)) {
+			nodes = node;
+		} else {
+			nodes = [node];
 		}
+		nodes.forEach(function (n) {
+			removeArrayItem(_this._nodes, n);
+			n.selected = false;
+		});
+		_this.agGraph._emit("selection.node.remove");
 	}
 	AgGraphSelection.prototype.clearNodes = function (node) {
 		var _this = this;
@@ -526,9 +550,9 @@
 			var mouse_x = d3.event.x;
 			var mouse_y = d3.event.y;
 			// 记录开始drag时，鼠标和node中心的距离
-			tempData.offset = {x: mouse_x - _this.x, y: mouse_y - _this.y}
+			tempData.offset = { x: mouse_x - _this.x, y: mouse_y - _this.y }
 			tempData.pointsOffset = _this.anchorPoints.map(function (point) {
-				return {x: mouse_x - point.x, y: mouse_y - point.y}
+				return { x: mouse_x - point.x, y: mouse_y - point.y }
 			});
 		}
 
@@ -564,7 +588,12 @@
 		_this.$node.append("image").classed("ag-graph-node-image", true);
 		_this.$node.call(dragNode)
 			.on("click", function () {
-				agGraph.selection.toggleNode(_this);
+				if (d3.event.shiftKey) {
+					agGraph.selection.toggleNode(_this);
+				} else {
+					agGraph.selection.removeNode(agGraph.selection.nodes());
+					agGraph.selection.addNode(_this);
+				}
 				d3.event.stopPropagation();
 				agGraph._emit("node.click", _this);
 			})
@@ -668,7 +697,7 @@
 		// 如果不存在pointsData
 		if (!_this.pointsData.length) {
 			// 获取line 的source到target 中心点的角度
-			var deg = Math.PI * getPointsDeg({x: _this.sourceNode.x, y: _this.sourceNode.y}, {
+			var deg = Math.PI * getPointsDeg({ x: _this.sourceNode.x, y: _this.sourceNode.y }, {
 				x: _this.targetNode.x,
 				y: _this.targetNode.y
 			}) / 180;
@@ -680,8 +709,8 @@
 				x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg),
 				y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg)
 			};
-			var startPoint = {x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y};
-			var endPoint = {x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y};
+			var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
+			var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
 			_this.pointsData = [
 				startPoint,
 				// getPointsCenter([startPoint, endPoint]),
@@ -745,8 +774,8 @@
 						return (d3.interpolateString("0," + len, len + ",0"))(t)
 					};
 				}).on("end", function () {
-				$polyline.attr("stroke-dasharray", null);
-			});
+					$polyline.attr("stroke-dasharray", null);
+				});
 		}
 		var classes = ["ag-graph-line"];
 		if (Array.isArray(_this.class)) {
@@ -830,7 +859,7 @@
 			var mouse_x = d3.event.x;
 			var mouse_y = d3.event.y;
 			// 记录开始drag时，鼠标和Point中心的距离
-			tempData.offset = {x: mouse_x - _this.x, y: mouse_y - _this.y}
+			tempData.offset = { x: mouse_x - _this.x, y: mouse_y - _this.y }
 		}
 
 		function dragPointMove() {
@@ -1020,10 +1049,10 @@
 						return dasharrayString;
 					};
 				}).on("end", function () {
-				$line.attr("stroke-dasharray", null);
-				pointsArray.shift()
-				_this._renderLine(pointsArray);
-			});
+					$line.attr("stroke-dasharray", null);
+					pointsArray.shift()
+					_this._renderLine(pointsArray);
+				});
 		} else {
 			if (_this.repeat) {
 				setTimeout(function () {
@@ -1197,5 +1226,6 @@
 			return callback(line);
 		});
 	}
+	AgGraph._version="1.0.1";
 	return AgGraph;
 }, window);
