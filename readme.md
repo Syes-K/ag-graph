@@ -120,6 +120,7 @@ console.log(neighbors);
     "target": string, // 连线的结束节点id
     "animate": boolean, // 是否使用动画来绘制连线
     "class": string[], // 连线的自定义样式(参考自定义样式api)
+    "text": string, // 连线的文本
     "pointsData": {"x":number,"y":number}[], // 连线上的各个点位置(如果不设置，则通过source和target对应的node自动生成)
 }
 ```
@@ -145,6 +146,7 @@ var line1 = agGraph.addLine({
     id: "l1", source: "n1",
     target: "n2",class:["hot-line"],
     animate: true,
+    text: "有关系",
     customAttr1:{someProperty1: "some value"}
 });
 console.log(line1);
@@ -605,6 +607,9 @@ line1.delete();
 
 ##### selected
 - 输出  `boolean` // 连线选择状态
+
+##### text
+- 输出  `string` // 连线的文本
 
 
 ### AgGraphPoint实例方法

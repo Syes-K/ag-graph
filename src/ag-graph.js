@@ -302,6 +302,8 @@
 		_this.agGraph.$svg.call(dragView)
 			.on("click", function () {
 				agGraph.selection.clearNodes();
+				agGraph.selection.clearLines();
+				agGraph.selection.clearPoints();
 				agGraph._emit("view.click", _this);
 			})
 			.on("contextmenu", function () {
@@ -462,12 +464,17 @@
 	}
 	AgGraphSelection.prototype.removeLine = function (line) {
 		var _this = this;
-		var idx = _this._lines.indexOf(line);
-		var removedLine = removeArrayItem(_this._lines, line);
-		if (removedLine) {
-			line.selected = false;
-			_this.agGraph._emit("selection.line.remove", line);
+		var lines = [];
+		if (Array.isArray(line)) {
+			lines = line;
+		} else {
+			lines = [line];
 		}
+		lines.forEach(function (l) {
+			removeArrayItem(_this._lines, l);
+			l.selected = false;
+		});
+		_this.agGraph._emit("selection.line.remove");
 	}
 	AgGraphSelection.prototype.clearLines = function (line) {
 		var _this = this;
@@ -499,12 +506,17 @@
 	}
 	AgGraphSelection.prototype.removePoint = function (point) {
 		var _this = this;
-		var idx = _this._points.indexOf(point);
-		var removedPoint = removeArrayItem(_this._points, point);
-		if (removedPoint) {
-			point.selected = false;
-			_this.agGraph._emit("selection.point.remove", point);
+		var points = [];
+		if (Array.isArray(point)) {
+			points = point;
+		} else {
+			points = [point];
 		}
+		points.forEach(function (p) {
+			removeArrayItem(_this._points, p);
+			p.selected = false;
+		});
+		_this.agGraph._emit("selection.point.remove");
 	}
 	AgGraphSelection.prototype.clearPoints = function (point) {
 		var _this = this;
@@ -554,6 +566,10 @@
 			tempData.pointsOffset = _this.anchorPoints.map(function (point) {
 				return { x: mouse_x - point.x, y: mouse_y - point.y }
 			});
+			tempData.lastPostin = {
+				x: d3.event.x,
+				y: d3.event.y
+			};
 		}
 
 		function dragNodeMove() {
@@ -562,12 +578,27 @@
 			}
 			var x = d3.event.x;
 			var y = d3.event.y;
-			_this.x = x - tempData.offset.x;
-			_this.y = y - tempData.offset.y;
+
+			_this.x += (x - tempData.lastPostin.x);
+			_this.y += (y - tempData.lastPostin.y);
+
 			_this.anchorPoints.forEach(function (point, idx) {
-				point.x = x - tempData.pointsOffset[idx].x;
-				point.y = y - tempData.pointsOffset[idx].y;
+				if (point.line.points.length <= 2) {
+					var pointsData = point.line._getAutoPoints();
+					point.line.points.forEach(function (p, idx) {
+						p.x = pointsData[idx].x;
+						p.y = pointsData[idx].y;
+					});
+				} else {
+					point.x += (x - tempData.lastPostin.x);
+					point.y += (y - tempData.lastPostin.y);
+				}
 			});
+
+			tempData.lastPostin = {
+				x: d3.event.x,
+				y: d3.event.y
+			};
 		}
 
 		function dragNodeEnd() {
@@ -667,12 +698,13 @@
 			animate: false,
 			class: [],
 			selected: false,
+			text: "",
 			points: [],
 			pointsData: [],
 		}, lineData);
 		var _this = this;
 		_this.agGraph = agGraph;
-		var setterProperties = ["class", "selected"];//这些属性   这些属性的变化，需要重新绘制line
+		var setterProperties = ["class", "text", "selected"];//这些属性   这些属性的变化，需要重新绘制line
 		// 设置 _render 的 debounce(setterProperties 中的属性进行赋值时会调用)
 		_this._renderDebounce = debounce(_this._render, PROPERTY_CHANGE_DEBOUNCE_TIME);
 		// 复制 设置检测属性到_this
@@ -696,39 +728,25 @@
 		_this.targetNode.lines.push(_this);
 		// 如果不存在pointsData
 		if (!_this.pointsData.length) {
-			// 获取line 的source到target 中心点的角度
-			var deg = Math.PI * getPointsDeg({ x: _this.sourceNode.x, y: _this.sourceNode.y }, {
-				x: _this.targetNode.x,
-				y: _this.targetNode.y
-			}) / 180;
-			var sourceDiff = {
-				x: ((_this.sourceNode.size / 2) + 4) * Math.cos(deg),
-				y: ((_this.sourceNode.size / 2) + 4) * Math.sin(deg)
-			};
-			var targetDiff = {
-				x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg),
-				y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg)
-			};
-			var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
-			var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
-			_this.pointsData = [
-				startPoint,
-				// getPointsCenter([startPoint, endPoint]),
-				endPoint
-			];
+			_this.pointsData = _this._getAutoPoints();
 		}
 
 		_this.$line = agGraph._$lineGroup.append("g")
 			.attr("line-id", _this.id)
 			.on("click", function () {
 				if (d3.event.shiftKey && _this.agGraph.isEditing()) {
-					var position = _this.agGraph.view._transferToViewPosition(d3.event);
-					_this._addPoint(position);
-				} else {
 					agGraph.selection.toggleLine(_this);
+				} else {
+					agGraph.selection.removeLine(agGraph.selection.lines());
+					agGraph.selection.addLine(_this);
+					// agGraph.selection.toggleLine(_this);
 				}
 				d3.event.stopPropagation();
 				agGraph._emit("line.click", _this);
+			})
+			.on("dblclick", function () {
+				var position = _this.agGraph.view._transferToViewPosition(d3.event);
+				_this._addPoint(position);
 			})
 			.on("contextmenu", function () {
 				d3.event.stopPropagation();
@@ -740,7 +758,29 @@
 			_this.points.push(new AgGraphPoint(pointData, _this));
 		});
 	}
-
+	AgGraphLine.prototype._getAutoPoints = function () {
+		var _this = this;
+		// 获取line 的source到target 中心点的角度
+		var deg = Math.PI * getPointsDeg(
+			{ x: _this.sourceNode.x, y: _this.sourceNode.y },
+			{ x: _this.targetNode.x, y: _this.targetNode.y }
+		) / 180;
+		var sourceDiff = {
+			x: ((_this.sourceNode.size / 2) + 4) * Math.cos(deg),
+			y: ((_this.sourceNode.size / 2) + 4) * Math.sin(deg)
+		};
+		var targetDiff = {
+			x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg),
+			y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg)
+		};
+		var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
+		var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
+		return [
+			startPoint,
+			// getPointsCenter([startPoint, endPoint]),
+			endPoint
+		];
+	}
 	AgGraphLine.prototype._addPoint = function (position) {
 		var _this = this;
 		var maxDeg = 0;
@@ -777,6 +817,17 @@
 					$polyline.attr("stroke-dasharray", null);
 				});
 		}
+		if (_this.text) {
+			var lineLen = getLineLen(_this.pointsData);
+			var textPositionInfo = getPointInfoAtLine(_this.pointsData, lineLen / 2);
+			if (textPositionInfo.angel > 90 && textPositionInfo.angel < 270) {
+				textPositionInfo.angel += 180;
+			}
+			_this.$line
+				.append("g").attr("transform", "translate(" + textPositionInfo.x + "," + textPositionInfo.y + ")")
+				.append("text").attr("transform", "rotate(" + textPositionInfo.angel + ")")
+				.text(_this.text);
+		}
 		var classes = ["ag-graph-line"];
 		if (Array.isArray(_this.class)) {
 			classes = classes.concat(_this.class)
@@ -788,6 +839,7 @@
 		}
 		_this.$line.attr("class", classes.join(" "));
 	}
+
 	AgGraphLine.prototype.delete = function () {
 		var _this = this;
 		var i = _this.points.length - 1;
@@ -842,20 +894,6 @@
 			.attr("r", POINT_RADIUS);
 
 		function dragPointStart() {
-			// if (d3.event.sourceEvent.shiftKey) {
-			//     var newPointData = { x: _this.x, y: _this.y };
-			//     var idx = _this.line.pointsData.indexOf(_this.pointData);
-			//     var insertPointIdx;
-			//     if (idx === _this.line.pointsData.length - 1) {
-			//         insertPointIdx = _this.line.pointsData.length - 1;
-			//     } else {
-			//         insertPointIdx = idx + 1;
-			//     }
-			//     _this.line.pointsData.splice(insertPointIdx, 0, newPointData);
-			//     var newPoint = new AgGraphPoint(newPointData, _this.line)
-			//     _this.line.points.splice(insertPointIdx, 0, newPoint);
-			//     _this.line.agGraph._emit("point.add", newPoint);
-			// }
 			var mouse_x = d3.event.x;
 			var mouse_y = d3.event.y;
 			// 记录开始drag时，鼠标和Point中心的距离
@@ -877,7 +915,13 @@
 		dragPoint.clickDistance(5);
 		_this.$point.call(dragPoint)
 			.on("click", function () {
-				_this.line.agGraph.selection.togglePoint(_this);
+				if (d3.event.shiftKey) {
+					_this.line.agGraph.selection.togglePoint(_this);
+				} else {
+					_this.line.agGraph.selection.removePoint(_this.line.agGraph.selection.points());
+					_this.line.agGraph.selection.addPoint(_this);
+				}
+
 				d3.event.stopPropagation();
 				_this.line.agGraph._emit("point.click", _this);
 			})
@@ -1182,6 +1226,18 @@
 		_this._emit("line.add", line);
 		return line;
 	}
+	AgGraph.prototype.getLinesInNodes = function (nodes) {
+		var nodeDic = {};
+		nodes.forEach(function (n) {
+			nodeDic[n.id] = n;
+		});
+		var lines = [];
+		agGraph.lines.forEach(function (l) {
+			if (nodeDic[l.source] && nodeDic[l.target]) {
+				lines.push(l);
+			}
+		});
+	}
 	AgGraph.prototype.getLine = function (id) {
 		return this.lines.find(function (l) {
 			return l.id === id;
@@ -1193,7 +1249,8 @@
 	AgGraph.prototype.startEdit = function () {
 		this._isEditing = true;
 		this.$svg.classed("editing", true);
-		this.paths.forEach(function (path) {
+
+		Array.from(this.paths).forEach(function (path) {
 			path.delete();
 		})
 	}
@@ -1226,6 +1283,6 @@
 			return callback(line);
 		});
 	}
-	AgGraph._version="1.0.1";
+	AgGraph._version = "1.0.2";
 	return AgGraph;
 }, window);

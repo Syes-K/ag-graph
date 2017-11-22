@@ -55,6 +55,13 @@
 .ag-graph-line polyline:hover {
     stroke-width: 3px;
 }
+/*line的文本样式*/
+.ag-graph-line text {
+    text-anchor: middle;
+    dominant-baseline: text-before-edge;
+    font-size: 12px;
+    fill: #ddd;
+}
 /*点的样式，默认隐藏*/
 .ag-graph-point {
     fill: #d4351C;
