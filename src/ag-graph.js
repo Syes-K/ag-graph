@@ -1249,10 +1249,11 @@
 	AgGraph.prototype.startEdit = function () {
 		this._isEditing = true;
 		this.$svg.classed("editing", true);
-
-		Array.from(this.paths).forEach(function (path) {
-			path.delete();
-		})
+		var len = this.paths.length;
+		while(len){
+			this.paths[len-1].delete();
+			len--;
+		}
 	}
 
 	AgGraph.prototype.endEdit = function () {
