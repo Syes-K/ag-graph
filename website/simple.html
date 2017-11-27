@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>ag-graph</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="pluginunit/fancySelect/css/fancySelect.css">
+		<link rel="stylesheet" type="text/css" href="pluginunit/zTree/css/zTreeStyle.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+	</head>
+	<body>
+		<!--simple-->
+		<div class="aigo-simple-box">
+			<!--header-->
+			<div class="aigo-header">
+				<div class="aigo-simple-header">
+					<div class="aigo-logo" style="margin-top: 5px;">
+						<a href="//www.aigodata.com">
+							<img src="img/aigodata-white.svg">
+						</a>
+						<span class="symbol">&</span>
+						<a href="index.html">
+							<img src="img/ag-graph-logo.svg" class="logo">
+							<span class="name">ag-graph</span>
+						</a>
+					</div>
+					<div class="aigo-simple-select">
+						<select id="basic-usage-demo" class="pull-right">
+							<option>ag-graph 1.0.0</option>
+							<!--<option>ag-graph 1.1.0</option>-->
+							<!--<option>ag-graph 1.2.0</option>-->
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="aigo-simple-content">
+				<div class="aigo-simple-menu">
+					<div class="zTreeDemoBackground">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+				</div>
+				<div class="aigo-simple-content-right">
+					<div class="aigo-simple-code-box" style="height: 60%;">
+						<div class="title">
+							<span class="big-font">我是标题</span>
+							<span class="small-font">我是描述文字</span>
+						</div>
+						<div class="content content-top">
+
+						</div>
+					</div>
+
+					<div class="aigo-simple-code-box" style="height: 40%;">
+						<div class="header">
+							代码
+							<a href="#" class="run-btn">运行</a>
+						</div>
+						<div class="content content-bottom">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--footer-->
+			<div class="aigo-footer aigo-simple-footer">
+				Copyright 2016-2017 aigodata.com 京ICP备17001622号-1
+			</div>
+		</div>
+
+		<script src="js/jquery-2.1.0.min.js"></script>
+		<script src="pluginunit/fancySelect/js/fancySelect.js"></script>
+		<script src="pluginunit/zTree/js/jquery.ztree.all.min.js"></script>
+		<script type="text/javascript">
+			//select
+			$(document).ready(function(){
+				$('#basic-usage-demo').fancySelect();
+			});
+
+			//Ztree
+			var curMenu = null, zTree_Menu = null;
+			var setting = {
+				view: {
+					showLine: false,
+					showIcon: false,
+					selectedMulti: false,
+					dblClickExpand: false,
+					addDiyDom: addDiyDom
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				callback: {
+					beforeClick: beforeClick
+				}
+			};
+
+			var zNodes =[
+				{ id:1, pId:0, name:"文件夹", open:true},
+				{ id:11, pId:1, name:"收件箱"},
+				{ id:111, pId:11, name:"收件箱1"},
+				{ id:112, pId:111, name:"收件箱2"},
+				{ id:113, pId:112, name:"收件箱3"},
+				{ id:114, pId:113, name:"收件箱4"},
+				{ id:12, pId:1, name:"垃圾邮件"},
+				{ id:13, pId:1, name:"草稿"},
+				{ id:14, pId:1, name:"已发送邮件"},
+				{ id:15, pId:1, name:"已删除邮件"},
+				{ id:3, pId:0, name:"快速视图"},
+				{ id:31, pId:3, name:"文档"},
+				{ id:32, pId:3, name:"照片"}
+			];
+
+			function addDiyDom(treeId, treeNode) {
+				var spaceWidth = 5;
+				var switchObj = $("#" + treeNode.tId + "_switch"),
+				icoObj = $("#" + treeNode.tId + "_ico");
+				switchObj.remove();
+				icoObj.before(switchObj);
+
+				if (treeNode.level > 1) {
+					var spaceStr = "<span style='display: inline-block;width:" + (spaceWidth * treeNode.level)+ "px'></span>";
+					switchObj.before(spaceStr);
+				}
+			}
+
+			function beforeClick(treeId, treeNode) {
+				if (treeNode.level == 0 ) {
+					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+					zTree.expandNode(treeNode);
+					return false;
+				}
+				return true;
+			}
+
+			$(document).ready(function(){
+				var treeObj = $("#treeDemo");
+				$.fn.zTree.init(treeObj, setting, zNodes);
+				zTree_Menu = $.fn.zTree.getZTreeObj("treeDemo");
+				curMenu = zTree_Menu.getNodes()[0].children[0].children[0];
+				zTree_Menu.selectNode(curMenu);
+
+				treeObj.hover(function () {
+					if (!treeObj.hasClass("showIcon")) {
+						treeObj.addClass("showIcon");
+					}
+				}, function() {
+					treeObj.removeClass("showIcon");
+				});
+			});
+
+
+		</script>
+	</body>
+</html>

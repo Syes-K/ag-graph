@@ -1,0 +1,809 @@
+/*public*/
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+.overflow-hidden {
+	overflow: hidden;
+}
+
+.clear-both {
+	clear: both;
+}
+
+.width-10 {
+	width: 10% !important;
+}
+
+.width-20 {
+	width: 20% !important;
+}
+
+.width-30 {
+	width: 30% !important;
+}
+
+.width-40 {
+	width: 40% !important;
+}
+
+.width-50 {
+	width: 50% !important;
+}
+
+.width-60 {
+	width: 60% !important;
+}
+
+.width-70 {
+	width: 70% !important;
+}
+
+.width-80 {
+	width: 80% !important;
+}
+
+.width-90 {
+	width: 90% !important;
+}
+
+.width-100 {
+	width: 100% !important;
+}
+
+.aigo-cloud-bg {
+	background-image: url(../img/aigo-cloud-bg.png);
+	background-position: left;
+	background-repeat: no-repeat;
+	height: 588px;
+	padding-top: 25px;
+}
+
+.aigo-purple-bg {
+	background-color: #35307d;
+}
+
+.aigo-black {
+	color: #282828;
+}
+
+.aigo-white {
+	color: #ffffff;
+}
+
+.aigo-blue {
+	color: #30a8ff;
+}
+
+.aigo-red {
+	color: #ff5050;
+}
+
+.aigo-font-circle {
+	color: #9a98be;
+	font-size: 20px;
+	padding-right: 14px;
+}
+
+.aigo-btn-box {
+	margin-bottom: 20px;
+}
+
+.aigo-blue-btn {
+	color: #ffffff;
+	font-size: 14px;
+	padding: 9px 26px;
+	margin: 0 6px;
+	background-color: #30a8ff;
+	transition: background-color 0.5s;
+	border-radius: 40px;
+	display: inline-block;
+	border: none;
+}
+
+.aigo-blue-btn:hover {
+	background-color: #0794fb;
+}
+
+
+/*banner*/
+
+.aigo-banner {
+	background-image: url(../img/aigo-banner.JPG);
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 16px 76px 46%;
+	position: relative;
+}
+
+.aigo-banner-page {
+	background-image: url(../img/aigo-banner-page.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding: 16px 76px 35%;
+	position: relative;
+}
+
+.aigo-banner-content {
+	text-align: center;
+	color: #ffffff;
+	font-size: 60px;
+	position: absolute;
+	top: 28%;
+	left: 0;
+	right: 0;
+}
+
+.aigo-banner-content a.btn {
+	color: #ffffff;
+	font-size: 16px;
+	padding: 14px 47px;
+	margin: 106px 3px 0 3px;
+	background-color: #30a8ff;
+	transition: background-color 0.5s;
+	border-radius: 40px;
+	display: inline-block;
+}
+
+.aigo-banner-content a.btn:hover {
+	background-color: #0794fb;
+}
+
+
+/*header*/
+
+.aigo-header {
+	width: 100%;
+	/*overflow: hidden;*/
+}
+
+.aigo-header .aigo-github {
+	float: right;
+	margin: 4px 0 0 10px;
+}
+
+.aigo-header .aigo-github img {
+	width: 24px;
+	height: 24px;
+}
+
+.aigo-header .aigo-logo {
+	float: left;
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.aigo-header .aigo-logo .logo {
+	width: 44px;
+	height: 44px;
+	padding-right: 4px;
+}
+
+.aigo-header .aigo-logo img {
+	width: 150px;
+	float: left;
+}
+
+.aigo-header .aigo-logo .symbol {
+	float: left;
+	padding: 16px 9px 0 0;
+}
+
+.aigo-header .aigo-logo .name {
+	color: #ffffff;
+	float: left;
+	font-size: 20px;
+	padding-top: 9px;
+}
+
+.aigo-header .aigo-menu {
+	float: right;
+}
+
+.aigo-header ul.aigo-menu li {
+	float: left;
+	color: #ffffff;
+	font-size: 14px;
+}
+
+.aigo-header ul.aigo-menu li a {
+	color: #ffffff;
+	padding: 7px 24px;
+	margin: 0 3px;
+	display: block;
+	border-radius: 20px;
+	transition: background-color 0.5s;
+}
+
+.aigo-header ul.aigo-menu li a:hover {
+	background-color: #30a8ff;
+	border-radius: 20px;
+}
+
+.aigo-header ul.aigo-menu li a.active {
+	background-color: #30a8ff;
+	border-radius: 20px;
+}
+
+
+/*快速使用栏目*/
+
+.aigo-fastUse {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.aigo-fastUse-header {
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+	margin-bottom: 92px;
+}
+
+.aigo-fastUse-header img {
+	vertical-align: middle;
+	padding-right: 22px;
+}
+
+.aigo-fastUse-header .column-name {
+	font-size: 30px;
+	vertical-align: middle;
+}
+
+.aigo-fastUse-body {
+	width: 1200px;
+	margin: 0 auto;
+	padding-bottom: 110px;
+}
+
+.aigo-light-box {
+	width: 570px;
+	padding: 40px;
+	border-radius: 6px;
+	background-color: #ffffff;
+	box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.07);
+}
+
+.aigo-light-box-three {
+	display: inline-block;
+	width: 310px;
+	margin: 0 43px;
+}
+
+
+/*aigowelcomeconsultation*/
+
+.aigo-welcomeconsultation {
+	background-image: url(../img/aigo-welcome-bg.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	padding-bottom: 16%;
+	position: relative;
+}
+
+.aigo-welcomeconsultation .aigo-btn-box {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	text-align: center;
+}
+
+.aigo-welcomeconsultation .aigo-welcome-btn {
+	background-color: #ff5230;
+	padding: 9px 50px;
+}
+
+.aigo-welcomeconsultation .aigo-welcome-btn:hover {
+	background-color: #fa3914;
+}
+
+
+/*aigo-column-box*/
+
+.aigo-column-box {
+	width: 1200px;
+	height: 542px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 70px;
+}
+
+.aigo-column-box .aigo-column-pic {
+	vertical-align: text-bottom;
+}
+
+.aigo-column-box .aigo-column-title {
+	margin: 80px 0 68px 0;
+}
+
+.aigo-column-title img {
+	vertical-align: middle;
+	padding-right: 18px;
+}
+
+.aigo-column-title .column-name {
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+.aigo-column-box .aigo-column-content {
+	text-align: justify;
+	font-size: 20px;
+	line-height: 46px;
+}
+
+.aigo-column-box .column-left {
+	width: 50%;
+	height: 100%;
+	float: left;
+	padding: 0 50px;
+}
+
+.aigo-column-box .column-right {
+	width: 50%;
+	height: 100%;
+	float: right;
+	padding: 0 50px;
+}
+
+
+/*pagecontent*/
+
+.aigo-page-content {
+	width: 1200px;
+	margin: 0 auto;
+	padding: 20px 70px 60px 70px;
+}
+
+.aigo-page-content-1094 {
+	width: 1200px;
+	margin: 0 auto;
+	padding: 20px 53px 60px 53px;
+}
+
+
+/*updatelog*/
+
+.aigo-updatelog-box {
+	width: 100%;
+	color: #585858;
+}
+
+.aigo-updatelog-box .edition {
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.aigo-updatelog-box .edition:first-child {
+	padding-top: 0px;
+}
+
+.aigo-updatelog-box .edition:last-child {
+	padding-bottom: 0px;
+}
+
+.aigo-updatelog-box .edition .circle {
+	width: 21px;
+	height: 21px;
+	border-radius: 50%;
+	border: 1px solid #3aacff;
+	float: left;
+	margin: 3px 17px 0 -10px;
+	background-color: #ffffff;
+}
+
+.aigo-updatelog-box .edition .small-font {
+	float: left;
+	font-size: 14px;
+	color: #888888;
+	font-weight: normal;
+	padding: 7px 0 0 7px;
+}
+
+.aigo-updatelog-box .message {
+	padding: 18px 25px;
+	border-left: 1px solid #e6e6e6;
+	margin: -4px 0 -4px 0px;
+}
+
+.aigo-updatelog-box .message .date {
+	display: inline-block;
+	color: #888888;
+	font-size: 14px;
+	border-radius: 5px;
+	border: 1px solid #e6e6e6;
+	padding: 8px 14px;
+	margin-bottom: 24px;
+}
+
+.aigo-updatelog-box .message ul.message-list {
+	list-style-type: disc;
+	font-size: 14px;
+	margin-left: 18px;
+}
+
+.aigo-updatelog-box .message ul.message-list li {
+	margin-bottom: 10px;
+}
+
+
+/*commonproblem*/
+
+.aigo-commonproblem-box {
+	width: 100%;
+	border: 1px solid #e6e6e6;
+	font-size: 14px;
+	color: #585858;
+	margin-bottom: 20px;
+}
+
+.aigo-commonproblem-box:last-child {
+	margin-bottom: 0;
+}
+
+.aigo-commonproblem-box .question {
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #e6e6e6;
+	padding: 18px 19px;
+	overflow: hidden;
+}
+
+.aigo-commonproblem-box .question .question-icon {
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	background-color: #30a8ff;
+	font-size: 12px;
+	float: left;
+	border-radius: 3px;
+	margin-right: 10px;
+	color: #ffffff;
+}
+
+.aigo-commonproblem-box .question .question-icon img {
+	width: 18px;
+	height: 18px;
+}
+
+.aigo-commonproblem-box .question .question-content {
+	float: left;
+}
+
+.aigo-commonproblem-box .answer {
+	padding: 18px 19px;
+	overflow: hidden;
+}
+
+.aigo-commonproblem-box .answer .question-icon {
+	width: 18px;
+	height: 18px;
+	line-height: 18px;
+	text-align: center;
+	background-color: #a0d521;
+	font-size: 12px;
+	float: left;
+	border-radius: 3px;
+	margin-right: 10px;
+	color: #ffffff;
+}
+
+.aigo-commonproblem-box .answer .question-content {
+	float: left;
+}
+
+
+/*price*/
+
+.aigo-price-box {
+	width: 260px;
+	float: left;
+	border: 1px solid #e6e6e6;
+	margin-right: 18px;
+}
+
+.aigo-price-box:last-child {
+	margin-right: 0;
+}
+
+.aigo-price-box .price-header {
+	width: 100%;
+	border-bottom: 1px solid #e6e6e6;
+	text-align: center;
+	padding: 35px 0;
+}
+
+.aigo-price-box .price-header .name {
+	font-size: 20px;
+	margin-bottom: 26px;
+}
+
+.aigo-price-box .price-header .price {
+	font-size: 36px;
+}
+
+.aigo-price-box .price-header .price .small-font {
+	font-size: 20px;
+}
+
+.aigo-price-box ul.price-list {
+	padding: 38px 31px;
+	font-size: 13px;
+	min-height: 570px;
+}
+
+.aigo-price-box ul.price-list li {
+	margin-bottom: 24px;
+	overflow: hidden;
+}
+
+.aigo-price-box ul.price-list li:last-child {
+	margin-bottom: 0;
+}
+
+.aigo-QRcode {
+	color: #585858;
+	font-size: 16px;
+	text-align: center;
+	margin: 72px 0;
+}
+
+.aigo-QRcode img {
+	padding-top: 16px;
+}
+
+
+/*footer*/
+
+.aigo-footer {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	color: #999999;
+	font-size: 14px;
+	background-color: #000000;
+	/*position: fixed;
+	bottom: 0;*/
+}
+
+
+/*simple*/
+
+.aigo-simple-box {
+	width: 100%;
+}
+
+.aigo-simple-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: #35307d;
+	padding: 0 22px;
+}
+
+.aigo-simple-header .aigo-simple-select {
+	float: right;
+	position: relative;
+	margin-top: 7px;
+}
+
+.aigo-simple-header .aigo-simple-select div.fancy-select div.trigger {
+	background-color: #35307d;
+	border: 1px solid #35307d;
+}
+
+.aigo-simple-header .aigo-simple-select div.fancy-select ul.options.open {
+	top: 50px;
+}
+
+.aigo-simple-menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 241px;
+	height: 100%;
+	border-right: 1px solid #e7e7e7;
+	overflow-y: auto;
+}
+
+.aigo-simple-content-right {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: calc(100% - 241px);
+	height: 100%;
+	padding: 0 9px;
+}
+
+.aigo-simple-content {
+	position: absolute;
+	z-index: 1;
+	top: 50px;
+	left: 0;
+	bottom: 40px;
+	width: 100%;
+}
+
+.aigo-simple-code-box .title {
+	width: 100%;
+	padding: 20px 4px;
+}
+
+.aigo-simple-code-box .title .big-font {
+	font-size: 24px;
+	padding-right: 14px;
+	font-weight: normal;
+}
+
+.aigo-simple-code-box .title .small-font {
+	font-size: 14px;
+	color: #888888;
+}
+
+.aigo-simple-code-box .header {
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+	border: 1px solid #e7e7e7;
+	border-bottom: none;
+	background-color: #fafafa;
+	font-size: 14px;
+	padding: 0 10px;
+}
+
+.aigo-simple-code-box .header .run-btn{
+	float: right;
+	background-color: #30a8ff;
+	font-size: 12px;
+	color: #ffffff;
+	height: 22px;
+	line-height: 22px;
+	padding: 0 10px;
+	border-radius: 3px;
+	margin-top: 7px;
+	transition: background-color 0.5s;
+}
+
+.aigo-simple-code-box .header .run-btn:hover{
+	background-color: #1199fc;
+}
+
+.aigo-simple-code-box .content {
+	width: 100%;
+	border: 1px solid #e7e7e7;
+	padding: 10px;
+	overflow: auto;
+}
+
+.aigo-simple-code-box .content-top {
+	height: calc(100% - 80px);
+}
+
+.aigo-simple-code-box .content-bottom {
+	height: calc(100% - 44px);
+}
+
+.aigo-simple-footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+
+/*zTree*/
+
+.zTreeDemoBackground {
+	margin: 24px 0 0 3px;
+}
+
+.ztree li ul {
+	margin: 0;
+	padding: 0
+}
+
+.ztree li {
+	line-height: 30px;
+}
+
+.ztree li a {
+	width: 200px;
+	height: 30px;
+	padding-top: 0px;
+}
+
+.ztree li a:hover {
+	text-decoration: none;
+	background-color: #ffffff;
+}
+
+.ztree li a span.button.switch {
+	/*visibility: hidden*/
+}
+
+.ztree.showIcon li a span.button.switch {
+	visibility: visible
+}
+
+.ztree li a.curSelectedNode {
+	background-color: #ffffff;
+	border: 0;
+	height: 30px;
+	color: #30a8ff;
+	font-weight: 500;
+}
+
+.ztree li span {
+	line-height: 30px;
+}
+
+.ztree li span.button {
+	margin-top: -4px;
+}
+
+.ztree li span.button.switch {
+	width: 16px;
+	height: 16px;
+}
+
+.ztree li a.level0 span {
+	font-size: 14px;
+	font-weight: 500;
+	color: #585858;
+}
+
+.ztree li span.button {
+	background-image: url("../img/down-arrow.svg");
+	width: 15px;
+	height: 15px;
+}
+
+.ztree li span.button.switch.level0 {
+	width: 20px;
+	height: 20px
+}
+
+.ztree li span.button.switch.level1 {
+	width: 15px;
+	height: 15px
+}
+
+.ztree li span.button.noline_open {
+	background-image: url("../img/down-arrow.svg");
+	width: 15px;
+	height: 15px;
+}
+
+.ztree li span.button.noline_close {
+	background-image: url("../img/right-arrow.svg");
+	width: 15px;
+	height: 15px;
+}
+
+.ztree li span.button.noline_open.level0 {
+	background-image: url("../img/down-arrow.svg");
+	width: 15px;
+	height: 15px;
+}
+
+.ztree li span.button.noline_close.level0 {
+	background-image: url("../img/right-arrow.svg");
+	width: 15px;
+	height: 15px;
+}
+
+.ztree li span.button.noline_open{
+	background-position: 0;
+}
+
+.ztree li span.button.noline_close{
+	background-position: 0;
+}
