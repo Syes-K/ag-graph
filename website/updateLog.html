@@ -49,67 +49,39 @@
 
 		<!--updatelog-->
 		<div class="aigo-page-content">
-			<div class="aigo-updatelog-box">
+      <div class="aigo-updatelog-box">
 				<div class="edition">
 					<span class="circle"></span>
-					<span class="pull-left">2.0.0</span>
+					<span class="pull-left">1.0.2</span>
 					<div class="clear-both"></div>
 				</div>
 				<div class="message">
-					<div class="date">2017-12-01</div>
+					<div class="date">2017-11-22</div>
 					<ul class="message-list">
-						<li>优化 ag-graph 组件范围选择样式</li>
-						<li>优化 ag-graph 组件范围选择样式</li>
-						<li>优化 ag-graph 组件范围选择样式</li>
+						<li>优化 复选机制变化: 节点(node)，点(point)，连线(line) 都需要通过 shift+点击 来进行复选 </li>
+						<li>优化 添加点(point)的机制变化: 从 shift+点击连线 ==>双击连线</li>
+						<li>新增 连线(line)自动计算位置: 当连线上只有2个点时，移动关联的节点时，会根据关联节点位置重新计算连线的开始和结束位置</li>
+						<li>新增 连线(line)文本: 连线可以通过设置text 来添加文本</li>
 					</ul>
 				</div>
 			</div>
-			<div class="aigo-updatelog-box">
+      <div class="aigo-updatelog-box">
 				<div class="edition">
 					<span class="circle"></span>
-					<span class="pull-left">1.9.9</span>
+					<span class="pull-left">1.0.1</span>
 					<div class="clear-both"></div>
 				</div>
 				<div class="message">
-					<div class="date">2017-11-30</div>
+					<div class="date">2017-11-15</div>
 					<ul class="message-list">
-						<li>优化 ag-graph 组件范围选择样式</li>
-						<li>优化 ag-graph 组件范围选择样式</li>
+						<li>优化 agGraph.selection.add/agGraph.selection.remove 输入由原来的单个节点(node)修改为多个节点(node[])。</li>
+						<li>优化 点击节点(node)默认行为由原来切换当前节点(node)的选中状态修改为：取消其他节点(node)的选中状态，切换当前节点(node)的选中状态</li>
+						<li>优化 shift+点击节点(node)：切换当前节点(node)的选中状态(也就是说，如果想多选节点(node) 请用shift+click)</li>
 					</ul>
-				</div>
-			</div>
-			<!--<div class="aigo-updatelog-box">
-				<div class="edition">
-					<span class="circle"></span>
-					<span class="pull-left">1.9.8</span>
-					<span class="small-font">(nothing)</span>
-					<div class="clear-both"></div>
-				</div>
-			</div>-->
-			<div class="aigo-updatelog-box">
-				<div class="edition">
-					<span class="circle"></span>
-					<span class="pull-left">1.9.7</span>
-					<div class="clear-both"></div>
-				</div>
-				<div class="message">
-					<div class="date">2017-10-30</div>
-					<ul class="message-list">
-						<li>优化 ag-graph 组件范围选择样式</li>
-						<li>优化 ag-graph 组件范围选择样式</li>
-					</ul>
-				</div>
-			</div>
-			<div class="aigo-updatelog-box">
-				<div class="edition">
-					<span class="circle"></span>
-					<span class="pull-left">1.9.6</span>
-					<span class="small-font">(nothing)</span>
-					<div class="clear-both"></div>
 				</div>
 			</div>
 		</div>
-		
+
 		<!--footer-->
 		<div class="aigo-footer">
 			Copyright 2016-2017 aigodata.com 京ICP备17001622号-1
