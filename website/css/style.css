@@ -495,6 +495,7 @@
 
 .aigo-commonproblem-box .answer .question-content {
 	float: left;
+  width: 95%;
 }
 
 
