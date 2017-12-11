@@ -658,7 +658,7 @@
 				.classed("ag-graph-node-badge", true)
 				.attr("transform", "translate(" + (_this.size) + "," + (_this.size) + ")");
 			$badge.append("circle")
-				.attr("r", 12);
+				.attr("r", 10);
 			$badge.append("text").text(_this.badge).attr("y", 1);
 		}
 

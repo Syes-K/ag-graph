@@ -101,6 +101,7 @@
   var node4 = agGraph.addNode({id: "n4", x: 100, y: 0, size: 50, image: "./images/message.jpg"});
   var line1 = agGraph.addLine({id: "l1", source: "n2", target: "n3", animate: true});
   var line2 = agGraph.addLine({id: "l2", source: "n2", target: "n1", class: ["hot"], animate: true});
+
   agGraph.on("view.rightClick", function (view, position) {
     var rightMenu = document.getElementById("graph-view-right-menu");
     rightMenu.style.top = position.y;
