@@ -5,6 +5,7 @@
   <title>changeEdit</title>
   <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
   <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
   <style>
@@ -41,6 +42,8 @@ var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../
 var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
 // 添加连线
 var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
+// 切换编辑模板, 开启注释代码, 感受差异.
+// agGraph.startEdit();
 </textarea>
   </div>
 </div>
