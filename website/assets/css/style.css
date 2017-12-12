@@ -652,10 +652,14 @@ body.website {
   height: 287px;
   box-sizing: border-box;
   padding-bottom: 2px;
+  width: calc(100% - 10px);
+  box-sizing: border-box;
+  padding-left: 10px;
 }
 
 .aigo-simple-example {
   height: calc(100% - 287px);
+  min-height: 400px;
 }
 
 #ag-graph-container {
