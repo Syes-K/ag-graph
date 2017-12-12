@@ -1,4 +1,7 @@
 /*public*/
+body.website {
+  min-width: 1200px;
+}
 
 .pull-left {
 	float: left;
@@ -635,34 +638,40 @@
 	z-index: 1;
 	top: 50px;
 	left: 0;
-	bottom: 40px;
+	bottom: 0;
 	width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.CodeMirror {
+  height: 250px !important;
 }
 
 .aigo-simple-code-box {
-  height: 337px;
+  height: 287px;
   box-sizing: border-box;
   padding-bottom: 2px;
 }
 
 .aigo-simple-example {
-  height: calc(100% - 337px);
+  height: calc(100% - 287px);
 }
 
 #ag-graph-container {
   border: 1px solid #e7e7e7;
   box-sizing: border-box;
   border-radius: 5px;
-  height: calc(100% - 53px);
+  height: calc(100% - 32px);
 }
 
 .aigo-simple-code-box .title {
 	width: 100%;
-	padding: 10px 4px;
+	padding: 5px 4px;
 }
 
 .aigo-simple-code-box .title .big-font {
-	font-size: 24px;
+	font-size: 16px;
 	padding-right: 14px;
 	font-weight: normal;
 }
@@ -702,7 +711,7 @@
 
 .aigo-simple-code-box .content {
 	width: 100%;
-  height: 300px;
+  /*height: 300px;*/
   font-weight: 400;
   font-size: 14px;
 }
