@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>ag-graph</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+<!--simple-->
+<div class="aigo-simple-box">
+  <!--header-->
+  <div class="aigo-header">
+    <div class="aigo-simple-header">
+      <div class="aigo-logo" style="margin-top: 5px;">
+        <a href="//www.aigodata.com">
+          <img src="assets/img/aigodata-white.svg">
+        </a>
+        <span class="symbol">&</span>
+        <a href="index.html">
+          <img src="assets/img/ag-graph-logo.svg" class="logo">
+          <span class="name">ag-graph</span>
+        </a>
+      </div>
+      <div class="aigo-simple-select">
+        <select id="basic-usage-demo" class="pull-right version-select">
+          <option>ag-graph 1.0.2</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="aigo-simple-content">
+    <div class="aigo-simple-menu">
+      <!-- 侧边栏 -->
+      <div class="slider-menu">
+        <dl>
+          <dt>基础</dt>
+          <dd><a href="example/base/changeEdit.html" class="change-example-a active">切换编辑模式</a></dd>
+          <dt>节点</dt>
+          <dd><a href="example/base/changeEdit.html" class="change-example-a">添加节点</a></dd>
+          <dd><a href="example/base/changeEdit.html" class="change-example-a">添加节点文字</a></dd>
+          <dt>连线</dt>
+          <dd><a href="example/base/changeEdit.html" class="change-example-a">添加连线</a></dd>
+          <dd><a href="example/base/changeEdit.html" class="change-example-a">设置连线动画</a></dd>
+        </dl>
+      </div>
+    </div>
+    <div class="aigo-simple-content-right">
+      <iframe id="iframe" src="example/base/changeEdit.html" width="100%" height="100%" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <!--footer-->
+  <div class="aigo-footer aigo-simple-footer">
+    <a href="//aigodata.com">aigodata 前端团队</a>
+  </div>
+</div>
+
+<script src="assets/js/jquery-2.1.0.min.js"></script>
+<script>
+  $(".change-example-a").on('click', function(evt) {
+    evt.preventDefault();
+    $("#iframe").attr('src', $(this).attr("href"));
+    $(".change-example-a").removeClass('active');
+    $(this).addClass('active');
+  });
+</script>
+</body>
+</html>

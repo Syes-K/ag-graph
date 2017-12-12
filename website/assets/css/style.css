@@ -599,8 +599,7 @@
 
 .aigo-simple-header .aigo-simple-select {
 	float: right;
-	position: relative;
-	margin-top: 7px;
+  height: 100%;
 }
 
 .aigo-simple-header .aigo-simple-select div.fancy-select div.trigger {
@@ -640,9 +639,26 @@
 	width: 100%;
 }
 
+.aigo-simple-code-box {
+  height: 337px;
+  box-sizing: border-box;
+  padding-bottom: 2px;
+}
+
+.aigo-simple-example {
+  height: calc(100% - 337px);
+}
+
+#ag-graph-container {
+  border: 1px solid #e7e7e7;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: calc(100% - 53px);
+}
+
 .aigo-simple-code-box .title {
 	width: 100%;
-	padding: 20px 4px;
+	padding: 10px 4px;
 }
 
 .aigo-simple-code-box .title .big-font {
@@ -686,17 +702,9 @@
 
 .aigo-simple-code-box .content {
 	width: 100%;
-	border: 1px solid #e7e7e7;
-	padding: 10px;
-	overflow: auto;
-}
-
-.aigo-simple-code-box .content-top {
-	height: calc(100% - 80px);
-}
-
-.aigo-simple-code-box .content-bottom {
-	height: calc(100% - 44px);
+  height: 300px;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .aigo-simple-footer {
@@ -706,112 +714,35 @@
 	width: 100%;
 }
 
-
-/*zTree*/
-
-.zTreeDemoBackground {
-	margin: 24px 0 0 3px;
+.version-select {
+  border-radius: 5px;
+  height: 24px;
+  margin-top: 13px;
+  width: 150px;
+  background: #fff;
 }
 
-.ztree li ul {
-	margin: 0;
-	padding: 0
+.slider-menu {
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 14px;
 }
 
-.ztree li {
-	line-height: 30px;
+.slider-menu dt {
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 15px;
 }
 
-.ztree li a {
-	width: 200px;
-	height: 30px;
-	padding-top: 0px;
+.slider-menu dd {
+  padding-left: 10px;
+  margin-top: 5px;
 }
 
-.ztree li a:hover {
-	text-decoration: none;
-	background-color: #ffffff;
+.slider-menu dd a {
+  color: #656565;
 }
-
-.ztree li a span.button.switch {
-	/*visibility: hidden*/
-}
-
-.ztree.showIcon li a span.button.switch {
-	visibility: visible
-}
-
-.ztree li a.curSelectedNode {
-	background-color: #ffffff;
-	border: 0;
-	height: 30px;
-	color: #30a8ff;
-	font-weight: 500;
-}
-
-.ztree li span {
-	line-height: 30px;
-}
-
-.ztree li span.button {
-	margin-top: -4px;
-}
-
-.ztree li span.button.switch {
-	width: 16px;
-	height: 16px;
-}
-
-.ztree li a.level0 span {
-	font-size: 14px;
-	font-weight: 500;
-	color: #585858;
-}
-
-.ztree li span.button {
-	background-image: url("../img/down-arrow.svg");
-	width: 15px;
-	height: 15px;
-}
-
-.ztree li span.button.switch.level0 {
-	width: 20px;
-	height: 20px
-}
-
-.ztree li span.button.switch.level1 {
-	width: 15px;
-	height: 15px
-}
-
-.ztree li span.button.noline_open {
-	background-image: url("../img/down-arrow.svg");
-	width: 15px;
-	height: 15px;
-}
-
-.ztree li span.button.noline_close {
-	background-image: url("../img/right-arrow.svg");
-	width: 15px;
-	height: 15px;
-}
-
-.ztree li span.button.noline_open.level0 {
-	background-image: url("../img/down-arrow.svg");
-	width: 15px;
-	height: 15px;
-}
-
-.ztree li span.button.noline_close.level0 {
-	background-image: url("../img/right-arrow.svg");
-	width: 15px;
-	height: 15px;
-}
-
-.ztree li span.button.noline_open{
-	background-position: 0;
-}
-
-.ztree li span.button.noline_close{
-	background-position: 0;
+.slider-menu dd a:hover,
+.slider-menu dd a.active {
+  color: #3aacff;
 }

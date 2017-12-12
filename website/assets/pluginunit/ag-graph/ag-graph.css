@@ -1,0 +1,72 @@
+/* ag-graph 样式 */
+
+/* 节点 */
+.ag-graph-node {
+  cursor: pointer;
+}
+
+/* 节点 文字 */
+.ag-graph-node-text {
+  text-anchor: middle;
+  dominant-baseline: hanging;
+  font-size: 12px;
+}
+
+/* badge 小圆 */
+.ag-graph-node-badge circle {
+  fill: #d4351C;
+}
+
+/* badge 小圆文字 */
+.ag-graph-node-badge text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-size: 12px;
+  fill: #fff;
+}
+
+/* 连线 */
+.ag-graph-line polyline {
+  fill: none;
+  stroke: #44D5CC;
+  stroke-width: 1px;
+  cursor: pointer;
+}
+
+/* 连线 文字 */
+.ag-graph-line text {
+  text-anchor: middle;
+  font-size: 12px;
+}
+
+/* 锚点 */
+.ag-graph #ag-point-group {
+  display: none;
+}
+
+.ag-graph.editing #ag-point-group {
+  display: inline;
+}
+
+.ag-graph-point {
+  fill: #d4351C;
+  stroke: #d4351C;
+  cursor: pointer;
+}
+
+/* 运动路径 */
+.ag-graph-path .ag-graph-path-line {
+  fill: none;
+  stroke: #d4351C;
+  stroke-width: 2;
+}
+
+.ag-graph-path polyline {
+  fill: none;
+  stroke: #d4351C;
+  stroke-width: 2;
+}
+
+.ag-graph-path .ag-graph-path-arrow {
+  fill: #d4351C;
+}
