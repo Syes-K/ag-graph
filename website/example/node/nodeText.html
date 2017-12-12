@@ -21,8 +21,8 @@
 <!-- 示例 -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">切换编辑模式</span>
-    <span class="small-font">启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以观看路径轨迹动画.</span>
+    <span class="big-font">节点文本</span>
+    <span class="small-font">节点文本可以在节点添加时作为节点的数据项设置，也可以通过节点的text属性来设置(当然也可读取)</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
     <!-- 容器 -->
@@ -40,11 +40,11 @@ var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点
 var node1 = agGraph.addNode({
   id: "n1", x: -125, y: -66, image: "../../assets/img/example/server.svg",
-  text: "服务器1"
+  text: "服务器1" // 文本
 });
 var node2 = agGraph.addNode({
   id: "n2", x: 86, y: 53, image: "../../assets/img/example/pc.svg",
-  text: "个人电脑1"
+  text: "个人电脑1" // 文本
 });
 
 // 开启注释代码, 直接修改文本.

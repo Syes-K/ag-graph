@@ -21,8 +21,8 @@
 <!-- 示例 -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-      <span class="big-font">节点徽章</span>
-      <span class="small-font">节点徽章可以在节点添加时作为节点的数据项设置，也可以通过节点的badge属性来设置(当然也可读取)</span>
+      <span class="big-font">节点图片</span>
+      <span class="small-font">节点图片可以在节点添加时作为节点的数据项设置，也可以通过节点的image属性来设置(当然也可读取)</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
     <!-- 容器 -->
@@ -39,16 +39,16 @@
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点
 var node1 = agGraph.addNode({
-  id: "n1", x: -125, y: -66, image: "../../assets/img/example/server.svg",
-  badge: "99" // 徽章
+  id: "n1", x: -125, y: -66, size:60,
+  image: "../../assets/img/example/server.svg" // 图片
 });
 var node2 = agGraph.addNode({
-  id: "n2", x: 86, y: 53, image: "../../assets/img/example/pc.svg",
-  badge: "高" // 徽章
+  id: "n2", x: 86, y: 53,
+  image: "../../assets/img/example/pc.svg" // 图片
 });
 
-// 开启注释代码, 直接修改徽章.
-// node1.badge = "H1";
+// 开启注释代码, 直接修改图片.
+// node1.image = "http://www.aigodata.com/img/logo.svg";
 
 </textarea>
   </div>
