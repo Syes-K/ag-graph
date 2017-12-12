@@ -27,7 +27,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body{
-	min-width: 1200px;
 	color: #282828;
 	height: 100%;
 	/*margin-bottom: 40px;*/
