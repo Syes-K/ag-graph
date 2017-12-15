@@ -40,15 +40,17 @@ var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点
 var node1 = agGraph.addNode({
   id: "n1",  image: "../../assets/img/example/server.svg",
+  size:48,
   x: -125, y: -66 //位置
 });
 var node2 = agGraph.addNode({
   id: "n2", image: "../../assets/img/example/pc.svg",
+  size:48,
   x: 86, y: 53 // 位置
 });
 
 // 开启注释代码, 直接修改位置.
-// node1.x +=100;
+// node1.x += 100;
 
 // 开启注释代码, 启动编辑模式(拖动节点，修改位置)
 // agGraph.startEdit();

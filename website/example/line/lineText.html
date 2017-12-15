@@ -38,13 +38,14 @@
 // 初始化
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点1
-var node1 = agGraph.addNode({id: "n1", x: -70, y: -80,image: "../../assets/img/example/pc.svg"});
-var node2 = agGraph.addNode({id: "n2", x: 60, y: 60,image: "../../assets/img/example/server.svg"});
+var node1 = agGraph.addNode({id: "n1", x: -70, y: -80, size: 48, image: "../../assets/img/example/pc.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 60, y: 60,  size: 48,  image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
   source: "n1", // 源节点id
   target: "n2", // 目标节点id
+  animate: true,
   text:"家庭局域网" // 绘制线的时候启动动画
 });
 

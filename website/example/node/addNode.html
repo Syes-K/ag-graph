@@ -40,12 +40,13 @@ var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点1
 var node1 = agGraph.addNode({
   id: "n1", // id
-  x: 0, y: 0, // 位置信息
+  x: 0,     // 位置信息
+  y: 0,
+  size: 48, // 节点大小
   image: "../../assets/img/example/server.svg" // 图片
 });
-
 // 开启注释代码, 添加更多节点.
-//agGraph.addNode({id: "n2", x: 125, y: 86, image: "../../assets/img/example/pc.svg"});
+// agGraph.addNode({id: "n2", x: 125, y: 86, size: 48, image: "../../assets/img/example/pc.svg"});
 </textarea>
   </div>
 </div>

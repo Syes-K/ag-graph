@@ -38,9 +38,9 @@
 // 初始化
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点1
-var node1 = agGraph.addNode({id: "n1", x: -200, y: 0,image: "../../assets/img/example/server.svg"});
-var node2 = agGraph.addNode({id: "n2", x: 125, y: 86, image: "../../assets/img/example/pc.svg"});
-var node3 = agGraph.addNode({id: "n3", x: 295, y: -86, image: "../../assets/img/example/pc.svg"});
+var node1 = agGraph.addNode({id: "n1", x: -200, y: 0, size: 48, image: "../../assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 125, y: 86, size: 48, image: "../../assets/img/example/pc.svg"});
+var node3 = agGraph.addNode({id: "n3", x: 295, y: -86, size: 48, image: "../../assets/img/example/pc.svg"});
 var line1 = agGraph.addLine({id:"l1", source:"n1", target:"n2"});
 var line2 = agGraph.addLine({id:"l2", source:"n3", target:"n2"});
 // 开启注释代码, 删除节点.

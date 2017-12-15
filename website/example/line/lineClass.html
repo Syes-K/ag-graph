@@ -23,8 +23,8 @@
 <!-- 示例 -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">连线文本</span>
-    <span class="small-font">连线文本可以在节点添加时作为节点的数据项设置，也可以通过连线的text属性来设置(当然也可读取)</span>
+    <span class="big-font">自定义连线样式</span>
+    <span class="small-font">参考最佳技术实践, 支持添加class名称来修改样式, 这样可以做到表现和数据解耦分离. </span>
   </div>
   <div class="content content-top" id="ag-graph-container">
     <!-- 容器 -->
@@ -35,20 +35,21 @@
   <div class="header">js代码
     <a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a>
   </div>
-  <div class="content content-bottom" id="ag-graph-code">
+  <div class="content content-bottom" id="ag-graph-code-1">
 <textarea id="code" name="code">
 // 初始化
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点1
-var node1 = agGraph.addNode({id: "n1", x: -70, y: -80,image: "../../assets/img/example/pc.svg"});
-var node2 = agGraph.addNode({id: "n2", x: 60, y: 60,image: "../../assets/img/example/server.svg"});
+var node1 = agGraph.addNode({id: "n1", x: -70, y: -80, size:48, image: "../../assets/img/example/pc.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 60, y: 60, size:48, image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
   source: "n1", // 源节点id
   target: "n2", // 目标节点id
   text: "连线",
-  class: "status-1"
+  class: "status-1",
+  animate: true
 });
 
 // 开启下面注释，可以添加多个class
@@ -61,7 +62,7 @@ var line1 = agGraph.addLine({
     <div class="header">css代码
       <a href="javascript:void(0)" class="run-btn" id="btn-run-css">运行</a>
     </div>
-    <div class="content content-bottom" id="ag-graph-code">
+    <div class="content content-bottom" id="ag-graph-code-2">
   <textarea id="class" name="class">
     /*打开下面的注释，看看连线的区别 */
 
@@ -115,7 +116,7 @@ var line1 = agGraph.addLine({
 
   $('#btn-run-css').on('click', function(e) {
       var css = editor2.getValue();
-      document.getElementById("custom-style").innerHTML=css;
+      document.getElementById("custom-style").innerHTML = css;
   });
 
 </script>

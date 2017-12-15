@@ -39,14 +39,13 @@
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点
 var node1 = agGraph.addNode({
-  id: "n1", x: -125, y: -66, image: "../../assets/img/example/server.svg",
+  id: "n1", x: -125, y: -66,  size: 48, image: "../../assets/img/example/server.svg",
   badge: "99" // 徽章
 });
 var node2 = agGraph.addNode({
-  id: "n2", x: 86, y: 53, image: "../../assets/img/example/pc.svg",
+  id: "n2", x: 86, y: 53,  size: 48, image: "../../assets/img/example/pc.svg",
   badge: "高" // 徽章
 });
-
 // 开启注释代码, 直接修改徽章.
 // node1.badge = "H1";
 

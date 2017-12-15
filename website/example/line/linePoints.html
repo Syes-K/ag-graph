@@ -21,8 +21,8 @@
 <!-- 示例 -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">添加连线</span>
-    <span class="small-font">连线是由源节点到目标节点的线段.</span>
+    <span class="big-font">折线</span>
+    <span class="small-font">折线是一组点集合的连线, 通过指定一组点的坐标进行绘制.</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
     <!-- 容器 -->
@@ -38,14 +38,15 @@
 // 初始化
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // 添加节点1
-var node1 = agGraph.addNode({id: "n1", x: 70, y: 0,image: "../../assets/img/example/pc.svg"});
-var node2 = agGraph.addNode({id: "n2", x: -100, y: -20,image: "../../assets/img/example/server.svg"});
+var node1 = agGraph.addNode({id: "n1", x: 70, y: 0, size: 48, image: "../../assets/img/example/pc.svg"});
+var node2 = agGraph.addNode({id: "n2", x: -100, y: -20,  size: 48, image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
   source: "n1", // 源节点id
   target: "n2", // 目标节点id
   // pointsData 设置折线点的位置。
+  animate: true,
   pointsData:[
     {x:60,y:-4},
     {x:-30,y:-62},
