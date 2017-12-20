@@ -324,6 +324,7 @@ body.website {
 
 .aigo-column-box .aigo-column-title {
 	margin: 80px 0 68px 0;
+  font-weight: 300;
 }
 
 .aigo-column-title img {
@@ -340,6 +341,7 @@ body.website {
 	text-align: justify;
 	font-size: 20px;
 	line-height: 46px;
+  font-weight: 300;
 }
 
 .aigo-column-box .column-left {
@@ -667,7 +669,7 @@ body.website {
   border: 1px solid #e7e7e7;
   box-sizing: border-box;
   border-radius: 5px;
-  height: calc(100% - 32px);
+  height: calc(100% - 38px);
 }
 
 .aigo-simple-code-box .title {
@@ -676,7 +678,7 @@ body.website {
 }
 
 .aigo-simple-code-box .title .big-font {
-	font-size: 16px;
+	font-size: 20px;
 	padding-right: 14px;
 	font-weight: normal;
 }

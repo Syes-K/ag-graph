@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/raliscasts.css">
 	</head>
 	<body class="website">
 		<!--banner-->
@@ -56,6 +57,62 @@
 				<!--<a href="#" class="aigo-blue-btn">按条件</a>-->
 			</div>
       <!-- 条目 -->
+      <div class="aigo-commonproblem-box">
+        <div class="question">
+          <div class="question-icon">
+            <img src="assets/img/question.svg">
+          </div>
+          <div class="question-content">
+            ag-graph容器的高度控件是否会进行控制？目前无样式div容器高度较小，没有默认height:100% ?
+          </div>
+        </div>
+        <div class="answer">
+          <div class="question-icon">
+            <img src="assets/img/answer.svg">
+          </div>
+          <div class="question-content">
+            是的, 需要自己指定宽高, ag-graph灵活的地方也是在这里, 因为天然支持样式来控制宽高, 所以支持所有计算单位(px, vh, %, em, rem, calc等)
+            <pre><code class="css">
+  /* 仅供参考 */
+  #ag-graph-container {
+    width: 100%;
+    min-width: 20vh;
+    max-width: 1920px;
+    height: calc(100% - 20px);
+    min-height: 20em;
+    max-height: 50rem;
+  }
+            </code></pre>
+          </div>
+        </div>
+      </div>
+      <!-- 条目 -->
+      <div class="aigo-commonproblem-box">
+        <div class="question">
+          <div class="question-icon">
+            <img src="assets/img/question.svg">
+          </div>
+          <div class="question-content">
+            按照官方API文档操作，添加完连线节点之后，所有元素均不能移动或者操作，是需要继续什么配置吗？为什么不是默认可以操作？
+          </div>
+        </div>
+        <div class="answer">
+          <div class="question-icon">
+            <img src="assets/img/answer.svg">
+          </div>
+          <div class="question-content">
+            需要启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以添加路径轨迹动画.
+            <pre><code class="javascript">
+  // 初始化
+  var agGraph = new AgGraph({container: "#ag-graph-container"});
+  // 切换编辑模式
+  agGraph.startEdit();
+            </code></pre>
+            因为默认情况多数以观看展示为主, 编辑操作仅开始配置时需要, 其余时间修改较少, 也有一部分原因是权限控制的需要, 不是所有人都有编辑权限的.
+          </div>
+        </div>
+      </div>
+      <!-- 条目 -->
 			<div class="aigo-commonproblem-box">
 				<div class="question">
 					<div class="question-icon">
@@ -82,5 +139,8 @@
     <div class="aigo-footer">
       <a href="//aigodata.com">aigodata 前端团队</a>
     </div>
+
+    <script src="assets/js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 	</body>
 </html>
