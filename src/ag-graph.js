@@ -23,10 +23,6 @@
 	var tempData = {};// 临时变量，记录操作过程的临时状态值
 	var isTestPage = false;
 
-	// (function(g){
-	// 	var u = [11664, 12321, 9801, 9409, 13456, 11025, 12321, 12100].map();
-	// })(window);
-
 	function debounce(action, delay) {
 		var last;
 		return function () {
@@ -638,7 +634,7 @@
 		if (!_this.agGraph.isEditing()) {
 			return;
 		}
-		agGraph._emit("node.move", _this);
+		_this.agGraph._emit("node.move", _this);
 	}
 	AgGraphNode.prototype._render = function () {
 		var _this = this;
