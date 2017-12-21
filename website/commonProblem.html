@@ -63,6 +63,25 @@
             <img src="assets/img/question.svg">
           </div>
           <div class="question-content">
+            ag-graph容器的高度发生改变后，其他代码都没变, 为什么节点的位置会发生变化?
+          </div>
+        </div>
+        <div class="answer">
+          <div class="question-icon">
+            <img src="assets/img/answer.svg">
+          </div>
+          <div class="question-content">
+            我们采用的是笛卡尔坐标系, 以容器的中心点为原点(0, 0), 当容器高度发生变化, 节点位置相对于原点会进行偏移, 是正常现象这样的设计更易进行屏幕适配.
+          </div>
+        </div>
+      </div>
+      <!-- 条目 -->
+      <div class="aigo-commonproblem-box">
+        <div class="question">
+          <div class="question-icon">
+            <img src="assets/img/question.svg">
+          </div>
+          <div class="question-content">
             ag-graph容器的高度控件是否会进行控制？目前无样式div容器高度较小，没有默认height:100% ?
           </div>
         </div>
