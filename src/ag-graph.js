@@ -134,7 +134,7 @@
 		if (x2 == x1 && y2 == y1) {
 			deg = 0;
 		}
-		return deg;
+		return 360 - deg;
 	}
 
 	/** 获取 距离线固定位置的点的信息
@@ -364,7 +364,7 @@
 		var offset_y = postion.y - rect.top;
 		return {
 			x: this.viewBox[0] + offset_x / this.scale,
-			y: this.viewBox[1] + offset_y / this.scale,
+			y: -(this.viewBox[1] + offset_y / this.scale),
 		}
 	}
 
@@ -593,9 +593,7 @@
 		if (!_this.agGraph.isEditing()) {
 			return;
 		}
-		var mouse_x = d3.event.x;
-		var mouse_y = d3.event.y;
-		tempData.lastPostin = {
+		tempData.lastPostion = {
 			x: d3.event.x,
 			y: d3.event.y
 		};
@@ -608,8 +606,8 @@
 		var x = d3.event.x;
 		var y = d3.event.y;
 
-		_this.x += (x - tempData.lastPostin.x);
-		_this.y += (y - tempData.lastPostin.y);
+		_this.x += (x - tempData.lastPostion.x);
+		_this.y -= (y - tempData.lastPostion.y);
 
 		_this.anchorPoints.forEach(function (point, idx) {
 			if (point.line.points.length <= 2) {
@@ -619,12 +617,12 @@
 					p.y = pointsData[idx].y;
 				});
 			} else {
-				point.x += (x - tempData.lastPostin.x);
-				point.y += (y - tempData.lastPostin.y);
+				point.x += (x - tempData.lastPostion.x);
+				point.y -= (y - tempData.lastPostion.y);
 			}
 		});
 
-		tempData.lastPostin = {
+		tempData.lastPostion = {
 			x: d3.event.x,
 			y: d3.event.y
 		};
@@ -640,7 +638,7 @@
 		var _this = this;
 		var $node = _this.$node;
 		// 将node的 x，y 设置为$node的中心
-		$node.attr("transform", "translate(" + (_this.x - _this.size / 2) + "," + (_this.y - _this.size / 2) + ")");
+		$node.attr("transform", "translate(" + (_this.x - _this.size / 2) + "," + (-_this.y - _this.size / 2) + ")");
 		var $image = $node.select("image");
 		$image.attr("xlink:href", _this.image)
 			.attr("width", _this.size)
@@ -774,8 +772,8 @@
 			x: -((_this.targetNode.size / 2) + 4) * Math.cos(deg),
 			y: -((_this.targetNode.size / 2) + 4) * Math.sin(deg)
 		};
-		var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y + sourceDiff.y };
-		var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y + targetDiff.y };
+		var startPoint = { x: _this.sourceNode.x + sourceDiff.x, y: _this.sourceNode.y - sourceDiff.y };
+		var endPoint = { x: _this.targetNode.x + targetDiff.x, y: _this.targetNode.y - targetDiff.y };
 		return [
 			startPoint,
 			// getPointsCenter([startPoint, endPoint]),
@@ -805,7 +803,7 @@
 		_this.$line.selectAll("*").remove();
 		var $polyline = _this.$line.append('polyline')
 			.attr('points', _this.pointsData.map(function (p) {
-				return p.x + "," + p.y
+				return p.x + "," + (-p.y)
 			}).join(" "));
 		if (_this.animate && firstRender) {
 			$polyline.transition().duration(500)
@@ -825,7 +823,7 @@
 				textPositionInfo.angel += 180;
 			}
 			_this.$line
-				.append("g").attr("transform", "translate(" + textPositionInfo.x + "," + textPositionInfo.y + ")")
+				.append("g").attr("transform", "translate(" + textPositionInfo.x + "," + (-textPositionInfo.y) + ")")
 				.append("text").attr("transform", "rotate(" + textPositionInfo.angel + ")")
 				.text(_this.text);
 		}
@@ -891,7 +889,7 @@
 		_this.$point = line.agGraph._$pointGroup.append("circle")
 			.classed("ag-graph-point", true)
 			.attr("cx", _this.x)
-			.attr("cy", _this.y)
+			.attr("cy", -_this.y)
 			.attr("r", POINT_RADIUS);
 
 		var dragPoint = d3.drag()
@@ -922,17 +920,21 @@
 
 	}
 	AgGraphPoint.prototype._dragPointStart = function () {
-		var mouse_x = d3.event.x;
-		var mouse_y = d3.event.y;
-		// 记录开始drag时，鼠标和Point中心的距离
-		tempData.offset = { x: mouse_x - this.x, y: mouse_y - this.y }
+		tempData.lastPostion = {
+			x: d3.event.x,
+			y: d3.event.y
+		};
 	}
 
 	AgGraphPoint.prototype._dragPointMove = function () {
 		var x = d3.event.x;
 		var y = d3.event.y;
-		this.x = x - tempData.offset.x;
-		this.y = y - tempData.offset.y;
+		this.x += (x - tempData.lastPostion.x);
+		this.y -= (y - tempData.lastPostion.y);
+		tempData.lastPostion = {
+			x: d3.event.x,
+			y: d3.event.y
+		};
 	}
 
 	AgGraphPoint.prototype._dragPointEnd = function () {
@@ -942,7 +944,7 @@
 		var _this = this;
 		_this.$point
 			.attr("cx", _this.x)
-			.attr("cy", _this.y)
+			.attr("cy", -_this.y)
 			.classed("selected", _this.selected);
 
 		// 重绘line
@@ -1077,7 +1079,7 @@
 		if (pointsArray.length) {
 			var $line = _this.$path.append("polyline").attr('points', function () {
 				return pointsArray[0].map(function (p) {
-					return p.x + "," + p.y
+					return p.x + "," + (-p.y)
 				}).join(" ");
 			});
 			$line.transition()
@@ -1092,7 +1094,7 @@
 						var moveDistance = +dasharrayString.split(",")[0];
 						var movingPointInfo = getPointInfoAtLine(pointsArray[0], moveDistance);
 						if (movingPointInfo) {
-							$mark.attr("transform", "translate(" + movingPointInfo.x + "," + movingPointInfo.y + ")");
+							$mark.attr("transform", "translate(" + movingPointInfo.x + "," + (-movingPointInfo.y) + ")");
 							$arrow.attr("transform", "rotate(" + movingPointInfo.angel + ")");
 						}
 						return dasharrayString;
