@@ -18,7 +18,6 @@
 .ag-graph-bar .wrapper li {
   float: left;
   height: 100%;
-  box-sizing: border-box;
   padding: 6px 0;
 }
 
@@ -27,8 +26,8 @@
   transition: all .2s ease;
 }
 
-.ag-graph-bar .wrapper li:first-child div {
-  padding-right: 6px;
+.ag-graph-bar .wrapper li:first-child > div {
+  padding-right: 12px;
 }
 
 .ag-graph-bar .wrapper li > div {
@@ -367,7 +366,7 @@
 }
 
 .switch[active] span.toggle {
-  left: calc(100% - 18px);
+  left: calc(100% - 12px);
 }
 
 /*
@@ -425,6 +424,19 @@
   background: url("images/firewall-b.svg") center no-repeat;
 }
 
+/* 下拉菜单 第一组 图标 悬停 */
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:first-child:hover .item-pic {
+  background: url("images/pc-s.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(2):hover .item-pic {
+  background: url("images/server-s.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(3):hover .item-pic {
+  background: url("images/firewall-s.svg") center no-repeat;
+}
+
 /* 下拉菜单 第二组 图标 */
 .ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:first-child .item-pic {
   background: url("images/router-b.svg") center no-repeat;
@@ -432,4 +444,85 @@
 
 .ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:nth-child(2) .item-pic {
   background: url("images/switch-b.svg") center no-repeat;
+}
+
+/* 下拉菜单 第二组 图标 悬停*/
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:first-child:hover .item-pic {
+  background: url("images/router-s.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
+  background: url("images/switch-s.svg") center no-repeat;
+}
+
+/*
+ * 竖版白色
+ */
+.ag-graph-bar.ag-graph-bar-vertical .wrapper {
+  width: 48px;
+  height: 600px;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li {
+  float: none;
+  height: initial;
+  text-align: center;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li:first-child {
+  padding: 12px 0 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li:not(:last-child) {
+  border-bottom: 1px solid #ededed;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div {
+  height: initial;
+  padding: 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li:first-child div {
+  padding-right: 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li:not(:last-child) > div {
+  border-right: none;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div span.item {
+  float: none;
+  padding: 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .unfold-shrink {
+  width: 100%;
+  height: 8px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical:hover .unfold-shrink {
+  height: 16px;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .unfold-shrink i {
+  line-height: normal;
+  -webkit-transform: rotate(90deg) translate(-2px, 0);
+  transform: rotate(90deg) translate(-2px, 0);
+}
+
+.ag-graph-bar.ag-graph-bar-vertical {
+}
+
+.ag-graph-bar.ag-graph-bar-vertical {
+}
+
+.ag-graph-bar.ag-graph-bar-vertical {
+}
+
+.ag-graph-bar.ag-graph-bar-vertical {
+}
+
+.ag-graph-bar.ag-graph-bar-vertical {
 }
