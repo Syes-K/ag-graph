@@ -311,7 +311,7 @@
 
 /* 收起效果 */
 .pack-up .wrapper {
-  width: 32px;
+  width: 38px;
   transition: all .2s ease;
 }
 
@@ -460,17 +460,18 @@
  */
 .ag-graph-bar.ag-graph-bar-vertical .wrapper {
   width: 48px;
-  height: 600px;
+  height: 502px;
 }
 
 .ag-graph-bar.ag-graph-bar-vertical .wrapper li {
   float: none;
   height: initial;
   text-align: center;
+  padding: 8px 0;
 }
 
 .ag-graph-bar.ag-graph-bar-vertical .wrapper li:first-child {
-  padding: 12px 0 0;
+  padding: 12px 0 4px;
 }
 
 .ag-graph-bar.ag-graph-bar-vertical .wrapper li:not(:last-child) {
@@ -491,8 +492,19 @@
 }
 
 .ag-graph-bar.ag-graph-bar-vertical .wrapper li > div span.item {
+  display: inline-block;
+  width: 100%;
   float: none;
   padding: 0;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div span.item:not(:last-child) {
+  padding-bottom: 5px;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div input {
+  display: inline-block;
+  margin: 0;
 }
 
 .ag-graph-bar.ag-graph-bar-vertical .unfold-shrink {
@@ -512,17 +524,21 @@
   transform: rotate(90deg) translate(-2px, 0);
 }
 
-.ag-graph-bar.ag-graph-bar-vertical {
+.ag-graph-bar.ag-graph-bar-vertical span.item .dorpmenu {
+  top: 0;
+  left: initial;
+  right: 48px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical {
+.ag-graph-bar.ag-graph-bar-vertical.pack-up .wrapper {
+  height: 38px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical {
+.ag-graph-bar.ag-graph-bar-vertical.pack-up .unfold-shrink {
+  height: 16px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical {
-}
-
-.ag-graph-bar.ag-graph-bar-vertical {
+.ag-graph-bar.ag-graph-bar-vertical.pack-up .unfold-shrink i {
+  -webkit-transform: rotate(-90deg) translate(2px, 0);
+  transform: rotate(-90deg) translate(2px, 0);
 }
