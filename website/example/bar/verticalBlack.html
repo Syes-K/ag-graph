@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>changeEdit</title>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <!-- 字体图标 -->
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/bar/fonts/iconfont.css">
+  <!-- topobar -->
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/bar/ag-graph-bar.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+
+    * {
+      font-weight: 400;
+    }
+
+    .ag-relative {
+      position: relative;
+    }
+
+    .ag-graph-bar-vertical {
+      position: absolute;
+      top: 56px;
+      right: 30px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+<!-- 示例 -->
+<div class="aigo-simple-code-box aigo-simple-example ag-relative">
+  <!-- 竖版黑色 topobar -->
+  <div class="ag-graph-bar ag-graph-bar-black ag-graph-bar-vertical ag-graph-bar-vertical-black">
+    <!-- 外层 -->
+    <ul class="wrapper">
+      <li>
+        <div>
+          <!--switch开关-->
+          <div class="switch" id="graph-edit-switch" ag-click toggle target="open-edit-target">
+            <div></div>
+            <span class="toggle"></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div>
+            <span class="item">
+              <a href="javascript:void(0)" title="放大">
+                <i class="icon iconfont icon-fangda1"></i>
+              </a>
+            </span>
+          <span class="item">
+              <a href="javascript:void(0)" title="缩小">
+                <i class="icon iconfont icon-suoxiao1"></i>
+              </a>
+            </span>
+          <span class="item">
+              <input type="text" value="100%" readonly>
+            </span>
+        </div>
+      </li>
+      <li>
+        <div>
+            <span class="item">
+              <a href="javascript:void(0)" title="保存">
+                <i class="icon iconfont icon-savefloppy1187937easyiconnet-copy"></i>
+              </a>
+            </span>
+          <span class="item">
+              <a href="javascript:void(0)" title="刷新">
+                <i class="icon iconfont icon-shuaxin"></i>
+              </a>
+            </span>
+          <span class="item">
+              <a href="javascript:void(0)" class="arrow disabled">
+                <i class="icon iconfont icon-Topology"></i>
+              </a>
+            </span>
+        </div>
+      </li>
+      <li>
+        <div>
+            <span class="item">
+              <a href="javascript:void(0)" class="arrow">
+                <i class="icon iconfont icon-pc"></i>
+              </a>
+              <!-- 下拉菜单 -->
+              <div class="dorpmenu">
+                <div class="inner">
+                  <!-- 每个条目 -->
+                  <div>
+                    <a href="javascript:void(0)">
+                      <div class="item-pic"></div>
+                      <em>PC</em>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <div class="item-pic"></div>
+                      <em>Server</em>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <div class="item-pic"></div>
+                      <em>Firewall</em>
+                    </a>
+                  </div>
+                  <!-- 每个条目 -->
+                  <div>
+                    <a href="javascript:void(0)">
+                      <div class="item-pic"></div>
+                      <em>Router</em>
+                    </a>
+                    <a href="javascript:void(0)">
+                      <div class="item-pic"></div>
+                      <em>Switch</em>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </span>
+            <span class="item">
+              <a href="javascript:void(0)" title="删除节点" class="disabled">
+                <i class="icon iconfont icon-shanchujiedian"></i>
+              </a>
+            </span>
+        </div>
+      </li>
+      <li>
+        <div>
+            <span class="item">
+              <a href="javascript:void(0)" title="添加线" class="disabled">
+                <i class="icon iconfont icon-tianjiaxian1"></i>
+              </a>
+            </span>
+          <span class="item">
+              <a href="javascript:void(0)" title="删除线" class="disabled">
+                <i class="icon iconfont icon-shanchuxian1"></i>
+              </a>
+            </span>
+        </div>
+      </li>
+      <li>
+        <div>
+            <span class="item">
+              <a href="javascript:void(0)" title="添加锚点" class="disabled">
+                <i class="icon iconfont icon-weixuandingliuchenglianxiantianjia"></i>
+              </a>
+            </span>
+          <span class="item">
+              <a href="javascript:void(0)" title="删除锚点" class="disabled">
+                <i class="icon iconfont icon-weixuandingliuchenglianxianshanchu"></i>
+              </a>
+            </span>
+        </div>
+      </li>
+    </ul>
+    <!-- 展开收起部分 -->
+    <a href="javascript:void(0)" class="unfold-shrink">
+      <i class="icon iconfont icon-double-forward"></i>
+    </a>
+  </div>
+  <div class="title">
+    <span class="big-font">切换编辑模式</span>
+    <span class="small-font">启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以观看路径轨迹动画.</span>
+  </div>
+  <div class="content content-top" id="ag-graph-container">
+    <!-- 容器 -->
+  </div>
+</div>
+<!-- 代码 -->
+<div class="aigo-simple-code-box">
+  <div class="header">示例代码
+    <a href="javascript:void(0)" class="run-btn">运行</a>
+  </div>
+  <div class="content content-bottom" id="ag-graph-code">
+<textarea id="code" name="code">
+// 初始化
+var agGraph = new AgGraph({container: "#ag-graph-container"});
+// 添加节点
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
+// 添加连线
+var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
+// 切换编辑模式, 开启注释代码, 感受差异.
+// agGraph.startEdit();
+</textarea>
+  </div>
+</div>
+<script src="../../assets/js/jquery-2.1.0.min.js"></script>
+<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor.setOption("theme", "monokai");
+</script>
+<script src="../../assets/js/d3.js"></script>
+<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<!-- ag-click -->
+<script src="../../../example/scripts/ag-click.js"></script>
+<script>
+
+  $('.run-btn').on('click', function (e) {
+    var code = editor.getValue();
+    var fn = new Function(code);
+    fn();
+  });
+  $('.run-btn').click();
+
+
+</script>
+</body>
+</html>

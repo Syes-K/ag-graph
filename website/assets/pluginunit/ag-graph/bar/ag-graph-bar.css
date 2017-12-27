@@ -455,6 +455,10 @@
   background: url("images/switch-s.svg") center no-repeat;
 }
 
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:after, .ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
+  border-bottom: 4px solid #686868;
+}
+
 /*
  * 竖版白色
  */
@@ -542,3 +546,17 @@
   -webkit-transform: rotate(-90deg) translate(2px, 0);
   transform: rotate(-90deg) translate(2px, 0);
 }
+
+/*
+ * 竖版黑色
+ */
+.ag-graph-bar.ag-graph-bar-vertical.ag-graph-bar-vertical-black .wrapper li:not(:last-child) {
+  border-bottom: 1px solid #383838;
+}
+
+.ag-graph-bar.ag-graph-bar-vertical.ag-graph-bar-vertical-black span.item .dorpmenu {
+  border-top: none;
+  border-right: 1px solid #000;
+}
+
+
