@@ -1,0 +1,435 @@
+/*
+ *topobar
+ */
+
+.ag-graph-bar {
+  position: relative;
+}
+
+.ag-graph-bar .wrapper {
+  width: 555px;
+  height: 40px;
+  background: #fff;
+  box-shadow: 0 0 18px rgba(40, 40, 40, .14);
+  border-radius: 6px;
+  clear: both;
+}
+
+.ag-graph-bar .wrapper li {
+  float: left;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 6px 0;
+}
+
+.ag-graph-bar .wrapper li:first-child {
+  padding-left: 12px;
+  transition: all .2s ease;
+}
+
+.ag-graph-bar .wrapper li:first-child div {
+  padding-right: 6px;
+}
+
+.ag-graph-bar .wrapper li > div {
+  height: 28px;
+  line-height: 28px;
+  padding: 0 8px;
+}
+
+.ag-graph-bar .wrapper li:not(:last-child) > div {
+  border-right: 1px solid #ededed;
+}
+
+.ag-graph-bar .wrapper li > div span.item {
+  position: relative;
+  float: left;
+}
+
+.ag-graph-bar .wrapper li > div span.item:not(:last-child) {
+  padding-right: 8px;
+}
+
+.ag-graph-bar .wrapper li > div a {
+  position: relative;
+  display: inline-block;
+  color: #9e9e9e;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.ag-graph-bar .wrapper li > div a:hover {
+  background: #50aff2;
+  color: #fff;
+}
+
+/* 含下三角的图标 */
+.ag-graph-bar .wrapper li > div a.arrow:after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 3px;
+  width: 0;
+  height: 0;
+  border-bottom: 4px solid #9e9e9e;
+  border-left: 4px solid transparent;
+}
+
+/* 下拉菜单 */
+.ag-graph-bar span.item .dorpmenu {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  height: 126px;
+  background: #fff;
+  box-shadow: 0 0 18px rgba(40, 40, 40, .14);
+  border-radius: 6px;
+  padding: 10px;
+  z-index: 999;
+  overflow-y: auto;
+  transition: all .3s ease;
+  -webkit-transform: translate(0, 10px);
+  transform: translate(0, 10px);
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 悬停显示 */
+.ag-graph-bar span.item:hover a.arrow {
+  color: #fff;
+  background: #50aff2;
+}
+
+.ag-graph-bar .wrapper li > div a.arrow:hover:after, .ag-graph-bar span.item:hover a.arrow:after {
+  border-bottom: 4px solid #fff;
+}
+
+.ag-graph-bar span.item:hover .dorpmenu {
+  -webkit-transform: translate(0, 0);
+  transform: translate(0, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.ag-graph-bar span.item .dorpmenu .inner {
+  width: 164px;
+}
+
+.ag-graph-bar span.item .dorpmenu div {
+  height: 48px;
+}
+
+.ag-graph-bar span.item .dorpmenu div:not(:first-child) {
+  margin-top: 10px;
+}
+
+.ag-graph-bar span.item .dorpmenu div a:nth-child(2) {
+  margin: 0 10px;
+}
+
+.ag-graph-bar span.item .dorpmenu a {
+  float: left;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  border: 1px solid #ededed;
+  border-radius: 5px;
+  padding-top: 5px;
+}
+
+.ag-graph-bar span.item .dorpmenu a:hover {
+  color: #fff;
+  border: 1px solid #50aff2;;
+}
+
+.ag-graph-bar span.item .dorpmenu em {
+  display: inline-block;
+  font-style: normal;
+  font-size: 12px;
+  -webkit-transform: translate(0, -5px);
+  transform: translate(0, -5px);
+}
+
+/* 下拉菜单 第一组 图标 */
+.ag-graph-bar span.item .dorpmenu > div:first-child a:first-child .item-pic {
+  background: url("images/pc-w.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(2) .item-pic {
+  background: url("images/server-w.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(3) .item-pic {
+  background: url("images/firewall-w.svg") center no-repeat;
+}
+
+/* 下拉菜单 第一组 图标 悬停 */
+.ag-graph-bar span.item .dorpmenu > div:first-child a:first-child:hover .item-pic {
+  background: url("images/pc-s.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(2):hover .item-pic {
+  background: url("images/server-s.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(3):hover .item-pic {
+  background: url("images/firewall-s.svg") center no-repeat;
+}
+
+/* 下拉菜单 第二组 图标 */
+.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:first-child .item-pic {
+  background: url("images/router-w.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:nth-child(2) .item-pic {
+  background: url("images/switch-w.svg") center no-repeat;
+}
+
+/* 下拉菜单 第二组 图标 悬停 */
+
+.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:first-child:hover .item-pic {
+  background: url("images/router-s.svg") center no-repeat;
+}
+
+.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
+  background: url("images/switch-s.svg") center no-repeat;
+}
+
+/* 下拉菜单 公共样式 图标 */
+.ag-graph-bar span.item .dorpmenu > div a .item-pic {
+  width: 100%;
+  height: 20px;
+  background-size: contain !important;
+}
+
+/* 关闭编辑模式 部分工具禁用状态 */
+.ag-graph-bar .wrapper li > div a.disabled {
+  color: #d0d0d0 !important;
+}
+
+.ag-graph-bar .wrapper li > div a.disabled:hover {
+  background: none;
+}
+
+.ag-graph-bar .wrapper li > div a.disabled:after, .ag-graph-bar .wrapper li > div a.disabled:hover:after {
+  border-bottom: 4px solid #d0d0d0;
+}
+
+.ag-graph-bar .wrapper li > div input {
+  display: block;
+  width: 40px;
+  height: 20px;
+  color: #9e9e9e;
+  text-align: center;
+  border: 1px solid #d0d0d0;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+.ag-graph-bar .wrapper li > div i {
+  display: inline-block;
+}
+
+/* 图标特殊处理 */
+.icon-fangda1, .icon-suoxiao1 {
+  -webkit-transform: scale(1.25) translate(-1px, -0.3px);
+  transform: scale(1.25) translate(-1px, -0.3px);
+}
+
+.icon-Topology {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.icon-pc {
+  -webkit-transform: scale(.9) translate(0.2px, 0);
+  transform: scale(.9) translate(0.2px, 0);
+}
+
+.icon-shanchujiedian {
+  -webkit-transform: scale(1.9) translate(0.1px, 0);
+  transform: scale(1.9) translate(0.1px, 0);
+}
+
+.icon-tianjiaxian1, .icon-shanchuxian1 {
+  -webkit-transform: scale(.8);
+  transform: scale(.8);
+}
+
+/* 展开收缩按钮 */
+.ag-graph-bar .unfold-shrink {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 100%;
+  text-align: center;
+  background: #50aff2;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  transition: all .2s ease;
+}
+
+.ag-graph-bar .unfold-shrink i {
+  display: inline-block;
+  line-height: 40px;
+  font-size: 12px;
+  color: #fff;
+  transition: all .2s ease;
+  opacity: 0;
+}
+
+.ag-graph-bar:hover .unfold-shrink {
+  width: 16px;
+}
+
+.ag-graph-bar:hover .unfold-shrink i {
+  -webkit-animation: waver 1.2s infinite ease;
+  animation: waver 1.2s infinite ease;
+}
+
+/* 悬停箭头闪烁动画 */
+@-webkit-keyframes waver {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes waver {
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 收起效果 */
+.pack-up .wrapper {
+  width: 32px;
+  transition: all .2s ease;
+}
+
+.pack-up .wrapper li {
+  display: none;
+}
+
+.pack-up .unfold-shrink {
+  width: 16px;
+}
+
+.pack-up .unfold-shrink i {
+  opacity: 1;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -webkit-animation: waver 1.2s infinite ease;
+  animation: waver 1.2s infinite ease;
+}
+
+/*
+ * switch开关
+ */
+.switch {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.switch div {
+  display: inline-block;
+  width: 34px;
+  height: 14px;
+  border-radius: 10px;
+  background: #c0c0c0;
+  transition: all .3s ease;
+}
+
+.switch[active] div {
+  background: #50aff3;
+}
+
+.switch span.toggle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 5px;
+  top: 8px;
+  left: 2px;
+  transition: all .3s ease;
+}
+
+.switch[active] span.toggle {
+  left: calc(100% - 18px);
+}
+
+/*
+ * 横版黑色
+ */
+
+.ag-graph-bar.ag-graph-bar-black .wrapper {
+  background: #1d1d1d;
+  box-shadow: none;
+}
+
+.ag-graph-bar.ag-graph-bar-black .wrapper li:not(:last-child) > div {
+  border-right: 1px solid #383838;
+}
+
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div input {
+  color: #c8c8c8;
+  border: 1px solid #c8c8c8;
+  background: none;
+}
+
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div a {
+  color: #c8c8c8;
+}
+
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div a:hover {
+  color: #fff;
+}
+
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled {
+  color: #686868 !important;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu {
+  background: #1d1d1d;
+  box-shadow: none;
+  border-top: 1px solid #000;
+  height: 127px;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu a {
+  border: 1px solid #383838;
+}
+
+/* 下拉菜单 第一组 图标 */
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:first-child .item-pic {
+  background: url("images/pc-b.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(2) .item-pic {
+  background: url("images/server-b.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(3) .item-pic {
+  background: url("images/firewall-b.svg") center no-repeat;
+}
+
+/* 下拉菜单 第二组 图标 */
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:first-child .item-pic {
+  background: url("images/router-b.svg") center no-repeat;
+}
+
+.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:nth-child(2) .item-pic {
+  background: url("images/switch-b.svg") center no-repeat;
+}
