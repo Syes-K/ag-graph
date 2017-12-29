@@ -1,6 +1,6 @@
 {
   "name": "ag-graph",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "一个基于点d3构建的svg graph 图形绘制框架",
   "main": "index.js",
   "directories": {
