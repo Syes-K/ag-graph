@@ -102,7 +102,8 @@
   background: #50aff2;
 }
 
-.ag-graph-bar .wrapper li > div a.arrow:hover:after, .ag-graph-bar span.item:hover a.arrow:after {
+.ag-graph-bar .wrapper li > div a.arrow:hover:after,
+.ag-graph-bar span.item:hover a.arrow:after {
   border-bottom: 4px solid #fff;
 }
 
@@ -168,7 +169,8 @@
   background: none;
 }
 
-.ag-graph-bar .wrapper li > div a.disabled:after, .ag-graph-bar .wrapper li > div a.disabled:hover:after {
+.ag-graph-bar .wrapper li > div a.disabled:after,
+.ag-graph-bar .wrapper li > div a.disabled:hover:after {
   border-bottom: 4px solid #d0d0d0;
 }
 
@@ -366,7 +368,8 @@
   border: 1px solid #383838;
 }
 
-.ag-graph-bar-black .wrapper li > div a.disabled:after, .ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
+.ag-graph-bar-black .wrapper li > div a.disabled:after,
+.ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
   border-bottom: 4px solid #686868;
 }
 
