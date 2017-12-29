@@ -78,7 +78,7 @@
 }
 
 /* 下拉菜单 */
-.ag-graph-bar span.item .dorpmenu {
+.ag-graph-bar span.item .dropmenu {
   position: absolute;
   top: 34px;
   left: 0;
@@ -106,30 +106,30 @@
   border-bottom: 4px solid #fff;
 }
 
-.ag-graph-bar span.item:hover .dorpmenu {
+.ag-graph-bar span.item:hover .dropmenu {
   -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
   opacity: 1;
   visibility: visible;
 }
 
-.ag-graph-bar span.item .dorpmenu .inner {
+.ag-graph-bar span.item .dropmenu .inner {
   width: 164px;
 }
 
-.ag-graph-bar span.item .dorpmenu div {
+.ag-graph-bar span.item .dropmenu div {
   height: 48px;
 }
 
-.ag-graph-bar span.item .dorpmenu div:not(:first-child) {
+.ag-graph-bar span.item .dropmenu div:not(:first-child) {
   margin-top: 10px;
 }
 
-.ag-graph-bar span.item .dorpmenu div a:nth-child(2) {
+.ag-graph-bar span.item .dropmenu div a:nth-child(2) {
   margin: 0 10px;
 }
 
-.ag-graph-bar span.item .dorpmenu a {
+.ag-graph-bar span.item .dropmenu a {
   float: left;
   width: 48px;
   height: 48px;
@@ -139,12 +139,12 @@
   padding-top: 5px;
 }
 
-.ag-graph-bar span.item .dorpmenu a:hover {
+.ag-graph-bar span.item .dropmenu a:hover {
   color: #fff;
   border: 1px solid #50aff2;;
 }
 
-.ag-graph-bar span.item .dorpmenu em {
+.ag-graph-bar span.item .dropmenu em {
   display: inline-block;
   font-style: normal;
   font-size: 12px;
@@ -153,52 +153,52 @@
 }
 
 /* 下拉菜单 第一组 图标 */
-.ag-graph-bar span.item .dorpmenu > div:first-child a:first-child .item-pic {
-  background: url("images/pc-w.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:first-child .item-pic {
+  background: url("../../../../assets/img/example/pc-w.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(2) .item-pic {
-  background: url("images/server-w.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(2) .item-pic {
+  background: url("../../../../assets/img/example/server-w.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(3) .item-pic {
-  background: url("images/firewall-w.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(3) .item-pic {
+  background: url("../../../../assets/img/example/firewall-w.svg") center no-repeat;
 }
 
 /* 下拉菜单 第一组 图标 悬停 */
-.ag-graph-bar span.item .dorpmenu > div:first-child a:first-child:hover .item-pic {
-  background: url("images/pc-s.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:first-child:hover .item-pic {
+  background: url("../../../../assets/img/example/pc-s.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(2):hover .item-pic {
-  background: url("images/server-s.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(2):hover .item-pic {
+  background: url("../../../../assets/img/example/server-s.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:first-child a:nth-child(3):hover .item-pic {
-  background: url("images/firewall-s.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(3):hover .item-pic {
+  background: url("../../../../assets/img/example/firewall-s.svg") center no-repeat;
 }
 
 /* 下拉菜单 第二组 图标 */
-.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:first-child .item-pic {
-  background: url("images/router-w.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:first-child .item-pic {
+  background: url("../../../../assets/img/example/router-w.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:nth-child(2) .item-pic {
-  background: url("images/switch-w.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:nth-child(2) .item-pic {
+  background: url("../../../../assets/img/example/switch-w.svg") center no-repeat;
 }
 
 /* 下拉菜单 第二组 图标 悬停 */
 
-.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:first-child:hover .item-pic {
-  background: url("images/router-s.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:first-child:hover .item-pic {
+  background: url("../../../../assets/img/example/router-s.svg") center no-repeat;
 }
 
-.ag-graph-bar span.item .dorpmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
-  background: url("images/switch-s.svg") center no-repeat;
+.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
+  background: url("../../../../assets/img/example/switch-s.svg") center no-repeat;
 }
 
 /* 下拉菜单 公共样式 图标 */
-.ag-graph-bar span.item .dorpmenu > div a .item-pic {
+.ag-graph-bar span.item .dropmenu > div a .item-pic {
   width: 100%;
   height: 20px;
   background-size: contain !important;
@@ -373,176 +373,177 @@
  * 横版黑色
  */
 
-.ag-graph-bar.ag-graph-bar-black .wrapper {
+.ag-graph-bar-black .wrapper {
   background: #1d1d1d;
   box-shadow: none;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li:not(:last-child) > div {
+.ag-graph-bar-black .wrapper li:not(:last-child) > div {
   border-right: 1px solid #383838;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li > div input {
+.ag-graph-bar-black .wrapper li > div input {
   color: #c8c8c8;
   border: 1px solid #c8c8c8;
   background: none;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li > div a {
+.ag-graph-bar-black .wrapper li > div a {
   color: #c8c8c8;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li > div a:hover {
+.ag-graph-bar-black .wrapper li > div a:hover {
   color: #fff;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled {
+.ag-graph-bar-black .wrapper li > div a.disabled {
   color: #686868 !important;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu {
+.ag-graph-bar-black span.item .dropmenu {
   background: #1d1d1d;
   box-shadow: none;
   border-top: 1px solid #000;
   height: 127px;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu a {
+.ag-graph-bar-black span.item .dropmenu a {
   border: 1px solid #383838;
 }
 
 /* 下拉菜单 第一组 图标 */
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:first-child .item-pic {
-  background: url("images/pc-b.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:first-child .item-pic {
+  background: url("../../../../assets/img/example/pc-b.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(2) .item-pic {
-  background: url("images/server-b.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(2) .item-pic {
+  background: url("../../../../assets/img/example/server-b.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(3) .item-pic {
-  background: url("images/firewall-b.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(3) .item-pic {
+  background: url("../../../../assets/img/example/firewall-b.svg") center no-repeat;
 }
 
 /* 下拉菜单 第一组 图标 悬停 */
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:first-child:hover .item-pic {
-  background: url("images/pc-s.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:first-child:hover .item-pic {
+  background: url("../../../../assets/img/example/pc-s.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(2):hover .item-pic {
-  background: url("images/server-s.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(2):hover .item-pic {
+  background: url("../../../../assets/img/example/server-s.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:first-child a:nth-child(3):hover .item-pic {
-  background: url("images/firewall-s.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(3):hover .item-pic {
+  background: url("../../../../assets/img/example/firewall-s.svg") center no-repeat;
 }
 
 /* 下拉菜单 第二组 图标 */
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:first-child .item-pic {
-  background: url("images/router-b.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:first-child .item-pic {
+  background: url("../../../../assets/img/example/router-b.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:nth-child(2) .item-pic {
-  background: url("images/switch-b.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:nth-child(2) .item-pic {
+  background: url("../../../../assets/img/example/switch-b.svg") center no-repeat;
 }
 
 /* 下拉菜单 第二组 图标 悬停*/
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:first-child:hover .item-pic {
-  background: url("images/router-s.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:first-child:hover .item-pic {
+  background: url("../../../../assets/img/example/router-s.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black span.item .dorpmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
-  background: url("images/switch-s.svg") center no-repeat;
+.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
+  background: url("../../../../assets/img/example/switch-s.svg") center no-repeat;
 }
 
-.ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:after, .ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
+.ag-graph-bar-black .wrapper li > div a.disabled:after, .ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
   border-bottom: 4px solid #686868;
 }
 
 /*
  * 竖版白色
  */
-.ag-graph-bar.ag-graph-bar-vertical .wrapper {
+.ag-graph-bar-vertical .wrapper {
   width: 48px;
   height: 502px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li {
+.ag-graph-bar-vertical .wrapper li {
   float: none;
   height: initial;
   text-align: center;
   padding: 8px 0;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li:first-child {
+.ag-graph-bar-vertical .wrapper li:first-child {
   padding: 12px 0 4px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li:not(:last-child) {
+.ag-graph-bar-vertical .wrapper li:not(:last-child) {
   border-bottom: 1px solid #ededed;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div {
+.ag-graph-bar-vertical .wrapper li > div {
   height: initial;
   padding: 0;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li:first-child div {
+.ag-graph-bar-vertical .wrapper li:first-child div {
   padding-right: 0;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li:not(:last-child) > div {
+.ag-graph-bar-vertical .wrapper li:not(:last-child) > div {
   border-right: none;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div span.item {
+.ag-graph-bar-vertical .wrapper li > div span.item {
   display: inline-block;
   width: 100%;
   float: none;
-  padding: 0;
+  padding: 0 !important;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div span.item:not(:last-child) {
-  padding-bottom: 5px;
+.ag-graph-bar-vertical .wrapper li > div span.item:not(:last-child) {
+  padding-bottom: 5px !important;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .wrapper li > div input {
+.ag-graph-bar-vertical .wrapper li > div input {
   display: inline-block;
   margin: 0;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .unfold-shrink {
+.ag-graph-bar-vertical .unfold-shrink {
   width: 100%;
   height: 8px;
   border-top-right-radius: 6px;
   border-bottom-left-radius: 0;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical:hover .unfold-shrink {
+.ag-graph-bar-vertical:hover .unfold-shrink {
+  width: 100%;
   height: 16px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical .unfold-shrink i {
+.ag-graph-bar-vertical .unfold-shrink i {
   line-height: normal;
   -webkit-transform: rotate(90deg) translate(-2px, 0);
   transform: rotate(90deg) translate(-2px, 0);
 }
 
-.ag-graph-bar.ag-graph-bar-vertical span.item .dorpmenu {
+.ag-graph-bar-vertical span.item .dropmenu {
   top: 0;
   left: initial;
   right: 48px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical.pack-up .wrapper {
+.ag-graph-bar-vertical.pack-up .wrapper {
   height: 38px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical.pack-up .unfold-shrink {
+.ag-graph-bar-vertical.pack-up .unfold-shrink {
   height: 16px;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical.pack-up .unfold-shrink i {
+.ag-graph-bar-vertical.pack-up .unfold-shrink i {
   -webkit-transform: rotate(-90deg) translate(2px, 0);
   transform: rotate(-90deg) translate(2px, 0);
 }
@@ -550,11 +551,11 @@
 /*
  * 竖版黑色
  */
-.ag-graph-bar.ag-graph-bar-vertical.ag-graph-bar-vertical-black .wrapper li:not(:last-child) {
+.ag-graph-bar.ag-graph-bar-black.ag-graph-bar-vertical .wrapper li:not(:last-child) {
   border-bottom: 1px solid #383838;
 }
 
-.ag-graph-bar.ag-graph-bar-vertical.ag-graph-bar-vertical-black span.item .dorpmenu {
+.ag-graph-bar.ag-graph-bar-black.ag-graph-bar-vertical span.item .dropmenu {
   border-top: none;
   border-right: 1px solid #000;
 }
