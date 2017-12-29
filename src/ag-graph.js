@@ -376,6 +376,11 @@
 		this.scale /= 1.3;
 		this.agGraph._emit("view.zoom", this);
 	}
+	AgGraphView.prototype.zoom = function (scale) {
+		if(!scale) return this.scale;
+		this.scale = scale;
+		this.agGraph._emit("view.zoom", this);
+	}
 
 	AgGraphView.prototype.move = function (x, y) {
 		x = x | 0;
@@ -1291,6 +1296,6 @@
 			return callback(line);
 		});
 	}
-	AgGraph._version = "1.0.2";
+	AgGraph._version = "1.0.3";
 	return AgGraph;
 }, window);

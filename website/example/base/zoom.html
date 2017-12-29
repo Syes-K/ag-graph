@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+    * {
+      font-weight: 400;
+    }
+  </style>
+</head>
+<body>
+<!-- 示例 -->
+<div class="aigo-simple-code-box aigo-simple-example">
+  <div class="title">
+    <span class="big-font">自定义缩放视图</span>
+    <span class="small-font">无参数情况: 则返回当前缩放比例; 数值型传参情况: 设置为当前缩放比例;</span>
+  </div>
+  <div class="content content-top" id="ag-graph-container">
+    <!-- 容器 -->
+  </div>
+</div>
+<!-- 代码 -->
+<div class="aigo-simple-code-box">
+  <div class="header">示例代码
+    <a href="javascript:void(0)" class="run-btn">运行</a>
+  </div>
+  <div class="content content-bottom" id="ag-graph-code">
+<textarea id="code" name="code">
+// 初始化
+var agGraph = new AgGraph({container: "#ag-graph-container"});
+// 添加节点
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
+// 添加连线
+var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
+// 自定义视图
+agGraph.view.zoom(2);    // 放大2倍
+agGraph.view.zoom(1);    // 恢复原始比例
+agGraph.view.zoom(1.2);  // 缩小为原始比例的1.2倍
+console.log(agGraph.view.zoom());
+</textarea>
+  </div>
+</div>
+<script src="../../assets/js/jquery-2.1.0.min.js"></script>
+<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor.setOption("theme", "monokai");
+</script>
+<script src="../../assets/js/d3.js"></script>
+<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script>
+
+  $('.run-btn').on('click', function(e) {
+      var code = editor.getValue();
+      var fn = new Function(code);
+      fn();
+  });
+  $('.run-btn').click();
+
+</script>
+</body>
+</html>
