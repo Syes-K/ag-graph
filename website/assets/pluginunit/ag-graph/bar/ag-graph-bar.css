@@ -152,51 +152,6 @@
   transform: translate(0, -5px);
 }
 
-/* 下拉菜单 第一组 图标 */
-.ag-graph-bar span.item .dropmenu > div:first-child a:first-child .item-pic {
-  background: url("../../../../assets/img/example/pc-w.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(2) .item-pic {
-  background: url("../../../../assets/img/example/server-w.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(3) .item-pic {
-  background: url("../../../../assets/img/example/firewall-w.svg") center no-repeat;
-}
-
-/* 下拉菜单 第一组 图标 悬停 */
-.ag-graph-bar span.item .dropmenu > div:first-child a:first-child:hover .item-pic {
-  background: url("../../../../assets/img/example/pc-s.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(2):hover .item-pic {
-  background: url("../../../../assets/img/example/server-s.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:first-child a:nth-child(3):hover .item-pic {
-  background: url("../../../../assets/img/example/firewall-s.svg") center no-repeat;
-}
-
-/* 下拉菜单 第二组 图标 */
-.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:first-child .item-pic {
-  background: url("../../../../assets/img/example/router-w.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:nth-child(2) .item-pic {
-  background: url("../../../../assets/img/example/switch-w.svg") center no-repeat;
-}
-
-/* 下拉菜单 第二组 图标 悬停 */
-
-.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:first-child:hover .item-pic {
-  background: url("../../../../assets/img/example/router-s.svg") center no-repeat;
-}
-
-.ag-graph-bar span.item .dropmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
-  background: url("../../../../assets/img/example/switch-s.svg") center no-repeat;
-}
-
 /* 下拉菜单 公共样式 图标 */
 .ag-graph-bar span.item .dropmenu > div a .item-pic {
   width: 100%;
@@ -409,50 +364,6 @@
 
 .ag-graph-bar-black span.item .dropmenu a {
   border: 1px solid #383838;
-}
-
-/* 下拉菜单 第一组 图标 */
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:first-child .item-pic {
-  background: url("../../../../assets/img/example/pc-b.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(2) .item-pic {
-  background: url("../../../../assets/img/example/server-b.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(3) .item-pic {
-  background: url("../../../../assets/img/example/firewall-b.svg") center no-repeat;
-}
-
-/* 下拉菜单 第一组 图标 悬停 */
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:first-child:hover .item-pic {
-  background: url("../../../../assets/img/example/pc-s.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(2):hover .item-pic {
-  background: url("../../../../assets/img/example/server-s.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:first-child a:nth-child(3):hover .item-pic {
-  background: url("../../../../assets/img/example/firewall-s.svg") center no-repeat;
-}
-
-/* 下拉菜单 第二组 图标 */
-.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:first-child .item-pic {
-  background: url("../../../../assets/img/example/router-b.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:nth-child(2) .item-pic {
-  background: url("../../../../assets/img/example/switch-b.svg") center no-repeat;
-}
-
-/* 下拉菜单 第二组 图标 悬停*/
-.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:first-child:hover .item-pic {
-  background: url("../../../../assets/img/example/router-s.svg") center no-repeat;
-}
-
-.ag-graph-bar-black span.item .dropmenu > div:nth-child(2) a:nth-child(2):hover .item-pic {
-  background: url("../../../../assets/img/example/switch-s.svg") center no-repeat;
 }
 
 .ag-graph-bar-black .wrapper li > div a.disabled:after, .ag-graph-bar.ag-graph-bar-black .wrapper li > div a.disabled:hover:after {
