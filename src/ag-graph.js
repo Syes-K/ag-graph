@@ -584,12 +584,22 @@
 					agGraph.selection.addNode(_this);
 				}
 				d3.event.stopPropagation();
-				agGraph._emit("node.click", _this);
+				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+				var position = {
+					x: d3.event.x - rect.x,
+					y: d3.event.y - rect.y
+				}
+				agGraph._emit("node.click", _this, position);
 			})
 			.on("contextmenu", function () {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
-				agGraph._emit("node.rightClick", _this);
+				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+				var position = {
+					x: d3.event.x - rect.x,
+					y: d3.event.y - rect.y
+				}
+				agGraph._emit("node.rightClick", _this, position);
 			});
 	}
 
@@ -746,7 +756,11 @@
 					// agGraph.selection.toggleLine(_this);
 				}
 				d3.event.stopPropagation();
-				var position = _this.agGraph.view._transferToViewPosition(d3.event);
+				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+				var position = {
+					x: d3.event.x - rect.x,
+					y: d3.event.y - rect.y
+				}
 				agGraph._emit("line.click", _this, position);
 			})
 			.on("dblclick", function () {
@@ -756,7 +770,11 @@
 			.on("contextmenu", function () {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
-				var position = _this.agGraph.view._transferToViewPosition(d3.event);
+				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+				var position = {
+					x: d3.event.x - rect.x,
+					y: d3.event.y - rect.y
+				}
 				agGraph._emit("line.rightClick", _this, position);
 			});
 		;
