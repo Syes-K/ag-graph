@@ -60,11 +60,14 @@
 <textarea id="code" name="code">
 // 初始化
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点1
-var node1 = agGraph.addNode({
-  id: "n1", x: 0, y: 0, size:48, text: "I'm node",
-  image: "../../assets/img/example/pc.svg"
-});
+// 添加节点
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
+// 添加连线
+var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
+// 切换编辑模式
+agGraph.startEdit();
+
 // 添加左击
 agGraph.on("view.click, node.click", function (view, position) {
   var rightMenu = document.querySelector(".ag-graph-context-menu");
@@ -72,11 +75,10 @@ agGraph.on("view.click, node.click", function (view, position) {
   rightMenu.classList.remove("show");
 });
 // 添加右击
-agGraph.on("node.rightClick", function (node) {
-  var position = node.offset();
+agGraph.on("line.rightClick", function (line, position) {
   var rightMenu = document.querySelector(".ag-graph-context-menu");
-  rightMenu.style.cssText = "top:" + (position.y + node.size / 2 )
-                              + "px;left:" + (position.x + + node.size / 2) + "px";
+  rightMenu.style.cssText = "top:" + (position.y)
+                              + "px;left:" + (position.x) + "px";
   rightMenu.classList.add("show");
 });
 </textarea>

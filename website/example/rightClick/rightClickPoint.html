@@ -72,7 +72,7 @@ agGraph.on("view.click, node.click", function (view, position) {
   rightMenu.classList.remove("show");
 });
 // 添加右击
-agGraph.on("node.rightClick", function (node) {
+agGraph.on("point.rightClick", function (node) {
   var position = node.offset();
   var rightMenu = document.querySelector(".ag-graph-context-menu");
   rightMenu.style.cssText = "top:" + (position.y + node.size / 2 )
