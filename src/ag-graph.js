@@ -1316,6 +1316,6 @@
 			return callback(line);
 		});
 	}
-	AgGraph._version = "1.0.3";
+	AgGraph._version = "1.0.4";
 	return AgGraph;
 }, window);
