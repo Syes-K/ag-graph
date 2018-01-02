@@ -746,7 +746,8 @@
 					// agGraph.selection.toggleLine(_this);
 				}
 				d3.event.stopPropagation();
-				agGraph._emit("line.click", _this);
+				var position = _this.agGraph.view._transferToViewPosition(d3.event);
+				agGraph._emit("line.click", _this, position);
 			})
 			.on("dblclick", function () {
 				var position = _this.agGraph.view._transferToViewPosition(d3.event);
@@ -755,7 +756,8 @@
 			.on("contextmenu", function () {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
-				agGraph._emit("line.rightClick", _this);
+				var position = _this.agGraph.view._transferToViewPosition(d3.event);
+				agGraph._emit("line.rightClick", _this, position);
 			});
 		;
 		_this.pointsData.forEach(function (pointData) {
