@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
   <!-- ag-grahp -->
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <!-- topobar -->
+  <!-- ag-grahp-bar -->
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/bar/fonts/iconfont.css">
   <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/bar/ag-graph-bar.css">
   <style>
@@ -85,12 +85,9 @@
     <!-- 外层 -->
     <ul class="wrapper">
       <li>
-        <div>
-          <!--switch开关-->
-          <div class="switch" id="graph-edit-switch" ag-click toggle target="open-edit-target">
-            <div></div>
-            <span class="toggle"></span>
-          </div>
+        <div class="switch">
+          <input type="checkbox" name="switch" id="switch-checked" class="ag-switch" checked>
+          <label for="switch-checked" class="ag-switch-label">&nbsp;</label>
         </div>
       </li>
       <li>
@@ -210,8 +207,8 @@
   </div>
 
   <div class="title">
-    <span class="big-font">切换编辑模式</span>
-    <span class="small-font">启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以观看路径轨迹动画.</span>
+    <span class="big-font">横版黑色系</span>
+    <span class="small-font">调整黑色系需添加"ag-graph-bar-black", class="ag-graph-bar ag-graph-bar-black"</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
     <!-- 容器 -->
@@ -251,8 +248,6 @@ var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: t
 </script>
 <script src="../../assets/js/d3.js"></script>
 <script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
-<!-- ag-click -->
-<script src="../../../example/scripts/ag-click.js"></script>
 <script>
 
   $('.run-btn').on('click', function (e) {
