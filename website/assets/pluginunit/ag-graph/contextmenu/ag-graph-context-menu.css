@@ -1,0 +1,94 @@
+/**
+ * 右击菜单样式
+ */
+.ag-graph-context-menu {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  border-radius: 5px;
+  box-shadow: 0 0 16px rgba(40, 40, 40, 0.14);
+  padding: 15px 0;
+  font-size: 14px;
+  color: #585858;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.ag-graph-context-menu.show {
+  display: block;
+}
+
+.ag-graph-context-menu.hide {
+  display: none;
+}
+
+/* 条目样式 */
+.ag-graph-context-menu .ag-graph-context-menu-item {
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+/* 悬停或者选中 */
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover,
+.ag-graph-context-menu > .ag-graph-context-menu-item.active {
+  color: #50aff2;
+}
+
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover > .ag-graph-context-menu-item-arrow:before,
+.ag-graph-context-menu > .ag-graph-context-menu-item.active > .ag-graph-context-menu-item-arrow:before {
+  border-left-color: #50aff2;
+}
+
+/* 禁用 */
+.ag-graph-context-menu .ag-graph-context-menu-item.disabled {
+  cursor: default;
+  color: #d0d0d0;
+}
+
+.ag-graph-context-menu .ag-graph-context-menu-item a {
+  color: inherit;
+}
+
+/* 分割线 */
+.ag-graph-context-menu .ag-graph-context-menu-item-line {
+  margin: 10px 0;
+  height: 1px;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+/* 下拉箭头 */
+.ag-graph-context-menu .ag-graph-context-menu-item-arrow {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+}
+
+.ag-graph-context-menu .ag-graph-context-menu-item-arrow:before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-left: 7px solid #585858;
+  border-bottom: 4px solid transparent;
+}
+
+/* 子菜单 */
+.ag-graph-context-menu > .ag-graph-context-submenu {
+  display: none;
+}
+
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover  > .ag-graph-context-submenu {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}

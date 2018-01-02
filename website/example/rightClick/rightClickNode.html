@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <!-- ag-graph 右击菜单 -->
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/contextmenu/ag-graph-context-menu.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+    * {
+      font-weight: 400;
+    }
+  </style>
+  <style id="custom-style">
+
+  </style>
+</head>
+<body>
+<!-- 示例 -->
+<div class="aigo-simple-code-box aigo-simple-example">
+  <div class="title">
+    <span class="big-font">右击节点显示右击菜单</span>
+    <span class="small-font">配置的左击容器关闭右击菜单, 右击开启右击菜单</span>
+  </div>
+  <div class="content content-top" id="ag-graph-container">
+    <!-- 容器 -->
+  </div>
+</div>
+
+<!-- 代码段 -->
+<div>
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box" style="width:100%;float:left;">
+    <div class="header">html代码<a href="javascript:void(0)" class="run-btn" id="btn-run-html">运行</a></div>
+    <div class="content content-bottom" id="ag-graph-code-0">
+<textarea id="html" name="code">
+  <!-- 右击菜单 -->
+  <div class="ag-graph-context-menu">
+    <!-- 插入菜单项 -->
+    <div class="ag-graph-context-menu-item">普通选项1</div>
+    <div class="ag-graph-context-menu-item">普通选项2</div>
+    <div class="ag-graph-context-menu-item-line"></div>
+    <div class="ag-graph-context-menu-item disabled">我是禁用</div>
+    <div class="ag-graph-context-menu-item active">我是选中</div>
+  </div>
+</textarea>
+    </div>
+  </div>
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box" style="width:50%;float:left;">
+    <div class="header">js代码<a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a></div>
+    <div class="content content-bottom" id="ag-graph-code-1">
+<textarea id="code" name="code">
+// 初始化
+var agGraph = new AgGraph({container: "#ag-graph-container"});
+// 添加节点1
+var node1 = agGraph.addNode({
+  id: "n1", x: 0, y: 0, size:48, text: "I'm node",
+  image: "../../assets/img/example/pc.svg"
+});
+// 添加左击
+agGraph.on("view.click, node.click", function (view, position) {
+  var rightMenu = document.querySelector(".ag-graph-context-menu");
+  rightMenu.style.cssText = "";
+  rightMenu.classList.remove("show");
+});
+// 添加右击
+agGraph.on("node.rightClick", function (node) {
+  var position = node.offset();
+  var rightMenu = document.querySelector(".ag-graph-context-menu");
+  rightMenu.style.cssText = "top:" + (position.y + node.size / 2 ) + "px;left:" + (position.x + + node.size / 2) + "px";
+  rightMenu.classList.add("show");
+});
+</textarea>
+    </div>
+  </div>
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box" style="width:50%;float:left;">
+    <div class="header">css代码<a href="javascript:void(0)" class="run-btn" id="btn-run-css">运行</a></div>
+    <div class="content content-bottom" id="ag-graph-code-2">
+<textarea id="css" name="css">
+/* 已经抽离到独立样式文件 ag-graph-context-menu.css */
+
+/**
+ * 右击菜单样式
+ */
+.ag-graph-context-menu {
+  position: absolute;
+  z-index: 10;
+  display: none;
+  border-radius: 5px;
+  box-shadow: 0 0 16px rgba(40, 40, 40, 0.14);
+  padding: 15px 0;
+  font-size: 14px;
+  color: #585858;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.ag-graph-context-menu.show {
+  display: block;
+}
+
+.ag-graph-context-menu.hide {
+  display: none;
+}
+
+/* 条目样式 */
+.ag-graph-context-menu .ag-graph-context-menu-item {
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  min-width: 150px;
+  cursor: pointer;
+}
+
+/* 悬停或者选中 */
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover,
+.ag-graph-context-menu > .ag-graph-context-menu-item.active {
+  color: #50aff2;
+}
+
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover > .ag-graph-context-menu-item-arrow:before,
+.ag-graph-context-menu > .ag-graph-context-menu-item.active > .ag-graph-context-menu-item-arrow:before {
+  border-left-color: #50aff2;
+}
+
+/* 禁用 */
+.ag-graph-context-menu .ag-graph-context-menu-item.disabled {
+  cursor: default;
+  color: #d0d0d0;
+}
+
+.ag-graph-context-menu .ag-graph-context-menu-item a {
+  color: inherit;
+}
+
+/* 分割线 */
+.ag-graph-context-menu .ag-graph-context-menu-item-line {
+  margin: 10px 0;
+  height: 1px;
+  width: 100%;
+  background-color: #f0f0f0;
+}
+
+/* 下拉箭头 */
+.ag-graph-context-menu .ag-graph-context-menu-item-arrow {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  height: 10px;
+  width: 10px;
+  overflow: hidden;
+}
+
+.ag-graph-context-menu .ag-graph-context-menu-item-arrow:before {
+  content: '';
+  position: absolute;
+  top: 1px;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-left: 7px solid #585858;
+  border-bottom: 4px solid transparent;
+}
+
+/* 子菜单 */
+.ag-graph-context-menu > .ag-graph-context-submenu {
+  display: none;
+}
+
+.ag-graph-context-menu > .ag-graph-context-menu-item:hover  > .ag-graph-context-submenu {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 100%;
+}
+
+
+</textarea>
+    </div>
+  </div>
+  <!-- 清除浮动 -->
+  <div style="clear:both"></div>
+</div>
+
+<script src="../../assets/js/jquery-2.1.0.min.js"></script>
+<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script>
+  var editor0 = CodeMirror.fromTextArea(document.getElementById("html"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor0.setOption("theme", "monokai");
+
+  var editor1 = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor1.setOption("theme", "monokai");
+
+  var editor2 = CodeMirror.fromTextArea(document.getElementById("css"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor2.setOption("theme", "monokai");
+</script>
+<script src="../../assets/js/d3.js"></script>
+<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script>
+  $('#btn-run-html').on('click', function (e) {
+    var html = editor0.getValue();
+    $(".ag-graph-context-menu").remove();
+    $('body').append(html);
+  });
+  $('#btn-run-html').click();
+
+  $('#btn-run-js').on('click', function (e) {
+    var code = editor1.getValue();
+    var fn = new Function(code);
+    fn();
+  });
+  $('#btn-run-js').click();
+
+
+  $('#btn-run-css').on('click', function (e) {
+    var css = editor2.getValue();
+    document.getElementById("custom-style").innerHTML = css;
+  });
+  $('#btn-run-css').click();
+
+</script>
+</body>
+</html>
