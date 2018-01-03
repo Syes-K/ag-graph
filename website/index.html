@@ -158,46 +158,46 @@
     </style>
     <div class="aigo-light-box pull-right" id="graph-container-code">
       <pre><code class="javascript">
-// 初始化
-var agGraph = new AgGraph({container: "#graph-container"});
-// 添加节点
-var node1 = agGraph.addNode({
-  id: "n1",
-  x: -125,
-  y: -66,
-  size: 40,
-  image: "./assets/img/server.svg",
-  text: "示例"
-});
-var node2 = agGraph.addNode({
-  id: "n2",
-  x: 86,
-  y: 53,
-  size: 40,
-  image: "./assets/img/pc.svg",
-  badge: "99"
-});
-// 添加连线
-var line = agGraph.addLine({
-  id: "edge1",
-  source: 'n1',
-  target: 'n2',
-  "text": "线段",
-  animate: true,
-  "pointsData": [
-    {x: -121, y: -30},
-    {x: -72, y: 36},
-    {x: 11, y: -20},
-    {x: 61, y: 49}
-  ]
-});
-// 添加运动路径
-agGraph.addPath({
-  id: "p1",
-  source: "n2",
-  target: "n1",
-  repeat: true
-});
+  // 初始化
+  var agGraph = new AgGraph({container: "#graph-container"});
+  // 添加节点
+  var node1 = agGraph.addNode({
+    id: "n1",
+    x: -125,
+    y: -66,
+    size: 40,
+    image: "./assets/img/example/server.svg",
+    badge: "高"
+  });
+  var node2 = agGraph.addNode({
+    id: "n2",
+    x: 86,
+    y: 53,
+    size: 40,
+    image: "./assets/img/example/pc.svg",
+    text: "某某"
+  });
+  // 添加连线
+  var line = agGraph.addLine({
+    id: "edge1",
+    source: 'n1',
+    target: 'n2',
+    "text": "线段",
+    animate: true,
+    "pointsData": [
+      {x: -125, y: -38},
+      {x: -72, y: 36},
+      {x: 11, y: -20},
+      {x: 61, y: 49}
+    ]
+  });
+  // 添加运动轨迹
+  agGraph.addPath({
+    id: "p1",
+    source: "n2",
+    target: "n1",
+    repeat: true
+  });
         </code>
       </pre>
     </div>
@@ -305,8 +305,8 @@ agGraph.addPath({
   // 初始化
   var agGraph = new AgGraph({container: "#graph-container"});
   // 添加节点
-  var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 40, image: "./assets/img/server.svg", text: "示例"});
-  var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 40, image: "./assets/img/pc.svg", badge: "99"});
+  var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 40, image: "./assets/img/example/server.svg",  badge: "高"});
+  var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 40, image: "./assets/img/example/pc.svg", text: "某某"});
   // 添加连线
   var line = agGraph.addLine({
     id: "edge1",
@@ -315,7 +315,7 @@ agGraph.addPath({
     "text": "线段",
     animate: true,
     "pointsData": [
-      {x: -121, y: -30},
+      {x: -125, y: -38},
       {x: -72, y: 36},
       {x: 11, y: -20},
       {x: 61, y: 49}

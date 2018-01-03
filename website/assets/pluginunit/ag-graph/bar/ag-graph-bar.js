@@ -13,20 +13,49 @@
 })(window, function (agGraphBar) {
 	'use strict';
 
-	agGraphBar = {
-		init: function() {
+	// 向上寻找父节点
+	function searchUp (node, className) {
+		if (!node || node === document.body || node === document) return undefined;   // 向上递归到顶就停
+		if (node.classList.contains(className)) return node;
+		return searchUp(node.parentNode, className);
+	}
 
+	// 取得节点位置
+	function getOffset (node, offset, parent) {
+		if (!parent) return node.getBoundingClientRect();
+		offset = offset || {top: 0, left: 0};
+		if (node === null || node === parent) return offset;
+		offset.top += node.offsetTop;
+		offset.left += node.offsetLeft;
+		return this.getOffset(node.offsetParent, offset, parent);
+	}
+
+	agGraphBar = {
+		init: function(selector) {
+			this.selector = selector;
+			this.destroy();
+			this.bindEvent();
 		},
 		destroy: function() {
-
+			this.unBindEvent();
+			delete this.selector;
 		},
 		bindEvent: function() {
-
+			document.addEventListener('click', this.click, false);
 		},
 		unBindEvent: function() {
-
+			document.removeEventListener('click', this.click, false);
+		},
+		click: function (event) {
+			console.log(event.target);
+			var container = searchUp(event.target, this.selector);
+			if (container) {
+				console.log(container, "container");
+			}
 		}
 	};
+
+	agGraphBar.init("ag-graph-bar");
 
 	return agGraphBar;
 });
