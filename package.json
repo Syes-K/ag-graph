@@ -7,7 +7,7 @@
     "example": "example"
   },
   "scripts": {
-    "build": "npm run min && node build/readme.js",
+    "build": "npm run min && node build/copyToWebsite.js",
     "min": "./node_modules/.bin/uglifyjs src/ag-graph.js -c -m -o dist/ag-graph.min.js --source-map"
   },
   "repository": {
