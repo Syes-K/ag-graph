@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+    * {
+      font-weight: 400;
+    }
+
+    .content-border {
+      border: 1px solid #e7e7e7;
+      box-sizing: border-box;
+      height: 250px;
+    }
+  </style>
+  <style id="custom-style">
+  </style>
+</head>
+
+<body>
+  <!-- 示例 -->
+  <div class="aigo-simple-code-box aigo-simple-example">
+    <div class="title">
+      <span class="big-font">node(节点) 事件</span>
+      <span class="small-font">包含：点击,右击,移动,新增,删除</span>
+    </div>
+    <div class="content content-top" id="ag-graph-container">
+      <!-- 容器 -->
+    </div>
+  </div>
+  <div style="display:flex;">
+    <div class="aigo-simple-code-box" style="width:50%;">
+      <div class="header">操作指南</div>
+      <div class="content content-bottom content-border" style="padding:10px;line-height:20px;overflow:auto;">
+        <h3>1.点击任意node,触发click事件</h3>
+        <h3>2.右击任意node,触发rightClick事件</h3>
+        <h3>3.点击"
+          <a href="javarscript:void(0)" id="btn-node-add">添加</a>
+          "添加node,触发add事件
+        </h3>
+        <h3>4.点击"
+          <a href="javarscript:void(0)" id="btn-node-delete">删除</a>
+          "删除node,触发delete事件
+        </h3>
+        <h3>5.点击 "
+          <a href="javarscript:void(0)" id="btn-edit-mode">编辑模式</a>
+          " 开启编辑模式,然后移动node,触发move事件
+        </h3>
+      </div>
+    </div>
+    <div class="aigo-simple-code-box" style="width:50%;">
+      <div class="header">事件记录</div>
+      <div class="content content-bottom content-border" id="event-mark" style="padding:10px;line-height:20px;overflow:auto;">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box">
+    <div class="header">示例代码(js)
+      <a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a>
+    </div>
+    <div class="content content-bottom" id="ag-graph-code">
+      <textarea id="code" name="code">
+function showEventLog(msg) {
+  var eventMarkContainer = document.getElementById("event-mark");
+  eventMarkContainer.innerHTML+= msg+"<br>";
+  eventMarkContainer.scrollTop = 100000;
+}
+// 初始化
+var agGraph = new AgGraph({container: "#ag-graph-container"});
+// 添加节点
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
+var node3 = agGraph.addNode({id: "n3", x: -30, y: 153, size: 48, image: "../../assets/img/example/pc.svg"});
+var node4 = agGraph.addNode({id: "n4", x: -130, y: -253, size: 48, image: "../../assets/img/example/pc.svg"});
+// 添加连线
+var line1 = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
+var line2 = agGraph.addLine({ id: "edge2", source: 'n3', target: 'n1', animate: true});
+var line3 = agGraph.addLine({ id: "edge3", source: 'n4', target: 'n1', animate: true});
+agGraph.on("node.click",function(node,position){
+  showEventLog("node.click, 点击的 node id 是 "+ node.id+",位置是 "+position.x+","+position.y);
+  console.log(node,position);
+});
+agGraph.on("node.rightClick",function(node,position){
+  showEventLog("node.rightClick, 右击的 node id 是 "+ node.id+",位置是 "+position.x+","+position.y);
+  console.log(node,position);
+});
+
+document.getElementById("btn-node-add").addEventListener("click",function(){
+  agGraph.addNode({
+    id: "n"+ (new Date()).getTime(),
+    x: Math.random()*400-200, y:  Math.random()*400-200,
+    size: 48, image: "../../assets/img/example/server.svg"
+  });
+});
+// 监听 node 添加事件
+agGraph.on("node.add",function(node){
+  showEventLog("node.add, 添加的 node id 是 "+ node.id);
+  console.log(node);
+});
+
+document.getElementById("btn-node-delete").addEventListener("click",function(){
+   var lastNode = agGraph.nodes[agGraph.nodes.length-1];
+   lastNode.delete();
+});
+// 监听 node 删除事件
+agGraph.on("node.delete",function(node){
+  showEventLog("node.delete, 删除的 node id 是 "+ node.id);
+  console.log(node);
+});
+
+document.getElementById("btn-edit-mode").addEventListener("click",function(){
+  agGraph.startEdit();
+});
+// 监听 node 移动事件
+agGraph.on("node.move",function(node){
+  showEventLog("node.move, 移动的 node id 是 "+ node.id);
+  console.log(node);
+});
+</textarea>
+
+    </div>
+  </div>
+  <script src="../../assets/js/jquery-2.1.0.min.js"></script>
+  <script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
+  <script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+  <script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+  <script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+      lineNumbers: true,
+      styleActiveLine: true,
+      matchBrackets: true
+    });
+    editor.setOption("theme", "monokai");
+
+  </script>
+  <script src="../../assets/js/d3.js"></script>
+  <script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+  <script>
+
+    $('#btn-run-js').on('click', function(e) {
+      var code = editor.getValue();
+      var fn = new Function(code);
+      fn();
+    });
+    $('#btn-run-js').click();
+
+  </script>
+</body>
+
+</html>

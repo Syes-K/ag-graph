@@ -1,4 +1,4 @@
-; (function (name, definition, global) {
+; (function(name, definition, global) {
 	//检测上下文环境是否为AMD或CMD
 	var hasDefine = typeof global.define === 'function',
 		// 检测上下文环境是否为Node
@@ -14,7 +14,7 @@
 		global[name] = definition();
 	}
 
-})('AgGraph', function () {
+})('AgGraph', function() {
 	var POINT_RADIUS = 4;
 	var DEFAULT_NODE_SIZE = 30;
 	var PROPERTY_CHANGE_DEBOUNCE_TIME = 10;
@@ -25,10 +25,10 @@
 
 	function debounce(action, delay) {
 		var last;
-		return function () {
+		return function() {
 			var ctx = this, args = arguments;
 			clearTimeout(last)
-			last = setTimeout(function () {
+			last = setTimeout(function() {
 				action.apply(ctx, args)
 			}, delay)
 		}
@@ -45,10 +45,10 @@
 	function propertySetterFunction(obj, property, value, callback) {
 		obj[ACCESS_PROPERTY_PREFIX + property] = value;
 		Object.defineProperty(obj, property, {
-			get: function () {
+			get: function() {
 				return obj[ACCESS_PROPERTY_PREFIX + property];
 			},
-			set: function (val) {
+			set: function(val) {
 				var oldVal = obj[ACCESS_PROPERTY_PREFIX + property];
 				obj[ACCESS_PROPERTY_PREFIX + property] = val;
 				callback.apply(obj);
@@ -68,9 +68,9 @@
 
 	function renderArrayPointsLine(arrayPoints) {
 		var path = d3.path();
-		arrayPoints.forEach(function (points) {
+		arrayPoints.forEach(function(points) {
 			if (points && points.length) {
-				points.forEach(function (point, idx) {
+				points.forEach(function(point, idx) {
 					if (idx === 0) {
 						path.moveTo(point.x, point.y)
 					} else {
@@ -90,7 +90,7 @@
 	// 获取折线的总长度
 	function getLineLen(points) {
 		var len = 0;
-		points.forEach(function (p, idx) {
+		points.forEach(function(p, idx) {
 			if (idx) {
 				len += getDistance(p, points[idx - 1]);
 			}
@@ -174,7 +174,7 @@
 	function getPointsCenter(points) {
 		var len = points.length;
 		var x = 0, y = 0;
-		points.forEach(function (p) {
+		points.forEach(function(p) {
 			x += p.x;
 			y += p.y;
 		});
@@ -206,7 +206,7 @@
 	}
 
 	var EventPrototype = {
-		on: function (names, callback) {
+		on: function(names, callback) {
 			if (!this._events) {
 				this._events = [];
 			}
@@ -221,7 +221,7 @@
 				this._events[name].push(callback);
 			}
 		},
-		off: function (name, callback) {
+		off: function(name, callback) {
 			if (!this._events) {
 				this._events = [];
 			}
@@ -245,7 +245,7 @@
 				}
 			}
 		},
-		_emit: function (name) {
+		_emit: function(name) {
 			if (!this._events) {
 				this._events = [];
 			}
@@ -285,6 +285,7 @@
 			var x = d3.event.x;
 			var y = d3.event.y;
 			tempData.offset = { x: _this.viewBox[0] + x / _this.scale, y: _this.viewBox[1] + y / _this.scale };
+			this._moved = false;
 		}
 
 		function dragSvgMove() {
@@ -293,10 +294,14 @@
 			var viewBox_x = tempData.offset.x - x / _this.scale;
 			var viewBox_y = tempData.offset.y - y / _this.scale;
 			_this.viewBox = [viewBox_x, viewBox_y, _this.viewBox[2], _this.viewBox[3]];
+			this._moved = true;// 标记该元素一定过，在end的时候触发move事件
 		}
 
 		function dragSvgEnd() {
-			agGraph._emit("view.move", _this);
+			if (this._moved) {
+				agGraph._emit("view.move", _this);
+			}
+			this._moved = false;
 		}
 
 		var dragView = d3.drag()
@@ -305,13 +310,19 @@
 			.on("end", dragSvgEnd)
 		dragView.clickDistance(5);
 		_this.agGraph.$svg.call(dragView)
-			.on("click", function () {
+			.on("click", function() {
 				agGraph.selection.clearNodes();
 				agGraph.selection.clearLines();
 				agGraph.selection.clearPoints();
-				agGraph._emit("view.click", _this);
+				var offset = { x: d3.event.x, y: d3.event.y };
+				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
+				var position = {
+					x: offset.x - rect.x,
+					y: offset.y - rect.y
+				}
+				agGraph._emit("view.click", _this, position, offset);
 			})
-			.on("contextmenu", function () {
+			.on("contextmenu", function() {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
 				var offset = { x: d3.event.x, y: d3.event.y };
@@ -327,14 +338,14 @@
 	/**
 	 * 设置viewbox
 	 */
-	AgGraphView.prototype._setViewBox = function () {
+	AgGraphView.prototype._setViewBox = function() {
 		this.agGraph.$svg.attr("viewBox", this.viewBox.join(" "));
 	};
 	/**
 	 * 设置svg的缩放比率
 	 * @param {number} scale
 	 */
-	AgGraphView.prototype._setScale = function () {
+	AgGraphView.prototype._setScale = function() {
 		var scale = this.scale;
 		var oldScale = this.lastScale === undefined ? 1 : this.lastScale;
 		var defaultViewBox = this.viewBox;
@@ -358,7 +369,7 @@
 		this.lastScale = this.scale;
 	};
 	// 将相对于dom视窗的位置转换成相对于svg视窗的位置
-	AgGraphView.prototype._transferToViewPosition = function (postion) {
+	AgGraphView.prototype._transferToViewPosition = function(postion) {
 		var rect = this.agGraph._container.getBoundingClientRect();
 		var offset_x = postion.x - rect.left;
 		var offset_y = postion.y - rect.top;
@@ -368,21 +379,21 @@
 		}
 	}
 
-	AgGraphView.prototype.zoomIn = function () {
+	AgGraphView.prototype.zoomIn = function() {
 		this.scale *= 1.3;
 		this.agGraph._emit("view.zoom", this);
 	}
-	AgGraphView.prototype.zoomOut = function () {
+	AgGraphView.prototype.zoomOut = function() {
 		this.scale /= 1.3;
 		this.agGraph._emit("view.zoom", this);
 	}
-	AgGraphView.prototype.zoom = function (scale) {
-		if(!scale) return this.scale;
+	AgGraphView.prototype.zoom = function(scale) {
+		if (!scale) return this.scale;
 		this.scale = scale;
 		this.agGraph._emit("view.zoom", this);
 	}
 
-	AgGraphView.prototype.move = function (x, y) {
+	AgGraphView.prototype.move = function(x, y) {
 		x = x | 0;
 		y = y | 0;
 		this.viewBox = [this.viewBox[0] + x, this.viewBox[1] + y, this.viewBox[2], this.viewBox[3]]
@@ -396,16 +407,16 @@
 		_this._points = [];
 	}
 
-	AgGraphSelection.prototype.nodes = function () {
+	AgGraphSelection.prototype.nodes = function() {
 		return Array.from(this._nodes);
 	}
-	AgGraphSelection.prototype.lines = function () {
+	AgGraphSelection.prototype.lines = function() {
 		return Array.from(this._lines);
 	}
-	AgGraphSelection.prototype.points = function () {
+	AgGraphSelection.prototype.points = function() {
 		return Array.from(this._points);
 	}
-	AgGraphSelection.prototype.toggleNode = function (node) {
+	AgGraphSelection.prototype.toggleNode = function(node) {
 		var _this = this;
 		if (node.selected) {
 			_this.removeNode(node);
@@ -413,7 +424,7 @@
 			_this.addNode(node);
 		}
 	}
-	AgGraphSelection.prototype.addNode = function (node) {
+	AgGraphSelection.prototype.addNode = function(node) {
 		var _this = this;
 		var nodes = [];
 		if (Array.isArray(node)) {
@@ -421,16 +432,20 @@
 		} else {
 			nodes = [node];
 		}
-		nodes.forEach(function (n) {
+		var addedNodes = []
+		nodes.forEach(function(n) {
 			var idx = _this._nodes.indexOf(n);
 			if (idx < 0) {
 				_this._nodes.push(n);
 				n.selected = true;
+				addedNodes.push(n);
 			}
 		});
-		_this.agGraph._emit("selection.node.add");
+		if (addedNodes && addedNodes.length) {
+			_this.agGraph._emit("selection.node.add", addedNodes);
+		}
 	}
-	AgGraphSelection.prototype.removeNode = function (node) {
+	AgGraphSelection.prototype.removeNode = function(node) {
 		var _this = this;
 		var nodes = [];
 		if (Array.isArray(node)) {
@@ -438,16 +453,22 @@
 		} else {
 			nodes = [node];
 		}
-		nodes.forEach(function (n) {
-			removeArrayItem(_this._nodes, n);
-			n.selected = false;
+		var removedNodes = []
+		nodes.forEach(function(n) {
+			var removedNode = removeArrayItem(_this._nodes, n);
+			if (removedNode) {
+				n.selected = false;
+				removedNodes.push(n);
+			}
 		});
-		_this.agGraph._emit("selection.node.remove");
+		if (removedNodes && removedNodes.length) {
+			_this.agGraph._emit("selection.node.remove", removedNodes);
+		}
 	}
-	AgGraphSelection.prototype.clearNodes = function (node) {
+	AgGraphSelection.prototype.clearNodes = function(node) {
 		var _this = this;
 		var selectedNodesCount = _this._nodes.length;
-		_this._nodes.forEach(function (node) {
+		_this._nodes.forEach(function(node) {
 			node.selected = false;
 		});
 		_this._nodes = [];
@@ -455,7 +476,7 @@
 			_this.agGraph._emit("selection.node.clear");
 		}
 	}
-	AgGraphSelection.prototype.toggleLine = function (line) {
+	AgGraphSelection.prototype.toggleLine = function(line) {
 		var _this = this;
 		if (line.selected) {
 			_this.removeLine(line);
@@ -463,16 +484,36 @@
 			_this.addLine(line);
 		}
 	}
-	AgGraphSelection.prototype.addLine = function (line) {
+	AgGraphSelection.prototype.addLine = function(line) {
 		var _this = this;
-		var idx = _this._lines.indexOf(line);
-		if (idx < 0) {
-			_this._lines.push(line);
-			line.selected = true;
-			_this.agGraph._emit("selection.line.add", line);
+
+		var lines = [];
+		if (Array.isArray(line)) {
+			lines = line;
+		} else {
+			lines = [line];
 		}
+		var addedLines = []
+		lines.forEach(function(l) {
+			var idx = _this._lines.indexOf(l);
+			if (idx < 0) {
+				_this._lines.push(l);
+				l.selected = true;
+				addedLines.push(l);
+			}
+		});
+		if (addedLines && addedLines.length) {
+			_this.agGraph._emit("selection.line.add", addedLines);
+		}
+
+		// var idx = _this._lines.indexOf(line);
+		// if (idx < 0) {
+		// 	_this._lines.push(line);
+		// 	line.selected = true;
+		// 	_this.agGraph._emit("selection.line.add", line);
+		// }
 	}
-	AgGraphSelection.prototype.removeLine = function (line) {
+	AgGraphSelection.prototype.removeLine = function(line) {
 		var _this = this;
 		var lines = [];
 		if (Array.isArray(line)) {
@@ -480,24 +521,30 @@
 		} else {
 			lines = [line];
 		}
-		lines.forEach(function (l) {
-			removeArrayItem(_this._lines, l);
-			l.selected = false;
+		var removeLines = [];
+		lines.forEach(function(l) {
+			var removeLine = removeArrayItem(_this._lines, l);
+			if (removeLine) {
+				l.selected = false;
+				removeLines.push(l);
+			}
 		});
-		_this.agGraph._emit("selection.line.remove");
+		if (removeLines && removeLines.length) {
+			_this.agGraph._emit("selection.line.remove", removeLines);
+		}
 	}
-	AgGraphSelection.prototype.clearLines = function (line) {
+	AgGraphSelection.prototype.clearLines = function(line) {
 		var _this = this;
 		var selectedLinesCount = _this._lines.length;
-		_this._lines.forEach(function (line) {
+		_this._lines.forEach(function(line) {
 			line.selected = false;
 		});
 		_this._lines = [];
-		if (_this.selectedLinesCount) {
+		if (selectedLinesCount) {
 			_this.agGraph._emit("selection.line.clear");
 		}
 	}
-	AgGraphSelection.prototype.togglePoint = function (point) {
+	AgGraphSelection.prototype.togglePoint = function(point) {
 		var _this = this;
 		if (point.selected) {
 			_this.removePoint(point);
@@ -505,16 +552,7 @@
 			_this.addPoint(point);
 		}
 	}
-	AgGraphSelection.prototype.addPoint = function (point) {
-		var _this = this;
-		var idx = _this._points.indexOf(point);
-		if (idx < 0) {
-			_this._points.push(point);
-			point.selected = true;
-			_this.agGraph._emit("selection.point.add", point);
-		}
-	}
-	AgGraphSelection.prototype.removePoint = function (point) {
+	AgGraphSelection.prototype.addPoint = function(point) {
 		var _this = this;
 		var points = [];
 		if (Array.isArray(point)) {
@@ -522,20 +560,47 @@
 		} else {
 			points = [point];
 		}
-		points.forEach(function (p) {
-			removeArrayItem(_this._points, p);
-			p.selected = false;
+		var addPoints = [];
+		points.forEach(function(p) {
+			var idx = _this._points.indexOf(p);
+			if (idx < 0) {
+				_this._points.push(p);
+				p.selected = true;
+				addPoints.push(p);
+			}
 		});
-		_this.agGraph._emit("selection.point.remove");
+		if (addPoints && addPoints.length) {
+			_this.agGraph._emit("selection.point.add", addPoints);
+		}
 	}
-	AgGraphSelection.prototype.clearPoints = function (point) {
+	AgGraphSelection.prototype.removePoint = function(point) {
+		var _this = this;
+		var points = [];
+		if (Array.isArray(point)) {
+			points = point;
+		} else {
+			points = [point];
+		}
+		var removedPoints = [];
+		points.forEach(function(p) {
+			var removedPoint = removeArrayItem(_this._points, p);
+			if (removedPoint) {
+				p.selected = false;
+				removedPoints.push(p);
+			}
+		});
+		if (removedPoints && removedPoints.length) {
+			_this.agGraph._emit("selection.point.remove", removedPoints);
+		}
+	}
+	AgGraphSelection.prototype.clearPoints = function(point) {
 		var _this = this;
 		var selectedPointsCount = _this._points.length;
-		_this._points.forEach(function (point) {
+		_this._points.forEach(function(point) {
 			point.selected = false;
 		});
 		_this._points = [];
-		if (_this.selectedPointsCount) {
+		if (selectedPointsCount) {
 			_this.agGraph._emit("selection.point.clear");
 		}
 	}
@@ -567,16 +632,16 @@
 
 
 		var dragNode = d3.drag()
-			.on("start", function () { _this._dragNodeStart(); })
-			.on("drag", function () { _this._dragNodeMove(); })
-			.on("end", function () { _this._dragNodeEnd(); });
+			.on("start", function() { _this._dragNodeStart(); })
+			.on("drag", function() { _this._dragNodeMove(); })
+			.on("end", function() { _this._dragNodeEnd(); });
 		dragNode.clickDistance(5);
 		_this.$node = agGraph._$nodeGroup.append("g")
 			.attr("node-id", _this.id)
 			.classed("ag-graph-node", true);
 		_this.$node.append("image").classed("ag-graph-node-image", true);
 		_this.$node.call(dragNode)
-			.on("click", function () {
+			.on("click", function() {
 				if (d3.event.shiftKey) {
 					agGraph.selection.toggleNode(_this);
 				} else {
@@ -591,7 +656,7 @@
 				}
 				agGraph._emit("node.click", _this, position);
 			})
-			.on("contextmenu", function () {
+			.on("contextmenu", function() {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
 				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
@@ -603,8 +668,9 @@
 			});
 	}
 
-	AgGraphNode.prototype._dragNodeStart = function () {
+	AgGraphNode.prototype._dragNodeStart = function() {
 		var _this = this;
+		_this._moved = false;
 		if (!_this.agGraph.isEditing()) {
 			return;
 		}
@@ -613,7 +679,7 @@
 			y: d3.event.y
 		};
 	}
-	AgGraphNode.prototype._dragNodeMove = function () {
+	AgGraphNode.prototype._dragNodeMove = function() {
 		var _this = this;
 		if (!_this.agGraph.isEditing()) {
 			return;
@@ -624,10 +690,10 @@
 		_this.x += (x - tempData.lastPostion.x);
 		_this.y -= (y - tempData.lastPostion.y);
 
-		_this.anchorPoints.forEach(function (point, idx) {
+		_this.anchorPoints.forEach(function(point, idx) {
 			if (point.line.points.length <= 2) {
 				var pointsData = point.line._getAutoPoints();
-				point.line.points.forEach(function (p, idx) {
+				point.line.points.forEach(function(p, idx) {
 					p.x = pointsData[idx].x;
 					p.y = pointsData[idx].y;
 				});
@@ -641,15 +707,17 @@
 			x: d3.event.x,
 			y: d3.event.y
 		};
+		_this._moved = true;
 	}
-	AgGraphNode.prototype._dragNodeEnd = function () {
+	AgGraphNode.prototype._dragNodeEnd = function() {
 		var _this = this;
-		if (!_this.agGraph.isEditing()) {
-			return;
+
+		if (_this._moved) {
+			_this.agGraph._emit("node.move", _this);
 		}
-		_this.agGraph._emit("node.move", _this);
+		_this._moved = false;
 	}
-	AgGraphNode.prototype._render = function () {
+	AgGraphNode.prototype._render = function() {
 		var _this = this;
 		var $node = _this.$node;
 		// 将node的 x，y 设置为$node的中心
@@ -678,7 +746,7 @@
 		}
 
 	};
-	AgGraphNode.prototype.delete = function () {
+	AgGraphNode.prototype.delete = function() {
 		var _this = this;
 		var i = _this.lines.length - 1;
 		while (i >= 0) {
@@ -691,14 +759,14 @@
 		_this.agGraph._emit("node.delete", _this);
 	}
 
-	AgGraphNode.prototype.offset = function () {
+	AgGraphNode.prototype.offset = function() {
 		var rect = this.$node.select("image").node().getBoundingClientRect();
 		return {
 			x: rect.x,
 			y: rect.y
 		}
 	}
-	AgGraphNode.prototype.position = function () {
+	AgGraphNode.prototype.position = function() {
 		var rect = this.$node.select("image").node().getBoundingClientRect();
 		var rectContainer = this.agGraph._container.offsetParent.getBoundingClientRect();
 		return {
@@ -747,8 +815,8 @@
 
 		_this.$line = agGraph._$lineGroup.append("g")
 			.attr("line-id", _this.id)
-			.on("click", function () {
-				if (d3.event.shiftKey && _this.agGraph.isEditing()) {
+			.on("click", function() {
+				if (d3.event.shiftKey) {
 					agGraph.selection.toggleLine(_this);
 				} else {
 					agGraph.selection.removeLine(agGraph.selection.lines());
@@ -763,11 +831,11 @@
 				}
 				agGraph._emit("line.click", _this, position);
 			})
-			.on("dblclick", function () {
+			.on("dblclick", function() {
 				var position = _this.agGraph.view._transferToViewPosition(d3.event);
 				_this._addPoint(position);
 			})
-			.on("contextmenu", function () {
+			.on("contextmenu", function() {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
 				var rect = _this.agGraph._container.offsetParent.getBoundingClientRect();
@@ -778,11 +846,11 @@
 				agGraph._emit("line.rightClick", _this, position);
 			});
 		;
-		_this.pointsData.forEach(function (pointData) {
+		_this.pointsData.forEach(function(pointData) {
 			_this.points.push(new AgGraphPoint(pointData, _this));
 		});
 	}
-	AgGraphLine.prototype._getAutoPoints = function () {
+	AgGraphLine.prototype._getAutoPoints = function() {
 		var _this = this;
 		// 获取line 的source到target 中心点的角度
 		var deg = Math.PI * getPointsDeg(
@@ -805,11 +873,11 @@
 			endPoint
 		];
 	}
-	AgGraphLine.prototype._addPoint = function (position) {
+	AgGraphLine.prototype._addPoint = function(position) {
 		var _this = this;
 		var maxDeg = 0;
 		var insetIndex = 0;
-		_this.pointsData.reduce(function (p0, p1, currentIndex) {
+		_this.pointsData.reduce(function(p0, p1, currentIndex) {
 			var deg = getDegToLine(position, [p0, p1]);
 			if (deg > maxDeg) {
 				maxDeg = deg;
@@ -823,21 +891,21 @@
 		_this._renderDebounce();
 		_this.agGraph._emit("point.add", newPoint);
 	}
-	AgGraphLine.prototype._render = function (firstRender) {
+	AgGraphLine.prototype._render = function(firstRender) {
 		var _this = this;
 		_this.$line.selectAll("*").remove();
 		var $polyline = _this.$line.append('polyline')
-			.attr('points', _this.pointsData.map(function (p) {
+			.attr('points', _this.pointsData.map(function(p) {
 				return p.x + "," + (-p.y)
 			}).join(" "));
 		if (_this.animate && firstRender) {
 			$polyline.transition().duration(500)
-				.attrTween("stroke-dasharray", function () {
+				.attrTween("stroke-dasharray", function() {
 					var len = this.getTotalLength();
-					return function (t) {
+					return function(t) {
 						return (d3.interpolateString("0," + len, len + ",0"))(t)
 					};
-				}).on("end", function () {
+				}).on("end", function() {
 					$polyline.attr("stroke-dasharray", null);
 				});
 		}
@@ -864,11 +932,11 @@
 		_this.$line.attr("class", classes.join(" "));
 	}
 
-	AgGraphLine.prototype.delete = function () {
+	AgGraphLine.prototype.delete = function() {
 		var _this = this;
 		var i = _this.points.length - 1;
 
-		_this.points.forEach(function (point) {
+		_this.points.forEach(function(point) {
 			if (point.anchorNode) {
 				removeArrayItem(point.anchorNode.anchorPoints, point);
 			}
@@ -918,15 +986,15 @@
 			.attr("r", POINT_RADIUS);
 
 		var dragPoint = d3.drag()
-			.on("start", function () {
+			.on("start", function() {
 				_this._dragPointStart();
 			})
-			.on("drag", function () {
+			.on("drag", function() {
 				_this._dragPointMove();
 			});
 		dragPoint.clickDistance(5);
 		_this.$point.call(dragPoint)
-			.on("click", function () {
+			.on("click", function() {
 				if (d3.event.shiftKey) {
 					_this.line.agGraph.selection.togglePoint(_this);
 				} else {
@@ -937,21 +1005,21 @@
 				d3.event.stopPropagation();
 				_this.line.agGraph._emit("point.click", _this);
 			})
-			.on("contextmenu", function () {
+			.on("contextmenu", function() {
 				d3.event.stopPropagation();
 				d3.event.preventDefault();
 				_this.line.agGraph._emit("point.rightClick", _this);
 			});
 
 	}
-	AgGraphPoint.prototype._dragPointStart = function () {
+	AgGraphPoint.prototype._dragPointStart = function() {
 		tempData.lastPostion = {
 			x: d3.event.x,
 			y: d3.event.y
 		};
 	}
 
-	AgGraphPoint.prototype._dragPointMove = function () {
+	AgGraphPoint.prototype._dragPointMove = function() {
 		var x = d3.event.x;
 		var y = d3.event.y;
 		this.x += (x - tempData.lastPostion.x);
@@ -962,10 +1030,10 @@
 		};
 	}
 
-	AgGraphPoint.prototype._dragPointEnd = function () {
+	AgGraphPoint.prototype._dragPointEnd = function() {
 		_this.line.agGraph._emit("point.move", this);
 	}
-	AgGraphPoint.prototype._render = function () {
+	AgGraphPoint.prototype._render = function() {
 		var _this = this;
 		_this.$point
 			.attr("cx", _this.x)
@@ -977,7 +1045,7 @@
 		_this.pointData.y = _this.y;
 		_this.line._renderDebounce();
 	}
-	AgGraphPoint.prototype.delete = function () {
+	AgGraphPoint.prototype.delete = function() {
 		var _this = this;
 		// 如果该点和node关联了，则不能删除
 		if (_this.anchorNode) {
@@ -1022,9 +1090,9 @@
 		_this._render();
 	};
 
-	AgGraphPath.prototype._getConnectedNodePoint = function (node1, node2) {
+	AgGraphPath.prototype._getConnectedNodePoint = function(node1, node2) {
 		var points = []
-		var line = node1.lines.find(function (l) {
+		var line = node1.lines.find(function(l) {
 			return l.source === node2.id || l.target === node2.id;
 		});
 		if (line) {
@@ -1035,7 +1103,7 @@
 		}
 		return points;
 	}
-	AgGraphPath.prototype._getPathNode = function () {
+	AgGraphPath.prototype._getPathNode = function() {
 		var _this = this;
 		var source = _this.source;
 		var target = _this.target;
@@ -1051,12 +1119,12 @@
 			}];
 			while (!allNodeTree[target] && currentNeighbors.length) {
 				var neighborNodeTrees = [];
-				currentNeighbors.forEach(function (preNode) {
+				currentNeighbors.forEach(function(preNode) {
 					neighborNodeTrees = neighborNodeTrees.concat(_this.agGraph.getNeighborNodes(preNode.node)
-						.filter(function (n) {
+						.filter(function(n) {
 							return !allNodeTree[n.id];
 						})
-						.map(function (n) {
+						.map(function(n) {
 							return {
 								id: n.id,
 								preNode: preNode,
@@ -1064,7 +1132,7 @@
 							}
 						}));
 				});
-				neighborNodeTrees.forEach(function (n) {
+				neighborNodeTrees.forEach(function(n) {
 					allNodeTree[n.id] = n;
 				});
 				currentNeighbors = neighborNodeTrees;
@@ -1080,21 +1148,21 @@
 		}
 		return pathNode;
 	}
-	AgGraphPath.prototype._getPathPoints = function () {
+	AgGraphPath.prototype._getPathPoints = function() {
 		var _this = this;
 		var source = _this.source;
 		var target = _this.target;
 		var pathNode = this._getPathNode();
 		var pointsArrary = [];
 		if (pathNode && pathNode.length) {
-			pathNode.reduce(function (n1, n2) {
+			pathNode.reduce(function(n1, n2) {
 				pointsArrary.push(_this._getConnectedNodePoint(n1, n2));
 				return n2;
 			});
 		}
 		return pointsArrary;
 	}
-	AgGraphPath.prototype._renderLine = function (pointsArray) {
+	AgGraphPath.prototype._renderLine = function(pointsArray) {
 		var _this = this;
 		if (_this._deleted) {
 			return;
@@ -1102,19 +1170,19 @@
 		var $mark = _this.$path.select(".ag-graph-path-mark");
 		var $arrow = $mark.select(".ag-graph-path-arrow");
 		if (pointsArray.length) {
-			var $line = _this.$path.append("polyline").attr('points', function () {
-				return pointsArray[0].map(function (p) {
+			var $line = _this.$path.append("polyline").attr('points', function() {
+				return pointsArray[0].map(function(p) {
 					return p.x + "," + (-p.y)
 				}).join(" ");
 			});
 			$line.transition()
 				.duration($line.node().getTotalLength() * PATH_SPEED)
-				.ease(function (v) {
+				.ease(function(v) {
 					return v;
 				})
-				.attrTween("stroke-dasharray", function () {
+				.attrTween("stroke-dasharray", function() {
 					var len = this.getTotalLength();
-					return function (t) {
+					return function(t) {
 						var dasharrayString = (d3.interpolateString("0," + len, len + ",0"))(t)
 						var moveDistance = +dasharrayString.split(",")[0];
 						var movingPointInfo = getPointInfoAtLine(pointsArray[0], moveDistance);
@@ -1124,14 +1192,14 @@
 						}
 						return dasharrayString;
 					};
-				}).on("end", function () {
+				}).on("end", function() {
 					$line.attr("stroke-dasharray", null);
 					pointsArray.shift()
 					_this._renderLine(pointsArray);
 				});
 		} else {
 			if (_this.repeat) {
-				setTimeout(function () {
+				setTimeout(function() {
 					_this.$path.selectAll("polyline").remove();
 					_this._renderLine(_this._getPathPoints());
 				}, 500);
@@ -1139,7 +1207,7 @@
 		}
 
 	}
-	AgGraphPath.prototype._render = function () {
+	AgGraphPath.prototype._render = function() {
 		var _this = this;
 		var classes = ["ag-graph-path"];
 		if (Array.isArray(_this.class)) {
@@ -1159,7 +1227,7 @@
 
 	}
 
-	AgGraphPath.prototype.delete = function () {
+	AgGraphPath.prototype.delete = function() {
 		this._deleted = true;
 		this.$path.remove();
 		removeArrayItem(this.agGraph.paths, this);
@@ -1219,7 +1287,7 @@
 	 */
 	AgGraph.prototype = Object.assign(EventPrototype, AgGraph.prototype);
 
-	AgGraph.prototype.addNode = function (nodeData) {
+	AgGraph.prototype.addNode = function(nodeData) {
 		var _this = this;
 		var node = new AgGraphNode(nodeData, _this);
 		node._render();
@@ -1228,11 +1296,11 @@
 		return node;
 	}
 
-	AgGraph.prototype.getNeighborNodes = function (node) {
+	AgGraph.prototype.getNeighborNodes = function(node) {
 		var _this = this;
 		// var node = nodeObj.node;
 		var neighbors = [];
-		node.lines.forEach(function (l) {
+		node.lines.forEach(function(l) {
 			var targetNode = _this.getNode(l.target);
 			var sourceNode = _this.getNode(l.source);
 			if (sourceNode !== node) {
@@ -1245,12 +1313,12 @@
 		return neighbors;
 	}
 
-	AgGraph.prototype.getNode = function (id) {
-		return this.nodes.find(function (n) {
+	AgGraph.prototype.getNode = function(id) {
+		return this.nodes.find(function(n) {
 			return n.id === id;
 		});
 	}
-	AgGraph.prototype.addLine = function (lineData) {
+	AgGraph.prototype.addLine = function(lineData) {
 		var _this = this;
 		var line = new AgGraphLine(lineData, _this);
 		line._render(true);
@@ -1258,27 +1326,27 @@
 		_this._emit("line.add", line);
 		return line;
 	}
-	AgGraph.prototype.getLinesInNodes = function (nodes) {
+	AgGraph.prototype.getLinesInNodes = function(nodes) {
 		var nodeDic = {};
-		nodes.forEach(function (n) {
+		nodes.forEach(function(n) {
 			nodeDic[n.id] = n;
 		});
 		var lines = [];
-		agGraph.lines.forEach(function (l) {
+		agGraph.lines.forEach(function(l) {
 			if (nodeDic[l.source] && nodeDic[l.target]) {
 				lines.push(l);
 			}
 		});
 	}
-	AgGraph.prototype.getLine = function (id) {
-		return this.lines.find(function (l) {
+	AgGraph.prototype.getLine = function(id) {
+		return this.lines.find(function(l) {
 			return l.id === id;
 		});
 	}
-	AgGraph.prototype.isEditing = function () {
+	AgGraph.prototype.isEditing = function() {
 		return this._isEditing;
 	}
-	AgGraph.prototype.startEdit = function () {
+	AgGraph.prototype.startEdit = function() {
 		this._isEditing = true;
 		this.$svg.classed("editing", true);
 		var len = this.paths.length;
@@ -1288,11 +1356,11 @@
 		}
 	}
 
-	AgGraph.prototype.endEdit = function () {
+	AgGraph.prototype.endEdit = function() {
 		this._isEditing = false;
 		this.$svg.classed("editing", false);
 	}
-	AgGraph.prototype.addPath = function (path) {
+	AgGraph.prototype.addPath = function(path) {
 		var _this = this;
 		if (_this.isEditing()) {
 			throw new Error("编辑模式无法添加路径");
@@ -1301,18 +1369,18 @@
 		_this.paths.push(path);
 		return path;
 	}
-	AgGraph.prototype.getPath = function (id) {
-		return this.paths.find(function (p) {
+	AgGraph.prototype.getPath = function(id) {
+		return this.paths.find(function(p) {
 			return p.id === id;
 		})
 	}
-	AgGraph.prototype.getNodesData = function (callback) {
-		return this.nodes.map(function (node) {
+	AgGraph.prototype.getNodesData = function(callback) {
+		return this.nodes.map(function(node) {
 			return callback(node);
 		});
 	}
-	AgGraph.prototype.getLinesData = function (callback) {
-		return this.lines.map(function (line) {
+	AgGraph.prototype.getLinesData = function(callback) {
+		return this.lines.map(function(line) {
 			return callback(line);
 		});
 	}
