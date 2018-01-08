@@ -17,6 +17,7 @@
 })('AgGraph', function(global) {
 	var POINT_RADIUS = 4;
 	var DEFAULT_NODE_SIZE = 30;
+	var DEFAULT_LINE_TYPE = "line";
 	var PROPERTY_CHANGE_DEBOUNCE_TIME = 10;
 	var PATH_SPEED = 5; // path 的动画速度 time = length * PATH_SPEED;
 	var ACCESS_PROPERTY_PREFIX = "__"; // 访问器属性的前缀。
@@ -164,35 +165,73 @@
 	}
 
 	/** 获取 距离线固定位置的点的信息
-	 * linePoints 线的各个拐点
+	 * points 线的各个拐点
 	 * distance 距离起始点的距离(线上)
+	 * lineFunction 计算线的函数
 	 */
-	function getPointInfoAtLine(linePoints, distance) {
-		var idx = 0;
-		var lastPoint, lastTotalDistance = 0, lastDistance, nextPoint;
-		while (!nextPoint) {
-			lastPoint = linePoints[idx];
-			var tempPoint = linePoints[idx + 1];
-			if (!tempPoint) {
-				break;
-			}
-			lastDistance = getDistance(lastPoint, tempPoint);
-			if (distance <= lastTotalDistance + lastDistance) {
-				nextPoint = tempPoint;
-			} else {
-				lastTotalDistance += lastDistance;
-				idx++;
-			}
+	function getPointInfoAtLine(points, distance, lineFunction) {
+		var $templateSvg = d3.select(global.document.body).append("svg")
+			.style("position", "fixed")
+			.style("z-index", "-10000")
+			.style("top", -1000)
+			.style("opacity", 0);
+		var $path = $templateSvg.append("path")
+			.attr("d", lineFunction(points));
+		var pathElement = $path.node();
+		var totalLength = pathElement.getTotalLength();
+		var lastPoint = pathElement.getPointAtLength(distance - 3);
+		var point = pathElement.getPointAtLength(distance);
+		var nextPoint = pathElement.getPointAtLength(distance + 3);
+		var angel
+		if (distance + 3 < totalLength) {
+			angel = getPointsDeg({ x: point.x, y: -point.y }, { x: nextPoint.x, y: -nextPoint.y });
+		} else {
+			angel = getPointsDeg({ x: lastPoint.x, y: -lastPoint.y }, { x: point.x, y: -point.y });
 		}
-		if (nextPoint) {
-			var angel = getPointsDeg(lastPoint, nextPoint);
-			var x = lastPoint.x + (nextPoint.x - lastPoint.x) * (distance - lastTotalDistance) / lastDistance;
-			var y = lastPoint.y + (nextPoint.y - lastPoint.y) * (distance - lastTotalDistance) / lastDistance;
-			return {
-				x: x,
-				y: y,
-				angel: angel
-			}
+
+		// var idx = 0;
+		// var lastPoint, lastTotalDistance = 0, lastDistance, nextPoint;
+		// var pointsArray = lineFunction(points).split(/[a-zA-Z\,]/);
+		// pointsArray.shift();
+		// linePoints = [];
+		// var pointsCount = pointsArray.length / 2;
+		// for (var i = 0; i < pointsCount; i++) {
+		// 	linePoints.push({
+		// 		x: +pointsArray[2 * i],
+		// 		y: -pointsArray[2 * i + 1]
+		// 	});
+		// }
+
+		// while (!nextPoint) {
+		// 	lastPoint = linePoints[idx];
+		// 	var tempPoint = linePoints[idx + 1];
+		// 	if (!tempPoint) {
+		// 		break;
+		// 	}
+		// 	lastDistance = getDistance(lastPoint, tempPoint);
+		// 	if (distance <= lastTotalDistance + lastDistance) {
+		// 		nextPoint = tempPoint;
+		// 	} else {
+		// 		lastTotalDistance += lastDistance;
+		// 		idx++;
+		// 	}
+		// }
+		// if (nextPoint) {
+		// 	var angel = getPointsDeg(lastPoint, nextPoint);
+		// 	var x = lastPoint.x + (nextPoint.x - lastPoint.x) * (distance - lastTotalDistance) / lastDistance;
+		// 	var y = lastPoint.y + (nextPoint.y - lastPoint.y) * (distance - lastTotalDistance) / lastDistance;
+		// 	return {
+		// 		x: x,
+		// 		y: y,
+		// 		angel: angel
+		// 	}
+		// }
+		$templateSvg.remove();
+		$path.remove();
+		return {
+			x: point.x,
+			y: -point.y,
+			angel: angel
 		}
 	}
 
@@ -333,7 +372,7 @@
 		var dragView = d3.drag()
 			.on("start", dragSvgStart)
 			.on("drag", dragSvgMove)
-			.on("end", dragSvgEnd)
+			.on("end", dragSvgEnd);
 		dragView.clickDistance(5);
 		_this.agGraph.$svg.call(dragView)
 			.on("click", function() {
@@ -809,10 +848,11 @@
 			text: "",
 			points: [],
 			pointsData: [],
+			lineType: DEFAULT_LINE_TYPE
 		}, lineData);
 		var _this = this;
 		_this.agGraph = agGraph;
-		var setterProperties = ["class", "text", "selected"];//这些属性   这些属性的变化，需要重新绘制line
+		var setterProperties = ["class", "text", "selected","lineType"];//这些属性   这些属性的变化，需要重新绘制line
 		// 设置 _render 的 debounce(setterProperties 中的属性进行赋值时会调用)
 		_this._renderDebounce = debounce(_this._render, PROPERTY_CHANGE_DEBOUNCE_TIME);
 		// 复制 设置检测属性到_this
@@ -920,24 +960,26 @@
 	AgGraphLine.prototype._render = function(firstRender) {
 		var _this = this;
 		_this.$line.selectAll("*").remove();
-		var $polyline = _this.$line.append('polyline')
-			.attr('points', _this.pointsData.map(function(p) {
-				return p.x + "," + (-p.y)
-			}).join(" "));
+		var lineType = _this.lineType;
+		var lineFunction = d3.line().curve(_this.agGraph._lineFunctions[lineType])
+			.x(function(p) { return p.x; })
+			.y(function(p) { return -p.y; });
+		var $linePath = _this.$line.append('path')
+			.attr('d', lineFunction(_this.pointsData));
 		if (_this.animate && firstRender) {
-			$polyline.transition().duration(500)
+			$linePath.transition().duration(500)
 				.attrTween("stroke-dasharray", function() {
 					var len = this.getTotalLength();
 					return function(t) {
 						return (d3.interpolateString("0," + len, len + ",0"))(t)
 					};
 				}).on("end", function() {
-					$polyline.attr("stroke-dasharray", null);
+					$linePath.attr("stroke-dasharray", null);
 				});
 		}
 		if (_this.text) {
 			var lineLen = getLineLen(_this.pointsData);
-			var textPositionInfo = getPointInfoAtLine(_this.pointsData, lineLen / 2);
+			var textPositionInfo = getPointInfoAtLine(_this.pointsData, lineLen / 2, lineFunction);
 			if (textPositionInfo.angel > 90 && textPositionInfo.angel < 270) {
 				textPositionInfo.angel += 180;
 			}
@@ -1116,7 +1158,7 @@
 		_this._render();
 	};
 
-	AgGraphPath.prototype._getConnectedNodePoint = function(node1, node2) {
+	AgGraphPath.prototype._getConnectedNodeLine = function(node1, node2) {
 		var points = []
 		var line = node1.lines.find(function(l) {
 			return l.source === node2.id || l.target === node2.id;
@@ -1127,7 +1169,7 @@
 				points.reverse();
 			}
 		}
-		return points;
+		return { points: points, lineType: line.lineType };
 	}
 	AgGraphPath.prototype._getPathNode = function() {
 		var _this = this;
@@ -1174,19 +1216,19 @@
 		}
 		return pathNode;
 	}
-	AgGraphPath.prototype._getPathPoints = function() {
+	AgGraphPath.prototype._getPathLines = function() {
 		var _this = this;
 		var source = _this.source;
 		var target = _this.target;
 		var pathNode = this._getPathNode();
-		var pointsArrary = [];
+		var linesArrary = [];
 		if (pathNode && pathNode.length) {
 			pathNode.reduce(function(n1, n2) {
-				pointsArrary.push(_this._getConnectedNodePoint(n1, n2));
+				linesArrary.push(_this._getConnectedNodeLine(n1, n2));
 				return n2;
 			});
 		}
-		return pointsArrary;
+		return linesArrary;
 	}
 	AgGraphPath.prototype._renderLine = function(pointsArray) {
 		var _this = this;
@@ -1196,11 +1238,13 @@
 		var $mark = _this.$path.select(".ag-graph-path-mark");
 		var $arrow = $mark.select(".ag-graph-path-arrow");
 		if (pointsArray.length) {
-			var $line = _this.$path.append("polyline").attr('points', function() {
-				return pointsArray[0].map(function(p) {
-					return p.x + "," + (-p.y)
-				}).join(" ");
-			});
+			var lineType = pointsArray[0].lineType;
+			var lineFunction = d3.line().curve(_this.agGraph._lineFunctions[lineType])
+				.x(function(p) { return p.x; })
+				.y(function(p) { return -p.y; })
+
+			var $line = _this.$path.append("path")
+				.attr("d", lineFunction(pointsArray[0].points));
 			$line.transition()
 				.duration($line.node().getTotalLength() * PATH_SPEED)
 				.ease(function(v) {
@@ -1211,7 +1255,7 @@
 					return function(t) {
 						var dasharrayString = (d3.interpolateString("0," + len, len + ",0"))(t)
 						var moveDistance = +dasharrayString.split(",")[0];
-						var movingPointInfo = getPointInfoAtLine(pointsArray[0], moveDistance);
+						var movingPointInfo = getPointInfoAtLine(pointsArray[0].points, moveDistance, lineFunction);
 						if (movingPointInfo) {
 							$mark.attr("transform", "translate(" + movingPointInfo.x + "," + (-movingPointInfo.y) + ")");
 							$arrow.attr("transform", "rotate(" + movingPointInfo.angel + ")");
@@ -1226,8 +1270,8 @@
 		} else {
 			if (_this.repeat) {
 				setTimeout(function() {
-					_this.$path.selectAll("polyline").remove();
-					_this._renderLine(_this._getPathPoints());
+					_this.$path.selectAll("path").remove();
+					_this._renderLine(_this._getPathLines());
 				}, 500);
 			}
 		}
@@ -1242,10 +1286,10 @@
 			classes.push(_this.class);
 		}
 		_this.$path.attr("class", classes.join(" "))
-		var pointsArrary = _this._getPathPoints();
+		var pointsArrary = _this._getPathLines();
 		if (pointsArrary.length) {
 			_this.$path.style("display", "");
-			_this.$path.selectAll("polyline").remove();
+			_this.$path.selectAll("path").remove();
 			_this._renderLine(pointsArrary);
 		} else {
 			this.$path.style("display", "none");
@@ -1286,6 +1330,12 @@
 	 */
 	function AgGraph(config) {
 		var _this = this;
+		_this._lineFunctions = {
+			line: d3.curveLinear,
+			// basic:d3.curveBasis,
+			// cardinal:d3.curveCardinal,
+			curve: d3.curveCardinal
+		}
 		_this._config = config;
 		container = document.querySelector(config.container);
 		if (container) {
@@ -1306,7 +1356,7 @@
 		} else {
 			throw new Error("没有正确的graph容器!");
 		}
-		if(!hasPermission()){
+		if (!hasPermission()) {
 			throw new Error("只能运行在 localhost, 详细信息请咨询 http://www.aigodata.com");
 		}
 	}

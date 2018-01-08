@@ -127,7 +127,7 @@ console.log(neighbors);
 - 输出 `AgGraphLine`
 - 例
 ```css
-.ag-graph-line.hot-line polyline {
+.ag-graph-line.hot-line path {
   stroke: #49ac19;
 }
 ```

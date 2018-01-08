@@ -41,18 +41,18 @@
     fill: #fff;
 }
 /*连线的折线样式*/
-.ag-graph-line polyline {
+.ag-graph-line path {
     fill: none;
     stroke: #44D5CC;
     stroke-width: 1px;
     cursor: pointer;
 }
 /*连线的折线的选中样式*/
-.ag-graph-line.selected polyline {
+.ag-graph-line.selected path {
     stroke-width: 3px;
 }
 /*连线的折线的hover样式*/
-.ag-graph-line polyline:hover {
+.ag-graph-line path:hover {
     stroke-width: 3px;
 }
 /*点的样式，默认隐藏*/
@@ -75,7 +75,7 @@
     stroke: #d4351C;
     stroke-width: 2;
 }
-.ag-graph-path polyline {
+.ag-graph-path path {
     fill: none;
     stroke: #d4351C;
     stroke-width: 2;

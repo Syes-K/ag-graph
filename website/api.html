@@ -143,7 +143,7 @@ console.log(neighbors);
 - 输出 `AgGraphLine`
 - 例
 ```css
-.ag-graph-line.hot-line polyline {
+.ag-graph-line.hot-line path {
   stroke: #49ac19;
 }
 ```
@@ -655,6 +655,9 @@ line1.delete();
 
 ##### targetNode
 - 输出  `AgGraphNode` // 连线结束节点
+
+##### lineType
+- 输出  `"line"|"curve"` // 线形(line:直线, curve:曲线)
 
 ##### class
 - 输出  `string[]` // 连线自定义样式

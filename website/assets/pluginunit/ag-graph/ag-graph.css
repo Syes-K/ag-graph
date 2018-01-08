@@ -26,7 +26,7 @@
 }
 
 /* 连线 */
-.ag-graph-line polyline {
+.ag-graph-line path {
   fill: none;
   stroke: #44D5CC;
   stroke-width: 1px;
@@ -61,7 +61,7 @@
   stroke-width: 2;
 }
 
-.ag-graph-path polyline {
+.ag-graph-path path {
   fill: none;
   stroke: #d4351C;
   stroke-width: 2;
