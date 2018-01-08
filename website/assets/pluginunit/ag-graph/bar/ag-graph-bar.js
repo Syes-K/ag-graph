@@ -32,8 +32,12 @@
 
 	agGraphBar = {
 		init: function(selector) {
-			this.selector = selector;
 			this.destroy();
+			this.selector = selector;
+			var container = document.querySelector("." + selector);
+			if (container) {
+
+			}
 			this.bindEvent();
 		},
 		destroy: function() {
@@ -47,8 +51,9 @@
 			document.removeEventListener('click', this.click, false);
 		},
 		click: function (event) {
+			var self = agGraphBar;
 			console.log(event.target);
-			var container = searchUp(event.target, this.selector);
+			var container = searchUp(event.target, self.selector);
 			if (container) {
 				console.log(container, "container");
 			}

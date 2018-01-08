@@ -459,6 +459,15 @@ input.ag-switch[type=checkbox]:checked + label.ag-switch-label.right::before {
   border-bottom: 1px solid #ededed;
 }
 
+/* switch */
+.ag-graph-bar-vertical .switch {
+  width: 48px;
+}
+
+.ag-graph-bar-vertical .switch .ag-switch-label {
+  left: -18px;
+}
+
 .ag-graph-bar-vertical .wrapper li > div {
   height: initial;
   padding: 0;
