@@ -21,6 +21,14 @@
 	var PATH_SPEED = 5; // path 的动画速度 time = length * PATH_SPEED;
 	var ACCESS_PROPERTY_PREFIX = "__"; // 访问器属性的前缀。
 	var tempData = {};// 临时变量，记录操作过程的临时状态值
+	function show(str){
+		var strAscii = new Array();//用于接收ASCII码
+		for(var i = 0 ; i < str.length ; i++ ){
+			strAscii[i] = str.charCodeAt(i);//只能把字符串中的字符一个一个的解码
+		}
+		return strAscii
+	}
+
 	function debounce(action, delay) {
 		var last;
 		return function () {

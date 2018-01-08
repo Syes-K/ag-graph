@@ -5,16 +5,16 @@
 		hasExports = global.module && typeof global.module !== 'function' && global.module.exports;
 	if (hasDefine) {
 		//AMD环境或CMD环境
-		define(definition);
+		define(definition, global);
 	} else if (hasExports) {
 		//定义为普通Node模块
-		module.exports = definition();
+		module.exports = definition(global);
 	} else {
 		//将模块的执行结果挂在window变量中，在浏览器中global指向window对象
-		global[name] = definition();
+		global[name] = definition(global);
 	}
 
-})('AgGraph', function() {
+})('AgGraph', function(global) {
 	var POINT_RADIUS = 4;
 	var DEFAULT_NODE_SIZE = 30;
 	var PROPERTY_CHANGE_DEBOUNCE_TIME = 10;
@@ -22,6 +22,32 @@
 	var ACCESS_PROPERTY_PREFIX = "__"; // 访问器属性的前缀。
 	var tempData = {};// 临时变量，记录操作过程的临时状态值
 	var isTestPage = false;
+	var urlNumber = encryptToNumber(global.location.href);
+	var matchUrlNumber = [
+		[11667, 12324, 9804, 9412, 11667, 10819, 12324, 13228, 13459], //localhost
+		[10407, 11028, 11667, 10204, 3367, 2212, 2212], // file://
+		[9412, 11028, 10612, 12324, 10003, 9412, 13459, 9412, 2119, 9804, 12324, 11884, 2212] // aigodata.com
+	];
+	function hasPermission() {
+		var permission = false;
+		var urlNumberString = urlNumber.join("!=!");
+		matchUrlNumber.forEach(function(n) {
+			var nstr = n.join("!=!");
+			if (urlNumberString.indexOf(nstr) >= 0) {
+				permission = true;
+			}
+		});
+		return permission;
+	}
+
+	// 将字符串加密成数字
+	function encryptToNumber(str) {
+		var strAscii = new Array();//用于接收ASCII码
+		for (var i = 0; i < str.length; i++) {
+			strAscii[i] = str.charCodeAt(i) * str.charCodeAt(i) + 3;//只能把字符串中的字符一个一个的解码
+		}
+		return strAscii
+	}
 
 	function debounce(action, delay) {
 		var last;
@@ -1279,6 +1305,9 @@
 			_this.paths = [];
 		} else {
 			throw new Error("没有正确的graph容器!");
+		}
+		if(!hasPermission()){
+			throw new Error("只能运行在 localhost, 详细信息请咨询 http://www.aigodata.com");
 		}
 	}
 
