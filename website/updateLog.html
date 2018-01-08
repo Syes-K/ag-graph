@@ -52,6 +52,21 @@
 		<!--updatelog-->
 		<div class="aigo-page-content">
 
+       <!-- 每个条目 -->
+       <div class="aigo-updatelog-box">
+        <div class="edition">
+          <span class="circle"></span>
+          <span class="pull-left">1.0.5</span>
+          <div class="clear-both"></div>
+        </div>
+        <div class="message">
+          <div class="date">2018-1-9</div>
+          <ul class="message-list">
+            <li>新增: 添加line的线型选择( line | curve )</li>
+          </ul>
+        </div>
+      </div>
+
       <!-- 每个条目 -->
       <div class="aigo-updatelog-box">
         <div class="edition">
@@ -93,10 +108,10 @@
 				<div class="message">
 					<div class="date">2017-11-22</div>
 					<ul class="message-list">
-						<li>优化 复选机制变化: 节点(node)，点(point)，连线(line) 都需要通过 shift+点击 来进行复选 </li>
-						<li>优化 添加点(point)的机制变化: 从 shift+点击连线 ==>双击连线</li>
-						<li>新增 连线(line)自动计算位置: 当连线上只有2个点时，移动关联的节点时，会根据关联节点位置重新计算连线的开始和结束位置</li>
-						<li>新增 连线(line)文本: 连线可以通过设置text 来添加文本</li>
+						<li>优化: 复选机制变化: 节点(node)，点(point)，连线(line) 都需要通过 shift+点击 来进行复选 </li>
+						<li>优化: 添加点(point)的机制变化: 从 shift+点击连线 ==>双击连线</li>
+						<li>新增: 连线(line)自动计算位置: 当连线上只有2个点时，移动关联的节点时，会根据关联节点位置重新计算连线的开始和结束位置</li>
+						<li>新增: 连线(line)文本: 连线可以通过设置text 来添加文本</li>
 					</ul>
 				</div>
 			</div>
@@ -110,9 +125,9 @@
 				<div class="message">
 					<div class="date">2017-11-15</div>
 					<ul class="message-list">
-						<li>优化 agGraph.selection.add/agGraph.selection.remove 输入由原来的单个节点(node)修改为多个节点(node[])。</li>
-						<li>优化 点击节点(node)默认行为由原来切换当前节点(node)的选中状态修改为：取消其他节点(node)的选中状态，切换当前节点(node)的选中状态</li>
-						<li>优化 shift+点击节点(node)：切换当前节点(node)的选中状态(也就是说，如果想多选节点(node) 请用shift+click)</li>
+						<li>优化: agGraph.selection.add/agGraph.selection.remove 输入由原来的单个节点(node)修改为多个节点(node[])。</li>
+						<li>优化: 点击节点(node)默认行为由原来切换当前节点(node)的选中状态修改为：取消其他节点(node)的选中状态，切换当前节点(node)的选中状态</li>
+						<li>优化: shift+点击节点(node)：切换当前节点(node)的选中状态(也就是说，如果想多选节点(node) 请用shift+click)</li>
 					</ul>
 				</div>
 			</div>
