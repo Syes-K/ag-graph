@@ -7,7 +7,9 @@
     "example": "example"
   },
   "scripts": {
-    "build": "npm run min && node build/copyToWebsite.js",
+    "build": "npm run min && npm run online",
+    "api": "node ./build/readme2api.js",
+    "online": "./node_modules/.bin/gulp",
     "min": "./node_modules/.bin/uglifyjs src/ag-graph.js -c -m -o dist/ag-graph.min.js --source-map"
   },
   "repository": {
@@ -22,6 +24,11 @@
   "homepage": "https://github.com/Syes-K/ag-graph#readme",
   "devDependencies": {
     "markdown-it": "^8.4.0",
-    "uglify-js": "^3.1.9"
+    "uglify-js": "^3.1.9",
+    "gulp": "^3.9.1",
+    "gulp-esformatter": "^6.1.0",
+    "gulp-file-include": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.1"
   }
 }
