@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <style>
+    html, body {
+      height: 100%;
+    }
+    * {
+      font-weight: 400;
+      font-size: 14px;
+    }
+    .title {
+      margin: 5px 0;
+    }
+    .title .big-font {
+      font-size: 18px;
+    }
+    .title .small-font {
+      font-size: 14px;
+    }
+  </style>
+  <style id="custom-style">
+  </style>
+</head>
+<body>
+
+<!-- HTML示例 -->
+<div class="title">
+  <span class="big-font">使用背景图片</span>
+  <span class="small-font">基于css的方式来添加背景图片</span>
+</div>
+<div class="layout-container">
+  <div id="ag-graph-container"><!-- 容器 --></div>
+</div>
+
+<!-- 代码段 -->
+<div>
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box" style="width:50%;float:left;">
+    <div class="header">js代码<a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a></div>
+    <div class="content content-bottom" id="ag-graph-code-1">
+<textarea id="code" name="code">
+// 初始化
+var agGraph = new AgGraph({container: "#ag-graph-container"});
+// 添加节点1
+var node1 = agGraph.addNode({
+  id: "n1",
+  x: 0,
+  y: 0,
+  size:48,
+  text: "I'm node",
+  image: "../../assets/img/example/pc.svg"
+});
+// 开启编辑模式
+agGraph.startEdit();
+</textarea>
+    </div>
+  </div>
+  <!-- 代码 -->
+  <div class="aigo-simple-code-box" style="width:50%;float:left;">
+    <div class="header">css代码<a href="javascript:void(0)" class="run-btn" id="btn-run-css">运行</a></div>
+    <div class="content content-bottom" id="ag-graph-code-2">
+<textarea id="class" name="class">
+  /* 自定义背景图片 */
+
+  #ag-graph-container {
+    height: 500px;
+    background-image: url(../../assets/img/example/ag-graph-bg.jpg);
+    background-size: contain;
+    background-repeat: repeat-x;
+  }
+
+  .ag-graph-node-text {
+    fill: #fff;
+  }
+
+</textarea>
+    </div>
+  </div>
+  <!-- 清除浮动 -->
+  <div style="clear:both"></div>
+</div>
+
+
+<script src="../../assets/js/jquery-2.1.0.min.js"></script>
+<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script>
+  var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor.setOption("theme", "monokai");
+
+  var editor2 = CodeMirror.fromTextArea(document.getElementById("class"), {
+    lineNumbers: true,
+    styleActiveLine: true,
+    matchBrackets: true
+  });
+  editor2.setOption("theme", "monokai");
+</script>
+<script src="../../assets/js/d3.js"></script>
+<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script>
+
+  $('#btn-run-js').on('click', function (e) {
+    var code = editor.getValue();
+    var fn = new Function(code);
+    fn();
+  });
+  $('#btn-run-js').click();
+
+
+  $('#btn-run-css').on('click', function (e) {
+    var css = editor2.getValue();
+    document.getElementById("custom-style").innerHTML = css;
+  });
+  $('#btn-run-css').click();
+
+</script>
+</body>
+</html>
