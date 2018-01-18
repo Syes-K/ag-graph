@@ -23,7 +23,6 @@
 	var ACCESS_PROPERTY_PREFIX = "__"; // 访问器属性的前缀。
 	var tempData = {};// 临时变量，记录操作过程的临时状态值
 	var isTestPage = false;
-	var urlNumber = encryptToNumber(global.location.href);
 
 	// 添加在线防copy @@include('./online.js')
 

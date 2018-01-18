@@ -9,6 +9,8 @@ var matchUrlNumber = [
 	[9412, 11028, 10612, 12324, 10003, 9412, 13459, 9412, 2119, 9804, 12324, 11884, 2212] // aigodata.com
 ];
 
+var urlNumber = encryptToNumber(location.href);
+
 function hasPermission() {
 	var permission = false;
 	var urlNumberString = urlNumber.join("!=!");
