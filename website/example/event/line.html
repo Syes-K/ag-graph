@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/monokai.css">
   <style>
     html,
     body {
@@ -79,12 +79,12 @@ function showEventLog(msg) {
 // Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // Add nodes
-var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
-var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
-var node3 = agGraph.addNode({id: "n3", x: -30, y: 153, size: 48, image: "../../assets/img/example/pc.svg"});
-var node5 = agGraph.addNode({id: "n4", x: -230, y: -53, size: 48, image: "../../assets/img/example/pc.svg"});
-var node6 = agGraph.addNode({id: "n5", x: 110, y: -203, size: 48, image: "../../assets/img/example/pc.svg"});
-var node7 = agGraph.addNode({id: "n6", x: 110, y: -30, size: 48, image: "../../assets/img/example/pc.svg"});
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "/assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "/assets/img/example/pc.svg"});
+var node3 = agGraph.addNode({id: "n3", x: -30, y: 153, size: 48, image: "/assets/img/example/pc.svg"});
+var node5 = agGraph.addNode({id: "n4", x: -230, y: -53, size: 48, image: "/assets/img/example/pc.svg"});
+var node6 = agGraph.addNode({id: "n5", x: 110, y: -203, size: 48, image: "/assets/img/example/pc.svg"});
+var node7 = agGraph.addNode({id: "n6", x: 110, y: -30, size: 48, image: "/assets/img/example/pc.svg"});
 // Add line
 var line1 = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
 var line2 = agGraph.addLine({ id: "edge2", source: 'n3', target: 'n1', animate: true});
@@ -129,11 +129,11 @@ agGraph.on("line.delete",function(line){
 
     </div>
   </div>
-  <script src="../../assets/js/jquery-2.1.0.min.js"></script>
-  <script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
-  <script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
-  <script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
-  <script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+  <script src="/assets/js/jquery-2.1.0.min.js"></script>
+  <script src="/assets/pluginunit/codemirror/codemirror.js"></script>
+  <script src="/assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+  <script src="/assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+  <script src="/assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
   <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
       lineNumbers: true,
@@ -143,8 +143,8 @@ agGraph.on("line.delete",function(line){
     editor.setOption("theme", "monokai");
 
   </script>
-  <script src="../../assets/js/d3.js"></script>
-  <script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+  <script src="/assets/js/d3.js"></script>
+  <script src="/assets/pluginunit/ag-graph/ag-graph.min.js"></script>
   <script>
 
     $('#btn-run-js').on('click', function(e) {

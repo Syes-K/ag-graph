@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/monokai.css">
   <!-- ag-graph right-click menu -->
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/contextmenu/ag-graph-context-menu.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/contextmenu/ag-graph-context-menu.css">
   <style>
     html, body {
       height: 100%;
@@ -63,7 +63,7 @@ var agGraph = new AgGraph({container: "#ag-graph-container"});
 // Add node 1
 var node1 = agGraph.addNode({
   id: "n1", x: 0, y: 0, size:48, text: "I'm node",
-  image: "../../assets/img/example/pc.svg"
+  image: "/assets/img/example/pc.svg"
 });
 // Add left-click handler
 agGraph.on("view.click, node.click", function (view, position) {
@@ -189,11 +189,11 @@ agGraph.on("node.rightClick", function (node, position) {
   <div style="clear:both"></div>
 </div>
 
-<script src="../../assets/js/jquery-2.1.0.min.js"></script>
-<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
-<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="/assets/js/jquery-2.1.0.min.js"></script>
+<script src="/assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="/assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
 <script>
   // HTML
   var editor0 = CodeMirror.fromTextArea(document.getElementById("html"), {
@@ -219,8 +219,8 @@ agGraph.on("node.rightClick", function (node, position) {
   });
   editor2.setOption("theme", "monokai");
 </script>
-<script src="../../assets/js/d3.js"></script>
-<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script src="/assets/js/d3.js"></script>
+<script src="/assets/pluginunit/ag-graph/ag-graph.min.js"></script>
 <script>
 
   // HTML

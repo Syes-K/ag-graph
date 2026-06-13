@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/monokai.css">
   <style>
     html, body {
       height: 100%;
@@ -56,7 +56,7 @@ var node1 = agGraph.addNode({
   y: 0,
   size:48,
   text: "I'm node",
-  image: "../../assets/img/example/pc.svg"
+  image: "/assets/img/example/pc.svg"
 });
 // Enable edit mode
 agGraph.startEdit();
@@ -72,7 +72,7 @@ agGraph.startEdit();
 
   #ag-graph-container {
     height: 500px;
-    background-image: url(../../assets/img/example/ag-graph-bg.jpg);
+    background-image: url(/assets/img/example/ag-graph-bg.jpg);
     background-size: contain;
     background-repeat: repeat-x;
   }
@@ -89,11 +89,11 @@ agGraph.startEdit();
 </div>
 
 
-<script src="../../assets/js/jquery-2.1.0.min.js"></script>
-<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
-<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="/assets/js/jquery-2.1.0.min.js"></script>
+<script src="/assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="/assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     lineNumbers: true,
@@ -109,8 +109,8 @@ agGraph.startEdit();
   });
   editor2.setOption("theme", "monokai");
 </script>
-<script src="../../assets/js/d3.js"></script>
-<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script src="/assets/js/d3.js"></script>
+<script src="/assets/pluginunit/ag-graph/ag-graph.min.js"></script>
 <script>
 
   $('#btn-run-js').on('click', function (e) {

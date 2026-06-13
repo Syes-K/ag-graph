@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/monokai.css">
   <!-- ag-graph right-click menu -->
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/contextmenu/ag-graph-context-menu.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/contextmenu/ag-graph-context-menu.css">
   <style>
     html, body {
       height: 100%;
@@ -61,8 +61,8 @@
 // Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // Add nodes
-var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
-var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
+var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "/assets/img/example/server.svg"});
+var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "/assets/img/example/pc.svg"});
 // Add line
 var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
 // Toggle edit mode
@@ -193,11 +193,11 @@ agGraph.on("line.rightClick", function (line, position) {
   <div style="clear:both"></div>
 </div>
 
-<script src="../../assets/js/jquery-2.1.0.min.js"></script>
-<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
-<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="/assets/js/jquery-2.1.0.min.js"></script>
+<script src="/assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="/assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
 <script>
   // HTML
   var editor0 = CodeMirror.fromTextArea(document.getElementById("html"), {
@@ -223,8 +223,8 @@ agGraph.on("line.rightClick", function (line, position) {
   });
   editor2.setOption("theme", "monokai");
 </script>
-<script src="../../assets/js/d3.js"></script>
-<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script src="/assets/js/d3.js"></script>
+<script src="/assets/pluginunit/ag-graph/ag-graph.min.js"></script>
 <script>
 
   // HTML

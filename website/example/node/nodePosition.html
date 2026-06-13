@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title></title>
-  <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/ag-graph/ag-graph.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/codemirror.css">
-  <link rel="stylesheet" type="text/css" href="../../assets/pluginunit/codemirror/monokai.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/ag-graph/ag-graph.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="/assets/pluginunit/codemirror/monokai.css">
   <style>
     html, body {
       height: 100%;
@@ -39,12 +39,12 @@
 var agGraph = new AgGraph({container: "#ag-graph-container"});
 // Add nodes
 var node1 = agGraph.addNode({
-  id: "n1",  image: "../../assets/img/example/server.svg",
+  id: "n1",  image: "/assets/img/example/server.svg",
   size:48,
   x: -125, y: -66 // Position
 });
 var node2 = agGraph.addNode({
-  id: "n2", image: "../../assets/img/example/pc.svg",
+  id: "n2", image: "/assets/img/example/pc.svg",
   size:48,
   x: 86, y: 53 // Position
 });
@@ -57,11 +57,11 @@ var node2 = agGraph.addNode({
 </textarea>
   </div>
 </div>
-<script src="../../assets/js/jquery-2.1.0.min.js"></script>
-<script src="../../assets/pluginunit/codemirror/codemirror.js"></script>
-<script src="../../assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
-<script src="../../assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
+<script src="/assets/js/jquery-2.1.0.min.js"></script>
+<script src="/assets/pluginunit/codemirror/codemirror.js"></script>
+<script src="/assets/pluginunit/codemirror/mode/javascript/javascript.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/selection/active-line.js"></script>
+<script src="/assets/pluginunit/codemirror/addon/edit/matchbrackets.js"></script>
 <script>
   var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
     lineNumbers: true,
@@ -70,8 +70,8 @@ var node2 = agGraph.addNode({
   });
   editor.setOption("theme", "monokai");
 </script>
-<script src="../../assets/js/d3.js"></script>
-<script src="../../assets/pluginunit/ag-graph/ag-graph.min.js"></script>
+<script src="/assets/js/d3.js"></script>
+<script src="/assets/pluginunit/ag-graph/ag-graph.min.js"></script>
 <script>
 
   $('.run-btn').on('click', function(e) {
