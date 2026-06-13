@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>ag-graph</title>
-    <!--网站图标-->
+    <!--Site icon-->
     <link rel="shortcut icon" href="/favicon.ico"/>
 		<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
@@ -26,25 +26,25 @@
 					</a>
 				</div>
 				<!--github-->
-				<!--<a href="#" class="aigo-github" title="访问GitHub">-->
+				<!--<a href="#" class="aigo-github" title="Visit GitHub">-->
 					<!--<img src="img/github.svg" />-->
 				<!--</a>-->
 				<!--menu-->
 				<ul class="aigo-menu">
           <li>
-            <a target="_blank" href="api.html">文档</a>
+            <a target="_blank" href="api.html">Documentation</a>
           </li>
           <li>
-            <a target="_blank" href="example.html">示例</a>
+            <a target="_blank" href="example.html">Examples</a>
           </li>
 					<li>
-						<a href="updateLog.html">更新日志</a>
+						<a href="updateLog.html">Changelog</a>
 					</li>
 					<li>
-						<a href="commonProblem.html" class="active">常见问题</a>
+						<a href="commonProblem.html" class="active">FAQ</a>
 					</li>
 					<li>
-						<a href="price.html">价格</a>
+						<a href="price.html">Pricing</a>
 					</li>
 				</ul>
 			</div>
@@ -53,17 +53,17 @@
 		<!--commonProblem-->
 		<div class="aigo-page-content">
 			<div class="aigo-btn-box">
-				<a href="javascript:void(0)" class="aigo-blue-btn">全部</a>
-				<!--<a href="#" class="aigo-blue-btn">按条件</a>-->
+				<a href="javascript:void(0)" class="aigo-blue-btn">All</a>
+				<!--<a href="#" class="aigo-blue-btn">Filter</a>-->
 			</div>
-      <!-- 条目 -->
+      <!-- Entry -->
       <div class="aigo-commonproblem-box">
         <div class="question">
           <div class="question-icon">
             <img src="assets/img/question.svg">
           </div>
           <div class="question-content">
-            ag-graph容器的高度发生改变后，其他代码都没变, 为什么节点的位置会发生变化?
+            After the ag-graph container height changes and nothing else in my code has changed, why do node positions shift?
           </div>
         </div>
         <div class="answer">
@@ -71,18 +71,18 @@
             <img src="assets/img/answer.svg">
           </div>
           <div class="question-content">
-            我们采用的是笛卡尔坐标系, 以容器的中心点为原点(0, 0), 当容器高度发生变化, 节点位置相对于原点会进行偏移, 是正常现象这样的设计更易进行屏幕适配.
+            We use a Cartesian coordinate system with the center of the container as the origin (0, 0). When the container height changes, node positions shift relative to the origin. This is expected behavior and makes screen adaptation easier.
           </div>
         </div>
       </div>
-      <!-- 条目 -->
+      <!-- Entry -->
       <div class="aigo-commonproblem-box">
         <div class="question">
           <div class="question-icon">
             <img src="assets/img/question.svg">
           </div>
           <div class="question-content">
-            ag-graph容器的高度控件是否会进行控制？目前无样式div容器高度较小，没有默认height:100% ?
+            Does ag-graph control the container height? My plain div container is small and doesn't have a default height: 100%.
           </div>
         </div>
         <div class="answer">
@@ -90,9 +90,9 @@
             <img src="assets/img/answer.svg">
           </div>
           <div class="question-content">
-            是的, 需要自己指定宽高, ag-graph灵活的地方也是在这里, 因为天然支持样式来控制宽高, 所以支持所有计算单位(px, vh, %, em, rem, calc等)
+            Yes, you need to specify width and height yourself. That flexibility is intentional — ag-graph supports CSS for sizing, so all common units work (px, vh, %, em, rem, calc, etc.).
             <pre><code class="css">
-  /* 仅供参考 */
+  /* For reference only */
   #ag-graph-container {
     width: 100%;
     min-width: 20vh;
@@ -105,14 +105,14 @@
           </div>
         </div>
       </div>
-      <!-- 条目 -->
+      <!-- Entry -->
       <div class="aigo-commonproblem-box">
         <div class="question">
           <div class="question-icon">
             <img src="assets/img/question.svg">
           </div>
           <div class="question-content">
-            按照官方API文档操作，添加完连线节点之后，所有元素均不能移动或者操作，是需要继续什么配置吗？为什么不是默认可以操作？
+            I followed the official API docs and added nodes and links, but nothing can be moved or edited. Do I need additional configuration? Why isn't interaction enabled by default?
           </div>
         </div>
         <div class="answer">
@@ -120,25 +120,25 @@
             <img src="assets/img/answer.svg">
           </div>
           <div class="question-content">
-            需要启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以添加路径轨迹动画.
+            You need to enable edit mode before you can drag nodes, edit links, and similar operations. When edit mode is off, you can add path animation trajectories.
             <pre><code class="javascript">
-  // 初始化
+  // Initialize
   var agGraph = new AgGraph({container: "#ag-graph-container"});
-  // 切换编辑模式
+  // Toggle edit mode
   agGraph.startEdit();
             </code></pre>
-            因为默认情况多数以观看展示为主, 编辑操作仅开始配置时需要, 其余时间修改较少, 也有一部分原因是权限控制的需要, 不是所有人都有编辑权限的.
+            By default, most use cases are view-only. Editing is mainly needed during initial setup, and changes are infrequent afterward. Access control is also a factor — not everyone should have edit permissions.
           </div>
         </div>
       </div>
-      <!-- 条目 -->
+      <!-- Entry -->
 			<div class="aigo-commonproblem-box">
 				<div class="question">
 					<div class="question-icon">
 						<img src="assets/img/question.svg">
 					</div>
 					<div class="question-content">
-						做为第一条达到这里的常见问题, 您的获奖感言是?
+						As the first FAQ entry to reach this page, what would your acceptance speech be?
 					</div>
 				</div>
 				<div class="answer">
@@ -146,8 +146,8 @@
 						<img src="assets/img/answer.svg">
 					</div>
 					<div class="question-content">
-						谢谢大家的厚爱和支持, ag-graph才能逐渐顺利走向市场, ag-graph团队会不定期把大家常见的问题汇总到这里,
-            最后殷切的期待, ag-graph能在日常工作中帮您解决问题, 并带来工作效率的提升.
+						Thank you for your support — it helps ag-graph grow and reach more users. The ag-graph team will continue to collect common questions here from time to time.
+            We sincerely hope ag-graph helps you in daily work and improves your productivity.
 					</div>
 				</div>
 			</div>
@@ -156,7 +156,7 @@
 
     <!--footer-->
     <div class="aigo-footer">
-      <a href="//aigodata.com">aigodata 前端团队</a>
+      <a href="//aigodata.com">aigodata Frontend Team</a>
     </div>
 
     <script src="assets/js/highlight.pack.js"></script>

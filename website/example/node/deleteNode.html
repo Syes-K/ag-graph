@@ -18,32 +18,32 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">删除节点</span>
+    <span class="big-font">Delete Node</span>
     <span class="small-font"></span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点1
+// Add node 1
 var node1 = agGraph.addNode({id: "n1", x: -200, y: 0, size: 48, image: "../../assets/img/example/server.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 125, y: 86, size: 48, image: "../../assets/img/example/pc.svg"});
 var node3 = agGraph.addNode({id: "n3", x: 295, y: -86, size: 48, image: "../../assets/img/example/pc.svg"});
 var line1 = agGraph.addLine({id:"l1", source:"n1", target:"n2"});
 var line2 = agGraph.addLine({id:"l2", source:"n3", target:"n2"});
-// 开启注释代码, 删除节点.
+// Uncomment to delete the node.
 // node2.delete();
 </textarea>
   </div>

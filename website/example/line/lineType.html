@@ -18,41 +18,41 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">连线curve类型</span>
-    <span class="small-font">添加line时候配置lineType: "curve", 可以实现贝塞尔曲线的效果</span>
+    <span class="big-font">Line Curve Type</span>
+    <span class="small-font">Set lineType: "curve" when adding a line for a Bezier curve effect</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点1
+// Add node 1
 var node1 = agGraph.addNode({id: "n1", x: -70, y: -80, size: 48, image: "../../assets/img/example/pc.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 60, y: 60,  size: 48,  image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
-  source: "n1", // 源节点id
-  target: "n2", // 目标节点id
-  lineType: "line", // 默认线型
+  source: "n1", // Source node id
+  target: "n2", // Target node id
+  lineType: "line", // Default line type
   animate: true
 });
 var line2 = agGraph.addLine({
   id:"l2",
-  source: "n1", // 源节点id
-  target: "n2", // 目标节点id
-  lineType: "curve", // 曲线
+  source: "n1", // Source node id
+  target: "n2", // Target node id
+  lineType: "curve", // Curve
   pointsData:[
   {x:-51,y:-59.5},
   {x:-51,y: 39.5},
@@ -60,7 +60,7 @@ var line2 = agGraph.addLine({
 ],
   animate: true
 });
-// 在编辑模式下，移动连线上的点，或者双击连线 看看效果
+// In edit mode, move points on the line or double-click the line to see the effect
 agGraph.startEdit();
 </textarea>
   </div>

@@ -18,41 +18,41 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-      <span class="big-font">节点位置</span>
-      <span class="small-font">节点位置可以在节点添加时作为节点的数据项设置，也可以通过节点的x,y属性来设置(当然也可读取),还可以在编辑模式下拖动节点来修改位置</span>
+      <span class="big-font">Node Position</span>
+      <span class="small-font">Node position can be set when adding a node or via x/y properties (read/write), or by dragging in edit mode.</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({
   id: "n1",  image: "../../assets/img/example/server.svg",
   size:48,
-  x: -125, y: -66 //位置
+  x: -125, y: -66 // Position
 });
 var node2 = agGraph.addNode({
   id: "n2", image: "../../assets/img/example/pc.svg",
   size:48,
-  x: 86, y: 53 // 位置
+  x: 86, y: 53 // Position
 });
 
-// 开启注释代码, 直接修改位置.
+// Uncomment to change position directly.
 // node1.x += 100;
 
-// 开启注释代码, 启动编辑模式(拖动节点，修改位置)
+// Uncomment to enable edit mode (drag nodes to change position)
 // agGraph.startEdit();
 </textarea>
   </div>

@@ -18,37 +18,37 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">节点文本</span>
-    <span class="small-font">节点文本可以在节点添加时作为节点的数据项设置，也可以通过节点的text属性来设置(当然也可读取)</span>
+    <span class="big-font">Node Text</span>
+    <span class="small-font">Node text can be set when adding a node or via the node's text property (read/write).</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({
   id: "n1", x: -125, y: -66,  size: 48, image: "../../assets/img/example/server.svg",
-  text: "服务器1" // 文本
+  text: "Server 1" // Text
 });
 var node2 = agGraph.addNode({
   id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg",
-  text: "个人电脑1" // 文本
+  text: "PC 1" // Text
 });
 
-// 开启注释代码, 直接修改文本.
-// node1.text = "服务器2";
+// Uncomment to change text directly.
+// node1.text = "Server 2";
 </textarea>
   </div>
 </div>

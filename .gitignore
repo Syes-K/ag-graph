@@ -7,3 +7,5 @@ npm-debug.log*
 .project
 .vs
 net-poc-web.iml
+.cursorindexingignore
+.specstory/*

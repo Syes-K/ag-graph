@@ -30,48 +30,48 @@
 </head>
 
 <body>
-  <!-- 示例 -->
+  <!-- Example -->
   <div class="aigo-simple-code-box aigo-simple-example">
     <div class="title">
-      <span class="big-font">node(节点) 事件</span>
-      <span class="small-font">包含：点击,右击,移动,新增,删除</span>
+      <span class="big-font">Node Events</span>
+      <span class="small-font">Includes: click, right-click, move, add, delete</span>
     </div>
     <div class="content content-top" id="ag-graph-container">
-      <!-- 容器 -->
+      <!-- Container -->
     </div>
   </div>
   <div style="display:flex;">
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">操作指南</div>
+      <div class="header">Instructions</div>
       <div class="content content-bottom content-border" style="padding:10px;line-height:20px;overflow:auto;">
-        <h3>1.点击任意node,触发click事件</h3>
-        <h3>2.右击任意node,触发rightClick事件</h3>
-        <h3>3.点击"
-          <a href="javarscript:void(0)" id="btn-node-add">添加</a>
-          "添加node,触发add事件
+        <h3>1. Click any node to trigger click</h3>
+        <h3>2. Right-click any node to trigger rightClick</h3>
+        <h3>3. Click "
+          <a href="javarscript:void(0)" id="btn-node-add">Add</a>
+          " to add a node and trigger add
         </h3>
-        <h3>4.点击"
-          <a href="javarscript:void(0)" id="btn-node-delete">删除</a>
-          "删除node,触发delete事件
+        <h3>4. Click "
+          <a href="javarscript:void(0)" id="btn-node-delete">Delete</a>
+          " to delete a node and trigger delete
         </h3>
-        <h3>5.点击 "
-          <a href="javarscript:void(0)" id="btn-edit-mode">编辑模式</a>
-          " 开启编辑模式,然后移动node,触发move事件
+        <h3>5. Click "
+          <a href="javarscript:void(0)" id="btn-edit-mode">Edit Mode</a>
+          " to enable edit mode, then move a node to trigger move
         </h3>
       </div>
     </div>
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">事件记录</div>
+      <div class="header">Event Log</div>
       <div class="content content-bottom content-border" id="event-mark" style="padding:10px;line-height:20px;overflow:auto;">
 
       </div>
     </div>
   </div>
 
-  <!-- 代码 -->
+  <!-- Code -->
   <div class="aigo-simple-code-box">
-    <div class="header">示例代码(js)
-      <a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a>
+    <div class="header">Sample Code (JS)
+      <a href="javascript:void(0)" class="run-btn" id="btn-run-js">Run</a>
     </div>
     <div class="content content-bottom" id="ag-graph-code">
       <textarea id="code" name="code">
@@ -80,23 +80,23 @@ function showEventLog(msg) {
   eventMarkContainer.innerHTML+= msg+"<br>";
   eventMarkContainer.scrollTop = 100000;
 }
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({id: "n1", x: -125, y: -26, size: 48, image: "../../assets/img/example/server.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
 var node3 = agGraph.addNode({id: "n3", x: -30, y: 153, size: 48, image: "../../assets/img/example/pc.svg"});
 var node4 = agGraph.addNode({id: "n4", x: -130, y: -183, size: 48, image: "../../assets/img/example/pc.svg"});
-// 添加连线
+// Add line
 var line1 = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
 var line2 = agGraph.addLine({ id: "edge2", source: 'n3', target: 'n1', animate: true});
 var line3 = agGraph.addLine({ id: "edge3", source: 'n4', target: 'n1', animate: true});
 agGraph.on("node.click",function(node,position){
-  showEventLog("node.click, 点击的 node id 是 "+ node.id+",位置是 "+position.x+","+position.y);
+  showEventLog("node.click, clicked node id: "+ node.id+", position: "+position.x+","+position.y);
   console.log(node,position);
 });
 agGraph.on("node.rightClick",function(node,position){
-  showEventLog("node.rightClick, 右击的 node id 是 "+ node.id+",位置是 "+position.x+","+position.y);
+  showEventLog("node.rightClick, right-clicked node id: "+ node.id+", position: "+position.x+","+position.y);
   console.log(node,position);
 });
 
@@ -107,9 +107,9 @@ document.getElementById("btn-node-add").addEventListener("click",function(){
     size: 48, image: "../../assets/img/example/server.svg"
   });
 });
-// 监听 node 添加事件
+// Listen for node.add
 agGraph.on("node.add",function(node){
-  showEventLog("node.add, 添加的 node id 是 "+ node.id);
+  showEventLog("node.add, added node id: "+ node.id);
   console.log(node);
 });
 
@@ -117,18 +117,18 @@ document.getElementById("btn-node-delete").addEventListener("click",function(){
    var lastNode = agGraph.nodes[agGraph.nodes.length-1];
    lastNode.delete();
 });
-// 监听 node 删除事件
+// Listen for node.delete
 agGraph.on("node.delete",function(node){
-  showEventLog("node.delete, 删除的 node id 是 "+ node.id);
+  showEventLog("node.delete, deleted node id: "+ node.id);
   console.log(node);
 });
 
 document.getElementById("btn-edit-mode").addEventListener("click",function(){
   agGraph.startEdit();
 });
-// 监听 node 移动事件
+// Listen for node.move
 agGraph.on("node.move",function(node){
-  showEventLog("node.move, 移动的 node id 是 "+ node.id);
+  showEventLog("node.move, moved node id: "+ node.id);
   console.log(node);
 });
 </textarea>

@@ -18,31 +18,31 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">切换编辑模式</span>
-    <span class="small-font">启动编辑模式后, 可以进行拖拽和编辑连线等操作, 关闭编辑模式, 可以观看路径轨迹动画.</span>
+    <span class="big-font">Toggle Edit Mode</span>
+    <span class="small-font">After enabling edit mode, you can drag nodes and edit lines. Disable edit mode to watch path animation.</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
-// 添加连线
+// Add line
 var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
-// 切换编辑模式, 开启注释代码, 感受差异.
+// Toggle edit mode — uncomment the code below to see the difference.
 // agGraph.startEdit();
 </textarea>
   </div>

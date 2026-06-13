@@ -18,35 +18,35 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-      <span class="big-font">节点图片</span>
-      <span class="small-font">节点图片可以在节点添加时作为节点的数据项设置，也可以通过节点的image属性来设置(当然也可读取)</span>
+      <span class="big-font">Node Image</span>
+      <span class="small-font">Node image can be set when adding a node or via the node's image property (read/write).</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({
   id: "n1", x: -125, y: -66, size:48,
-  image: "../../assets/img/example/server.svg" // 图片
+  image: "../../assets/img/example/server.svg" // Image
 });
 var node2 = agGraph.addNode({
   id: "n2", x: 86, y: 53, size:48,
-  image: "../../assets/img/example/pc.svg" // 图片
+  image: "../../assets/img/example/pc.svg" // Image
 });
-// 开启注释代码, 直接修改图片.
+// Uncomment to change image directly.
 // node1.image = "../../assets/img/example/pc@2x.png";
 
 </textarea>

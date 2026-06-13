@@ -28,39 +28,39 @@
 </head>
 
 <body>
-  <!-- 示例 -->
+  <!-- Example -->
   <div class="aigo-simple-code-box aigo-simple-example">
     <div class="title">
-      <span class="big-font">view 事件</span>
-      <span class="small-font">view事件 指的是对graph整体操作的事件;</span>
+      <span class="big-font">View Events</span>
+      <span class="small-font">View events are operations on the graph as a whole;</span>
     </div>
     <div class="content content-top" id="ag-graph-container">
-      <!-- 容器 -->
+      <!-- Container -->
     </div>
   </div>
   <div style="display:flex;">
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">操作指南</div>
+      <div class="header">Instructions</div>
       <div class="content content-bottom content-border" style="padding:10px;line-height:20px;overflow:auto;">
-        <h3>1.鼠标按住空白处拖动,触发view.move 事件</h3>
-        <h3>2.鼠标点击空白处,触发view.click 事件</h3>
-        <h3>3.鼠标右键点击空白处,触发view.rightClick 事件</h3>
-        <h3>4.点击 “<a href="javascript:void(0)" id="btn-zoomin">放大</a>” 放大graph</h3>
-        <h3>5.点击 “<a href="javascript:void(0)" id="btn-zoomout">缩小</a>” 缩小graph</h3>
+        <h3>1. Drag on empty space to trigger view.move</h3>
+        <h3>2. Click empty space to trigger view.click</h3>
+        <h3>3. Right-click empty space to trigger view.rightClick</h3>
+        <h3>4. Click "<a href="javascript:void(0)" id="btn-zoomin">Zoom In</a>" to zoom in the graph</h3>
+        <h3>5. Click "<a href="javascript:void(0)" id="btn-zoomout">Zoom Out</a>" to zoom out the graph</h3>
       </div>
     </div>
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">事件记录</div>
+      <div class="header">Event Log</div>
       <div class="content content-bottom content-border" id="event-mark" style="padding:10px;line-height:20px;overflow:auto;">
 
       </div>
     </div>
   </div>
 
-  <!-- 代码 -->
+  <!-- Code -->
   <div class="aigo-simple-code-box">
-    <div class="header">示例代码
-      <a href="javascript:void(0)" class="run-btn">运行</a>
+    <div class="header">Sample Code
+      <a href="javascript:void(0)" class="run-btn">Run</a>
     </div>
     <div class="content content-bottom" id="ag-graph-code">
       <textarea id="code" name="code">
@@ -69,42 +69,42 @@ function showEventLog(msg) {
   eventMarkContainer.innerHTML+= msg+"<br>";
   eventMarkContainer.scrollTop = 100000;
 }
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({id: "n1", x: -125, y: -66, size: 48, image: "../../assets/img/example/server.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
-// 添加连线
+// Add line
 var line = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
 
-// 监听view 移动事件
+// Listen for view.move
 agGraph.on("view.move",function(view) {
   showEventLog("view.move");
   console.log(view);
 });
 
-// 监听view 点击事件
+// Listen for view.click
 agGraph.on("view.click",function(view,position) {
-  showEventLog("view.click, 点击的位置: "+position.x+","+position.y);
+  showEventLog("view.click, click position: "+position.x+","+position.y);
   console.log(view);
 });
 
-// 监听view 右击事件
+// Listen for view.rightClick
 agGraph.on("view.rightClick",function(view,position) {
-  showEventLog("view.rightClick,点击的位置: :"+position.x+","+position.y);
+  showEventLog("view.rightClick, click position: "+position.x+","+position.y);
   console.log(view);
 });
 
-// 添加操作指南中的放大按钮事件
+// Zoom In button from Instructions
 document.getElementById("btn-zoomin").addEventListener("click",function(){
   agGraph.view.zoomIn();
 });
-// 添加操作指南中的缩小按钮事件
+// Zoom Out button from Instructions
 document.getElementById("btn-zoomout").addEventListener("click",function(){
   agGraph.view.zoomOut();
 });
 
-// 监听view zoom事件
+// Listen for view zoom event
 agGraph.on("view.zoom",function(view) {
   showEventLog("view.zoom,scale is :"+view.scale);
   console.log(view);

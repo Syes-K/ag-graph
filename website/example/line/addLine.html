@@ -18,38 +18,38 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">添加连线</span>
-    <span class="small-font">连线是由源节点到目标节点的线段.</span>
+    <span class="big-font">Add Line</span>
+    <span class="small-font">A line is a segment from a source node to a target node.</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点1
+// Add node 1
 var node1 = agGraph.addNode({id: "n1", x: 70, y: -80, size: 48, image: "../../assets/img/example/pc.svg"});
 var node2 = agGraph.addNode({id: "n2", x: -100, y: -100, size: 48, image: "../../assets/img/example/server.svg"});
 var node3 = agGraph.addNode({id: "n3", x: 100, y: 80, size: 48, image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
-  source: "n1", // 源节点id
-  target: "n2", // 目标节点id
-  animate:true // 绘制线的时候启动动画
+  source: "n1", // Source node id
+  target: "n2", // Target node id
+  animate:true // Animate when drawing the line
 });
 
-// 开启注释代码, 添加更多连线.
+// Uncomment to add more lines.
 //agGraph.addLine({id:"l2",source:"n1",target:"n3"});
 //agGraph.addLine({id:"l3",source:"n2",target:"n3"});
 </textarea>

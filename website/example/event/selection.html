@@ -30,40 +30,40 @@
 </head>
 
 <body>
-  <!-- 示例 -->
+  <!-- Example -->
   <div class="aigo-simple-code-box aigo-simple-example">
     <div class="title">
-      <span class="big-font">selection 事件</span>
-      <span class="small-font">selection事件 指的是graph中node(节点),line(线),point(点) 选择状态的变更</span>
+      <span class="big-font">Selection Events</span>
+      <span class="small-font">Selection events are changes to node, line, or point selection state in the graph</span>
     </div>
     <div class="content content-top" id="ag-graph-container">
-      <!-- 容器 -->
+      <!-- Container -->
     </div>
   </div>
   <div style="display:flex;">
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">操作指南</div>
+      <div class="header">Instructions</div>
       <div class="content content-bottom content-border" style="padding:10px;line-height:20px;overflow:auto;">
-        <h3>1.点击任意未选中的node(节点),选择它(同时会取消其他node(节点)的选择)</h3>
-        <h3>2.按住shift点击任意未选中的node(节点),选择它(不会取消其他node(节点)的选择)</h3>
-        <h3>3.点击任意未选中的line(线),选择它(同时会取消其他line(线)的选择)</h3>
-        <h3>4.按住shift点击任意未选中的line(线),选择它(不会取消其他line(线)的选择)</h3>
-        <h3>5.点击空白处，清除所有node,line的选择</h3>
+        <h3>1. Click any unselected node to select it (deselects other nodes)</h3>
+        <h3>2. Shift+click any unselected node to add it to selection</h3>
+        <h3>3. Click any unselected line to select it (deselects other lines)</h3>
+        <h3>4. Shift+click any unselected line to add it to selection</h3>
+        <h3>5. Click empty space to clear all node and line selections</h3>
       </div>
     </div>
     <div class="aigo-simple-code-box" style="width:50%;">
-      <div class="header">事件记录</div>
+      <div class="header">Event Log</div>
       <div class="content content-bottom content-border" id="event-mark" style="padding:10px;line-height:20px;overflow:auto;">
 
       </div>
     </div>
   </div>
 
-  <!-- 代码 -->
+  <!-- Code -->
   <div style="display:flex;">
     <div class="aigo-simple-code-box" style="width:50%">
-      <div class="header">示例代码(js)
-        <a href="javascript:void(0)" class="run-btn" id="btn-run-js">运行</a>
+      <div class="header">Sample Code (JS)
+        <a href="javascript:void(0)" class="run-btn" id="btn-run-js">Run</a>
       </div>
       <div class="content content-bottom" id="ag-graph-code">
         <textarea id="code" name="code">
@@ -72,46 +72,46 @@ function showEventLog(msg) {
   eventMarkContainer.innerHTML+= msg+"<br>";
   eventMarkContainer.scrollTop = 100000;
 }
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点
+// Add nodes
 var node1 = agGraph.addNode({id: "n1", x: -125, y: -26, size: 48, image: "../../assets/img/example/server.svg"});
 var node2 = agGraph.addNode({id: "n2", x: 86, y: 53, size: 48, image: "../../assets/img/example/pc.svg"});
 var node3 = agGraph.addNode({id: "n3", x: -30, y: 153, size: 48, image: "../../assets/img/example/pc.svg"});
 var node4 = agGraph.addNode({id: "n4", x: -130, y: -183, size: 48, image: "../../assets/img/example/pc.svg"});
-// 添加连线
+// Add line
 var line1 = agGraph.addLine({ id: "edge1", source: 'n2', target: 'n1', animate: true});
 var line2 = agGraph.addLine({ id: "edge2", source: 'n3', target: 'n1', animate: true});
 var line3 = agGraph.addLine({ id: "edge3", source: 'n4', target: 'n1', animate: true});
 
-// 监听 node 选择事件
+// Listen for node selection
 agGraph.on("selection.node.add",function(nodes){
-  showEventLog("selection.node.add, 选择的node id 是 "+ nodes.map(function(n){return n.id;}).join(","));
+  showEventLog("selection.node.add, selected node id(s): "+ nodes.map(function(n){return n.id;}).join(","));
   console.log(nodes);
 });
-// 监听 node 取消选择事件
+// Listen for node deselection
 agGraph.on("selection.node.remove",function(nodes){
-  showEventLog("selection.node.remove, 取消选择的node id 是 "+ nodes.map(function(n){return n.id;}).join(","));
+  showEventLog("selection.node.remove, deselected node id(s): "+ nodes.map(function(n){return n.id;}).join(","));
   console.log(nodes);
 });
 
 
-// 监听 line 选择事件
+// Listen for line selection
 agGraph.on("selection.line.add",function(lines){
-  showEventLog("selection.line.add, line id 是 "+ lines.map(function(l){return l.id;}).join(","));
+  showEventLog("selection.line.add, line id(s): "+ lines.map(function(l){return l.id;}).join(","));
   console.log(lines);
 });
-// 监听 line 取消选择事件
+// Listen for line deselection
 agGraph.on("selection.line.remove",function(lines){
-  showEventLog("selection.line.remove, 取消选择的 line id 是 "+ lines.map(function(l){return l.id;}).join(","));
+  showEventLog("selection.line.remove, deselected line id(s): "+ lines.map(function(l){return l.id;}).join(","));
   console.log(lines);
 });
 
-// 监听 node 清除所有选择
+// Listen for clearing all node selections
 agGraph.on("selection.node.clear",function(){
   showEventLog("selection.node.clear");
 });
-// 监听 line 清除所有选择
+// Listen for clearing all line selections
 agGraph.on("selection.line.clear",function(){
   showEventLog("selection.line.clear");
 });
@@ -119,14 +119,14 @@ agGraph.on("selection.line.clear",function(){
       </div>
     </div>
 
-    <!-- 代码 -->
+    <!-- Code -->
     <div class="aigo-simple-code-box" style="width:50%;float:left;">
-      <div class="header">css代码
-        <a href="javascript:void(0)" class="run-btn" id="btn-run-css">运行</a>
+      <div class="header">CSS Code
+        <a href="javascript:void(0)" class="run-btn" id="btn-run-css">Run</a>
       </div>
       <div class="content content-bottom" id="ag-graph-code-2">
         <textarea id="class" name="class">
-    /* 自定义连线样式，看看连线的区别 */
+    /* Custom line styles — compare the difference */
     .ag-graph .ag-graph-line {
       opacity: 0.6;
     }

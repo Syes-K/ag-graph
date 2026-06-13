@@ -18,34 +18,34 @@
   </style>
 </head>
 <body>
-<!-- 示例 -->
+<!-- Example -->
 <div class="aigo-simple-code-box aigo-simple-example">
   <div class="title">
-    <span class="big-font">折线</span>
-    <span class="small-font">折线是一组点集合的连线, 通过指定一组点的坐标进行绘制.</span>
+    <span class="big-font">Polyline</span>
+    <span class="small-font">A polyline connects a set of points by specifying their coordinates.</span>
   </div>
   <div class="content content-top" id="ag-graph-container">
-    <!-- 容器 -->
+    <!-- Container -->
   </div>
 </div>
-<!-- 代码 -->
+<!-- Code -->
 <div class="aigo-simple-code-box">
-  <div class="header">示例代码
-    <a href="javascript:void(0)" class="run-btn">运行</a>
+  <div class="header">Sample Code
+    <a href="javascript:void(0)" class="run-btn">Run</a>
   </div>
   <div class="content content-bottom" id="ag-graph-code">
 <textarea id="code" name="code">
-// 初始化
+// Initialize
 var agGraph = new AgGraph({container: "#ag-graph-container"});
-// 添加节点1
+// Add node 1
 var node1 = agGraph.addNode({id: "n1", x: 70, y: 0, size: 48, image: "../../assets/img/example/pc.svg"});
 var node2 = agGraph.addNode({id: "n2", x: -100, y: -20,  size: 48, image: "../../assets/img/example/server.svg"});
 
 var line1 = agGraph.addLine({
   id:"l1",
-  source: "n1", // 源节点id
-  target: "n2", // 目标节点id
-  // pointsData 设置折线点的位置。
+  source: "n1", // Source node id
+  target: "n2", // Target node id
+  // pointsData sets polyline point positions.
   animate: true,
   pointsData:[
     {x:60,y:-4},
